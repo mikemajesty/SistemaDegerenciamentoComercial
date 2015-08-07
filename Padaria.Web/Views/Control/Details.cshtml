@@ -1,0 +1,42 @@
+﻿@model Padaria.Repository.Entities.Controls
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div>
+    <hr />
+    <hr />
+    <h2 style="text-align:center">Control Details</h2>
+    <hr />
+    <dl class="dl-horizontal table">
+        <dt>
+            @Html.DisplayNameFor(model => model.ControlID)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.ControlID, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+    </dl>
+    <dl class="dl-horizontal table">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Code, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { ControlID = Model.ControlID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "List", null, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=text]").prop("readonly",true);
+    });
+
+</script>

@@ -1,0 +1,139 @@
+﻿@model Padaria.Web.Models.ProductViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+
+    <br />
+    <br />
+    <h2>Product Details</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        
+      
+        @Html.HiddenFor(model => model.Product.ProductID)
+        @Html.HiddenFor(model => model.Stock.ProductID)
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfRegistration)
+        </dt>
+       
+        <dd>
+         
+            @Html.DropDownListFor(model => model.Product.TypeOfRegistrationID, Model.TypeOfRegistration, htmlAttributes: new { @class = "form-controlaD" })
+            <br />
+         </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        
+        <dd>
+            @Html.TextBoxFor(model => model.Product.Name,htmlAttributes: new {@class="form-controla" })
+            <br />
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Code)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Product.Code, htmlAttributes: new { @class = "form-controla" })
+            <br />
+        </dd>
+      
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DropDownListFor(model => model.Product.CategoryID, Model.Category,htmlAttributes: new {@class="form-controlaD" })
+            <br />
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.PurchasePrice)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Product.PurchasePrice, htmlAttributes: new { @class = "form-controla" })
+            <br />
+          </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.SalePrice)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Product.SalePrice, htmlAttributes: new { @class = "form-controla" })
+            <br />
+         </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.Product.Description, htmlAttributes: new { @class = "form-controlaT" })
+            <br />
+          </dd>
+       
+
+        <h2>Product Stock</h2>
+        <hr />
+        <dt>
+            
+            
+          
+            @Html.LabelFor(model => model.Stock.Quantity)
+
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Stock.Quantity, htmlAttributes: new {@class="form-controla" })
+            <br />
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.MinimunQuantity)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Stock.MinimunQuantity,htmlAttributes: new {@class="form-controla" })
+            <br />
+         </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.MaximunQuantity)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Stock.MaximunQuantity, htmlAttributes: new { @class = "form-controla" })
+            <br />
+          </dd>
+      
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.ManageStock)
+        </dt>
+
+        <dd>
+            @Html.CheckBoxFor(model => model.Stock.ManageStock, htmlAttributes: new { @class = "checkbox check-box" })
+        </dd>
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { productID = Model.Product.ProductID }, htmlAttributes: new {@class="btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "List",null, htmlAttributes: new {@class="btn btn-default" })
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type = text]").prop("readonly", "readonly").css("text-align", "center");
+        $("select").prop("disabled", true);
+        $("textarea").prop("disabled", true);
+        $("input[type = checkbox]").prop("disabled", true);
+    });
+   
+</script>

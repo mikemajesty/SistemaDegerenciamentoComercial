@@ -1,0 +1,64 @@
+﻿@model Padaria.Web.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 style="text-align:center">Product Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(model => model.Product.ProductID)
+            <dt>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </dt>
+            <dd>
+                @Html.TextBoxFor(model => model.Product.Name, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+          
+            <dt>
+                @Html.DisplayNameFor(model => model.Product.Code)
+            </dt>
+            <dd>
+                @Html.TextBoxFor(model => model.Product.Code, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+          
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+
+            <dd>
+                @Html.DropDownListFor(model => model.Product.CategoryID, Model.Category, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+          
+            <dt>
+                @Html.DisplayNameFor(model => model.Product.PurchasePrice)
+            </dt>
+            <dd>
+                @Html.TextBoxFor(model => model.Product.SalePrice, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+
+
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "List", null, htmlAttributes: new { @class = "btn btn-default" })
+        </div>
+    }
+
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type=text]').prop("readonly", "readonly").css("text-align", "center");;
+        $('select').attr("disabled", true);
+    });
+    $('input[type=submit]').click(function myfunction() {
+        $('select').attr("disabled", false);
+    });
+</script>

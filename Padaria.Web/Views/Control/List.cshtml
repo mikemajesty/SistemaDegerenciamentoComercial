@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Padaria.Repository.Entities.Controls>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2 style="text-align:center">Control List</h2>
+
+<p>
+    @Html.ActionLink(linkText: "Create New", actionName:"Create" ,routeValues:null,htmlAttributes:new {@class="btn btn-primary" })
+</p>
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.ActionLink(linkText: "Edit",actionName: "Edit",routeValues: new { ControlID=item.ControlID },htmlAttributes:new {@class="btn btn-default" } ) |
+            @Html.ActionLink(linkText: "Details", actionName: "Details", routeValues: new { ControlID = item.ControlID }, htmlAttributes: new { @class = "btn btn-default" }) |
+            @Html.ActionLink(linkText: "Delete", actionName: "Delete", routeValues: new { ControlID = item.ControlID }, htmlAttributes: new { @class = "btn btn-default" }) 
+           
+        </td>
+    </tr>
+}
+
+</table>

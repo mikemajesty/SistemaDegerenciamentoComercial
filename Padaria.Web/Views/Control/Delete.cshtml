@@ -1,0 +1,32 @@
+﻿@model Padaria.Repository.Entities.Controls
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Control</h2>
+<hr />
+<div>
+    <h4 style="text-align:center">Delete Controls</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+          
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "List",null,htmlAttributes:new {@class= "btn btn-default" })
+        </div>
+    }
+</div>

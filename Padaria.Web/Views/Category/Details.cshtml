@@ -1,0 +1,30 @@
+﻿@model Padaria.Repository.Entities.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 style="text-align:center">Category Details</h2>
+
+<div>
+  
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.CategoryID)</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+    </table>
+   
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID },htmlAttributes: new {@class="btn btn-primary"}) |
+    @Html.ActionLink("Back to List", "List", null,htmlAttributes: new {@class="btn btn-default" })
+</p>

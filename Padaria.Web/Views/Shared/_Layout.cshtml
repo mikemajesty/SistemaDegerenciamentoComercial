@@ -1,0 +1,70 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/Custom")
+    @Styles.Render("~/Content/bootstrap")
+    @* @Scripts.Render("~/bundles/Custom")*@
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+        <a class="navbar-brand" href="#">
+            Value in Cash : @Html.Action("GetValue", "PayBox", new { @class = "navbar-brand pull-left" })
+
+        </a>
+        <a class="navbar-brand" href="#">
+            @Html.ActionLink(linkText: "Log Out", actionName: "LogOut",controllerName: "Login",routeValues:null,htmlAttributes: new { @class = "navbar-brand pull-right" })
+
+        </a>
+        <div class="container-fluid" id="nav">
+
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active">@Html.ActionLink(linkText: "Category", actionName: "List", routeValues: null, controllerName: "Category", htmlAttributes: new { @class = "nav" })</li>
+                    <li>@Html.ActionLink(linkText: "Product", actionName: "List", routeValues: null, controllerName: "Product", htmlAttributes: new { @class = "nav" })</li>
+                    <li>@Html.ActionLink(linkText: "Control", actionName: "List", routeValues: null, controllerName: "Control", htmlAttributes: new { @class = "nav" })</li>
+                    <li>@Html.ActionLink(linkText: "Customer", actionName: "List", routeValues: null, controllerName: "Customer", htmlAttributes: new { @class = "nav" })</li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mike development Application</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var str = location.href.toLowerCase();
+
+        $("a").each(function () {
+
+            if (str.indexOf(this.href.toLowerCase()) > -1) {
+
+                $("li").removeClass("active");
+
+                $(this).parent().addClass("active");
+
+            }
+
+        });
+
+    })
+
+
+
+</script>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70CC7102-55D3-4FBE-AD5C-33BE94F429F1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Padaria.Repository</RootNamespace>
+    <AssemblyName>Padaria.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObject\CategoryBO.cs" />
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Controls.cs" />
+    <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\Login.cs" />
+    <Compile Include="Entities\PayBox.cs" />
+    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Stock.cs" />
+    <Compile Include="Entities\TypeOfRegistration.cs" />
+    <Compile Include="Entities\Users.cs" />
+    <Compile Include="Migrations\201507211533426_categoryRepository.cs" />
+    <Compile Include="Migrations\201507211533426_categoryRepository.Designer.cs">
+      <DependentUpon>201507211533426_categoryRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231254540_stock_product.cs" />
+    <Compile Include="Migrations\201507231254540_stock_product.Designer.cs">
+      <DependentUpon>201507231254540_stock_product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231258482_stock_product_alterName.cs" />
+    <Compile Include="Migrations\201507231258482_stock_product_alterName.Designer.cs">
+      <DependentUpon>201507231258482_stock_product_alterName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507232215440_decimalToDouble.cs" />
+    <Compile Include="Migrations\201507232215440_decimalToDouble.Designer.cs">
+      <DependentUpon>201507232215440_decimalToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507232224149_DoubleToDecimal.cs" />
+    <Compile Include="Migrations\201507232224149_DoubleToDecimal.Designer.cs">
+      <DependentUpon>201507232224149_DoubleToDecimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507232252357_QuantityINStock.cs" />
+    <Compile Include="Migrations\201507232252357_QuantityINStock.Designer.cs">
+      <DependentUpon>201507232252357_QuantityINStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507241224074_descrption100.cs" />
+    <Compile Include="Migrations\201507241224074_descrption100.Designer.cs">
+      <DependentUpon>201507241224074_descrption100.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507271345527_TypeOfRegistration.cs" />
+    <Compile Include="Migrations\201507271345527_TypeOfRegistration.Designer.cs">
+      <DependentUpon>201507271345527_TypeOfRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507271414269_alterKey.cs" />
+    <Compile Include="Migrations\201507271414269_alterKey.Designer.cs">
+      <DependentUpon>201507271414269_alterKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507272253541_3table.cs" />
+    <Compile Include="Migrations\201507272253541_3table.Designer.cs">
+      <DependentUpon>201507272253541_3table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508052302074_Controls.cs" />
+    <Compile Include="Migrations\201508052302074_Controls.Designer.cs">
+      <DependentUpon>201508052302074_Controls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508052312430_Controls1.cs" />
+    <Compile Include="Migrations\201508052312430_Controls1.Designer.cs">
+      <DependentUpon>201508052312430_Controls1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508061350254_Customer.cs" />
+    <Compile Include="Migrations\201508061350254_Customer.Designer.cs">
+      <DependentUpon>201508061350254_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CategoryRepository.cs" />
+    <Compile Include="Repository\ControlRepository.cs" />
+    <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\DefaultRepository.cs" />
+    <Compile Include="Repository\LoginRepository.cs" />
+    <Compile Include="Repository\PayBoxRepository.cs" />
+    <Compile Include="Repository\PermissionRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\StockRepository.cs" />
+    <Compile Include="Repository\TypeOfRegistrationRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507211533426_categoryRepository.resx">
+      <DependentUpon>201507211533426_categoryRepository.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231254540_stock_product.resx">
+      <DependentUpon>201507231254540_stock_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231258482_stock_product_alterName.resx">
+      <DependentUpon>201507231258482_stock_product_alterName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507232215440_decimalToDouble.resx">
+      <DependentUpon>201507232215440_decimalToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507232224149_DoubleToDecimal.resx">
+      <DependentUpon>201507232224149_DoubleToDecimal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507232252357_QuantityINStock.resx">
+      <DependentUpon>201507232252357_QuantityINStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507241224074_descrption100.resx">
+      <DependentUpon>201507241224074_descrption100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507271345527_TypeOfRegistration.resx">
+      <DependentUpon>201507271345527_TypeOfRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507271414269_alterKey.resx">
+      <DependentUpon>201507271414269_alterKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507272253541_3table.resx">
+      <DependentUpon>201507272253541_3table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508052302074_Controls.resx">
+      <DependentUpon>201508052302074_Controls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508052312430_Controls1.resx">
+      <DependentUpon>201508052312430_Controls1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508061350254_Customer.resx">
+      <DependentUpon>201508061350254_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
