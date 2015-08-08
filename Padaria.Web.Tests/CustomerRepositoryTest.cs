@@ -40,6 +40,13 @@ namespace Padaria.Web.Tests
             int actual = _customerRepository.GetAlls().Count();
             Assert.AreEqual(expected: 1, actual: actual);
         }
+        [TestMethod]
+        private void CustomerRepository_GetByID_Success()
+        {
+            InstantiateCustomerRepository();
+            int actual = _customerRepository.GetByIDs(2).CustomerID;
+            Assert.AreEqual(2,actual);
+        }
         private void InstantiateCustomerRepository() => _customerRepository = new CustomerRepository();
 
     }

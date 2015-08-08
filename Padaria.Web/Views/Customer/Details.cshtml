@@ -1,0 +1,51 @@
+﻿@model Padaria.Repository.Entities.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div>
+    <hr />
+    <hr />
+    <h3 style="text-align:center">Details Customer</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Phone, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CPF)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.CPF, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { CustomerID = Model.CustomerID },htmlAttributes: new {@class="btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "List",null, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=text]").prop("readonly", true);
+    });
+</script>

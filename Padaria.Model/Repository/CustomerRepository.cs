@@ -12,5 +12,9 @@ namespace Padaria.Repository.Repository
         public int Deletes(Customer customer) => base.Delete(customer);
 
         public List<Customer> GetAlls() => base.GetAll();
+
+        public Customer GetByIDs(int CustomerID) => base.GetByID(CustomerID);
+        
+
     }
 }

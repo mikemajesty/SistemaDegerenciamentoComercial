@@ -24,6 +24,7 @@
     </tr>
 
 @foreach (var item in Model) {
+    @*@Model.ToList().ForEach();*@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -35,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.CPF)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID },htmlAttributes:new {@class="btn btn-default" }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }, htmlAttributes: new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }, htmlAttributes: new { @class = "btn btn-default" })
+            @Html.ActionLink("Edit", "Edit", new { CustomerID = item.CustomerID },htmlAttributes:new {@class="btn btn-default" }) |
+            @Html.ActionLink("Details", "Details", new { CustomerID = item.CustomerID }, htmlAttributes: new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Delete", "Delete", new { CustomerID = item.CustomerID }, htmlAttributes: new { @class = "btn btn-default" })
         </td>
     </tr>
 }
