@@ -7,7 +7,7 @@ namespace Padaria.Repository.Repository
     public class LoginRepository
     {
         private readonly DataContext _dataContext = null;
-        private const bool NoneExists = false, Exists = true;
+        private const bool NonExits = false, Exists = true;
         
         public LoginRepository()
         {
@@ -16,7 +16,7 @@ namespace Padaria.Repository.Repository
         public bool Log(Login login)
         {
             return _dataContext.Users.FirstOrDefault(c => c.UserName.Equals(login.UserName)
-                && c.PassWord.Equals(login.PassWord)) == null ? NoneExists : Exists;
+                && c.PassWord.Equals(login.PassWord)) == null ? NonExits : Exists;
         }
     }
 }

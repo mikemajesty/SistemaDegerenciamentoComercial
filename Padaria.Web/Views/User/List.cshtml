@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Padaria.Repository.Entities.Users>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2 style="text-align:center">Users List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null,htmlAttributes: new { @class = "btn btn-primary" })
+</p>
+<table class="table table-hover table-striped">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassWord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastAccess)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassWord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastAccess)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Permission.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { UserID=item.UserID },htmlAttributes:new {@class="btn btn-default" }) |
+            @Html.ActionLink("Details", "Details", new { UserID = item.UserID }, htmlAttributes: new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Delete", "Delete", new { UserID = item.UserID }, htmlAttributes: new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>

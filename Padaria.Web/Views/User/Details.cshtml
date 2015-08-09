@@ -1,0 +1,58 @@
+﻿@model Padaria.Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h2 style="text-align:center">Details Users</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            @Html.ValidationSummary(excludePropertyErrors: false, message: null, htmlAttributes: new { @style = "color:red" })
+        </dd>
+
+        <dt>
+
+            @Html.DisplayNameFor(model => model.Users.FullName)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Users.FullName, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.UserName)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Users.UserName, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.LastAccess)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Users.LastAccess, htmlAttributes: new { @class = "form-controla" })
+        </dd>
+
+    </dl>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { userID = Model.Users.UserID },htmlAttributes:new {@class="btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "List",null, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input[type=text]').prop("readonly", true);
+        $('select').prop("disabled",true);
+    });
+  
+</script>

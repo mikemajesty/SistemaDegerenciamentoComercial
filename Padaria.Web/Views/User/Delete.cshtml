@@ -1,0 +1,85 @@
+﻿@model Padaria.Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <hr />
+        <hr />
+       
+        <h2 style="text-align:center">Delete Users</h2>
+        <hr/>
+        <dl class="dl-horizontal">
+         
+            <dt>
+                @Html.HiddenFor(model => model.Users.UserID)
+                @Html.HiddenFor(model => model.Users.PassWord)
+                @Html.HiddenFor(model => model.Users.ConPassWord) 
+            </dt>
+            <dd>
+                 @Html.ValidationSummary(excludePropertyErrors: false,message:null,htmlAttributes: new {@style= "color:red" })
+            </dd>
+           
+            <dt>
+               
+                @Html.DisplayNameFor(model => model.Users.FullName)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Users.FullName, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Users.UserName)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Users.UserName, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Users.LastAccess)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Users.LastAccess, htmlAttributes: new { @class = "form-controla" })
+            </dd>
+
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Users.Permission)
+            </dt>
+
+            <dd>
+                @Html.DropDownListFor(model => model.Users.PermissionID, Model.Permission, htmlAttributes: new { @class = "form-controla" })
+
+            </dd>
+        </dl>
+
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "List", null, htmlAttributes: new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type=text]').prop("readonly", true).css('text-align', 'center');
+        $('select').prop('disabled', true);
+
+    });
+    $('input[type=submit]').click(function () {
+        $('select').prop('disabled', false);
+    });
+</script>

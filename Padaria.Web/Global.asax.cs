@@ -31,9 +31,9 @@ namespace Padaria.Web
             _userRepository = new UserRepository();
 
             _permissionRepository.Creates();
-            Users users = new Users { UserName = "admin", ConPassWord = "admin", FullName = "mike rodrigues de lima", PassWord = "admin", PermissionID = 1, LastAccess = DateTime.Now };
-            _userRepository.Creates(users);
-            _payBoxRepository.Creates(users.UserID);           
+            //Users users = new Users { UserName = "admin", ConPassWord = "admin", FullName = "mike rodrigues de lima", PassWord = "admin", PermissionID = 1, LastAccess = DateTime.Now };
+            //_userRepository.Creates(users);
+            //_payBoxRepository.Creates(users.UserID);           
             _typeOfRegistrationRepository.Creates();
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);

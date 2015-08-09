@@ -42,5 +42,14 @@ namespace Padaria.Web.Tests
             }
 
         }
+        [TestMethod]
+        public void UserRepositoryTest_GetByID_Success()
+        {
+            UserRepository userRepository = new UserRepository();
+            Users user = userRepository.GetByIDs(33);
+            int actual = userRepository.Deletes(user);
+            int expected = 1;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

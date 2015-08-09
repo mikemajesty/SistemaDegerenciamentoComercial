@@ -31,5 +31,6 @@ namespace Padaria.Repository.Repository
         {
             return base.GetQuantity();
         }
+        public List<Permission> GetAlls() => base.GetAll();
     }
 }

@@ -109,6 +109,7 @@
     <Compile Include="ControlRepositoryTest.cs" />
     <Compile Include="CustomerRepositoryTest.cs" />
     <Compile Include="LoginRepositoryTest.cs" />
+    <Compile Include="PermissionRepositoryTest.cs" />
     <Compile Include="PayBoxRepositoryTest.cs" />
     <Compile Include="ProductRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
