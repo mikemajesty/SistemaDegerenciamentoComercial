@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace Padaria.Web.Controllers
 {
+    [Authorize]
     public class ControlController : Controller
     {
         private ControlRepository _controlRepository = null;

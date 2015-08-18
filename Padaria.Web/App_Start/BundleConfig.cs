@@ -7,6 +7,7 @@ namespace Padaria.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
         
+            
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.validate.js")
@@ -20,7 +21,7 @@ namespace Padaria.Web.App_Start
                .Include("~/Scripts/bootstrap.js"));
             bundles.Add(new StyleBundle("~/Content/Custom")
               .Include("~/Content/Custom.css"));
-
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -2,28 +2,21 @@
 using Padaria.Repository.Repository;
 using Padaria.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Padaria.Web.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-
-
         private PermissionRepository InstantiatePermissionRepository { get; } = new PermissionRepository();
         private UserRepository InstantiateUserRepository { get; } = new UserRepository();
-
-
         private const bool Valid = true;
         private const int Success = 1;
-
-
         [HttpGet]
         public ActionResult List() => View(InstantiateUserRepository.GetAlls());
-        [HttpGet]
+        [HttpGet]      
+        [AllowAnonymous]
         public ActionResult Create()
         {
             var permissionRepository = InstantiatePermissionRepository;
@@ -34,7 +27,7 @@ namespace Padaria.Web.Controllers
             return View(userViewModel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]       
         public ActionResult Create(UserViewModel userViewModel)
         {
             if (ModelState.IsValid == Valid)
@@ -44,7 +37,6 @@ namespace Padaria.Web.Controllers
                 {
                     case Success:
                         return RedirectToAction(nameof(this.List));
-
                 }
             }
             return View(GetUserViewFill(userViewModel.Users));
@@ -52,9 +44,7 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public ActionResult Delete([Bind(Include = "userID")]int userID)
         {
-
             Users user = InstantiateUserRepository.GetByIDs(userID);
-
             if (user != null)
             {
                 user.ConPassWord = user.PassWord;
@@ -74,7 +64,6 @@ namespace Padaria.Web.Controllers
                 {
                     case Success:
                         return RedirectToAction(nameof(this.List));
-
                 }
             }
             return View(GetUserViewFill(userViewModel.Users));
@@ -113,8 +102,6 @@ namespace Padaria.Web.Controllers
             }
             return HttpNotFound();
         }
-
-
         private UserViewModel GetUserViewFill(Users user)
         {
             UserViewModel userViewModel = new UserViewModel
@@ -124,15 +111,6 @@ namespace Padaria.Web.Controllers
             };
             return userViewModel;
         }
-        //private UserViewModel GetUserViewModel(PermissionRepository permissionRepository, int permissionID = 0)
-        //{
-        //    return new UserViewModel
-        //    {
-        //        Users = new Users(),
-        //        Permission = GetPermissionLoaded(permissionRepository, permissionID)
-        //    };
-        //}
-
         private static SelectList GetPermissionLoaded(PermissionRepository permissionRepository, int permissionID = 0)
         {
             return new SelectList(permissionRepository.GetAlls(), dataTextField: nameof(PermissionViewModel.Name), dataValueField: nameof(PermissionViewModel.PermissionID), selectedValue: permissionID);

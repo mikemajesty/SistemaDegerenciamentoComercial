@@ -7,6 +7,7 @@ namespace Padaria.Web.Controllers
     [Authorize]
     public class CategoryController : Controller
     {
+        
         CategoryRepository _categoryRepository = null;
         private const int Sucesso = 1;
 

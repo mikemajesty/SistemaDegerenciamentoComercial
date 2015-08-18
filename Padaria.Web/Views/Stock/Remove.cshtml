@@ -1,0 +1,87 @@
+﻿@model Padaria.Repository.Entities.Stock
+
+@{
+    ViewBag.Title = "Remove";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <hr />
+        <h2 style="text-align:center">Add Stock</h2>
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div>
+            @Html.HiddenFor(c => c.ProductID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-controla" } })
+
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MinimunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MinimunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.MinimunQuantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaximunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaximunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.MaximunQuantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ManageStock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<div class="checkbox">*@
+                @Html.EditorFor(model => model.ManageStock, new { htmlAttributes = new { @class = "checkbox" } })
+                @Html.ValidationMessageFor(model => model.ManageStock, "", new { @class = "text-danger" })
+                @*</div>*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Remove" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List", null, htmlAttributes: new { @class = "btn btn-default" })
+</div>
+<script type="text/javascript">
+    var quantity = "";
+    $(document).ready(function () {
+        quantity = $("#Quantity").val();
+        $("#MinimunQuantity").prop("readonly", "readonly");
+        $("#MaximunQuantity").prop("readonly", "readonly");
+        $("input[type=checkbox]").attr("disabled", true);
+        $("#Quantity").attr("placeholder", quantity);
+        $("#Quantity").val("");
+    });
+    $('input[type=submit]').on("click",function () {
+        $("input[type=checkbox]").attr("disabled", false);
+    });
+</script>

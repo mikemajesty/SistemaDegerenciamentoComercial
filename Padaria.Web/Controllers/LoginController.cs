@@ -1,26 +1,28 @@
 ﻿using Padaria.Repository.Entities;
 using Padaria.Repository.Repository;
+using System;
 using System.Web.Mvc;
 using System.Web.Security;
 
 namespace Padaria.Web.Controllers
 {
+
     public class LoginController : Controller
     {
         private LoginRepository _loginRepository = null;
-        //private UserRepository _userRepository = null;
         private const bool Exists = true;
         [HttpGet]
-        public ActionResult Login(string ReturnUrl)
+        public ActionResult Login(string ReturnUrl = null)
         {
             ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
         [HttpPost]
-        public ActionResult Login(Login login ,string ReturnUrl)
+        public ActionResult Login(Login login, string ReturnUrl)
         {
             InstantiateLoginRepository();
-            if (!ModelState.IsValid) { return View(login); }
+            if (!ModelState.IsValid) return View(login);
+
             if (_loginRepository.Log(login) == Exists)
             {
                 FormsAuthentication.SetAuthCookie(login.UserName, false);

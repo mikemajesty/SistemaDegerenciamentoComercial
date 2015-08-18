@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace Padaria.Web.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private const int Success = 1, Insuccess = 0;

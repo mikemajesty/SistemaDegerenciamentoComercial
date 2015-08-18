@@ -1,23 +1,36 @@
 ﻿using Padaria.Repository.Data;
 using Padaria.Repository.Entities;
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
+
 namespace Padaria.Repository.Repository
 {
     public class StockRepository : DefaultRepository<Stock>
     {
         private DataContext _dataContext = null;
-        public int Creates(Stock stock)
+        public int Creates(Stock stock) => Create(stock);
+       
+        public Stock GetByIDs(int ID) => GetByID(ID);
+      
+        public int AddStock(Stock stock)
         {
-            return Create(stock);
+            using (_dataContext = new DataContext())
+            {
+                Stock st = _dataContext.Stock.Find(stock.ProductID);
+                stock.Quantity += st.Quantity;
+                return base.Edit(stock);
+            }
         }
-        public Stock GetByIDs(int ID)
+        public int RemoveStock(Stock stock)
         {
-            return GetByID(ID);
+            using (_dataContext = new DataContext())
+            {
+                Stock st = _dataContext.Stock.Find(stock.ProductID);
+                st.Quantity -= stock.Quantity;
+                stock.Quantity = st.Quantity;            
+                return base.Edit(stock);
+            }
         }
         public int Update(Stock stock)
         {
@@ -27,6 +40,7 @@ namespace Padaria.Repository.Repository
                 return _dataContext.SaveChanges();
             }
         }
-
+        public List<Stock> GetAlls() => base.GetAll();
+        //public int Edits(Stock stock) => base.Edit(stock);
     }
 }
