@@ -21,5 +21,10 @@ namespace Padaria.Web.Controllers
         {
             _payBoxRepository = new PayBoxRepository();
         }
+        [HttpGet]
+        public ActionResult PayBox()
+        {
+            return View();
+        }
     }
 }

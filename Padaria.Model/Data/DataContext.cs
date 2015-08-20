@@ -21,5 +21,6 @@ namespace Padaria.Repository.Data
         public DbSet<Permission> Permission { get; set; }
         public DbSet<Controls> Controls { get; set; }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<TypeOfPayment> TypeOfPayment { get; set; }
     }
 }

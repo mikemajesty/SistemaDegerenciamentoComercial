@@ -14,7 +14,7 @@ namespace Padaria.Repository.Repository
             List<Permission> permissionList = new List<Permission>
             {
                 new Permission{ Name="Administrator"},
-                new Permission{Name="Limited"},
+                new Permission{ Name="Limited"},
                  new Permission{ Name="PayBox"}
             };
             int returning = 0;
