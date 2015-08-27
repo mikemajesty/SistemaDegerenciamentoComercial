@@ -1,4 +1,5 @@
 ﻿using Padaria.Repository.Entities;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
@@ -13,5 +14,6 @@ namespace Padaria.Web.Models
         [DisplayName(displayName: "Type Of Payment")]
         public SelectList TypeOfPayment { get; set; }
         public Sale Sale { get; set; }
+        public int Quantity { get; set; }
     }
 }

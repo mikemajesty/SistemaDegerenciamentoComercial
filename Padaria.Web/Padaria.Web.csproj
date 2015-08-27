@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\InsertProductViewModel.cs" />
     <Compile Include="Models\PayBoxViewModel.cs" />
     <Compile Include="Models\PermissionViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -238,6 +239,7 @@
     <Content Include="Views\Stock\Remove.cshtml" />
     <Content Include="Views\Stock\Edit.cshtml" />
     <Content Include="Views\PayBox\PayBox.cshtml" />
+    <Content Include="Views\PayBox\InsertProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

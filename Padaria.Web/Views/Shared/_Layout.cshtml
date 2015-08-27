@@ -53,13 +53,13 @@
     $(document).ready(function () {
 
         var str = location.href.toLowerCase();
-
+        
         $("a").each(function () {
 
             if (str.indexOf(this.href.toLowerCase()) > -1) {
 
                 $("li").removeClass("active");
-
+                
                 $(this).parent().addClass("active");
 
             }

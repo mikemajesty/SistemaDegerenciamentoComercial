@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Padaria.Web.Models.InsertProductViewModel>
+
+   
+    <table class="table">
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Category.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock.ProductID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeOfRegistration.Name)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.PurchasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.SalePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullSale)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock.ProductID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeOfRegistration.Name)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.SalePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)x
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullSale)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item != null ? item.Product.ProductID : 0 }) |
+                    @Html.ActionLink("Details", "Details", new { id = item != null ? item.Product.ProductID : 0 }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item != null ? item.Product.ProductID : 0 })*@
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -3,54 +3,99 @@
 @{
     ViewBag.Title = "PayBox";
 }
+<div class="col-lg-4">
 
-<h2 style="text-align:center">PayBox</h2>
-
-@using (Html.BeginForm())
-{
-
-    <div class="form-horizontal col-lg-4">
-        <h4 style="text-align:center">Control</h4>
-        <hr />
-        <div class="form-group">
-            @Html.DisplayNameFor(c => c.Controls.Code)
-            @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
-
-        </div>
-        <h4 style="text-align:center">Product</h4>
-        <hr />
-        <div class="form-group form-horizontal">
-            @Html.DisplayNameFor(c => c.Stock.Quantity)
-            @Html.TextBoxFor(c => c.Stock.Quantity, htmlAttributes: new { @class = "form-controla" })
-            @Html.DisplayNameFor(c => c.Product.Code)
-            @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
-          
-        </div>
-        <h4 style="text-align:center">Payment</h4>
-        <hr />
-        <div class="form-group form-horizontal">
-            @Html.DisplayNameFor(c => c.TypeOfPayment)
-            @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
+    @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
+    {
+       
+        <div class="form-horizontal">
+            
             <br />
+            <br />
+            <br />
+            <h4 style="text-align:center">Control</h4>
+            <hr />
+            <div class="form-group">
+                @Html.DisplayNameFor(c => c.Controls.Code)
+                @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
 
-            <button class="btn btn-primary" type="submit">Save Sale</button>
+            </div>
+            <h4 style="text-align:center">Product</h4>
+            <hr />
+            <div class="form-group form-horizontal">
+                @Html.DisplayNameFor(c => c.Quantity)
+                @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
+                @Html.DisplayNameFor(c => c.Product.Code)
+                @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
+
+            </div>
+            <h4 style="text-align:center">Payment</h4>
+            <hr />
+            <div class="form-group form-horizontal">
+                @Html.DisplayNameFor(c => c.TypeOfPayment)
+                @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
+                <br />
+
+                <a onclick="SalvarProduto()" class="btn btn-primary">Insert Product in sale</a>
+            </div>
+
         </div>
-      
-    </div>
-     <div class="form-horizontal col-lg-4">
-         <h4 style="text-align:center">Price paid by the customer</h4>
-     </div>
-  
-}
-<div id="dTbl">
+        
 
+    }
 </div>
-@*@section scripts{*@
+<div class="col-lg-8">
+    <div class="form-horizontal">
+        <br />
+        <br />
+        <br />
+        
+       
+        <div class="form-group form-horizontal">
+
+            @*@Html.DisplayNameFor()
+                @Html.TextBoxFor(, htmlAttributes: new { @class = "form-controla" })*@
+        </div>
+    </div>
+    <h4 style=" text-align:center">
+        Products in Control
+    </h4>
+    <hr />
+    <div id="dTbl">
+       
+     
+       
+    </div>
+</div>
+
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#footer').hide();
     });
+    function SalvarProduto() {
+        debugger
+        var Code = $('#Product_Code').val();
+        var quantity = $('#Quantity').val();
+        $.ajax({
+
+            url: "/Paybox/InsertProduct",
+            type: "GET",
+            datatype: "html",
+            data: { "Product.Code": Code, Quantity: quantity },
+            success: function (data) {
+                debugger
+                $("#dTbl").empty();
+                $("#dTbl").show();
+                $("#dTbl").html(data);
+            }
+        }
+        )
+    };
+
+
 </script>
 
-@*}*@
+
