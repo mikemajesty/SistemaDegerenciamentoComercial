@@ -1,16 +1,14 @@
 ﻿using Padaria.Repository.Data;
 using Padaria.Repository.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Padaria.Repository.Repository
 {
     public class PayBoxRepository : DefaultRepository<PayBox>
     {
-        private DataContext _dataContext = null;
+        public DataContext _dataContext { get;}
+
         public PayBoxRepository()
         {
             _dataContext = new DataContext();
@@ -44,5 +42,7 @@ namespace Padaria.Repository.Repository
             PayBox paybox = _dataContext.PayBox.FirstOrDefault();
             return paybox == null ? 0 : paybox.Value;
         }
+
+
     }
 }

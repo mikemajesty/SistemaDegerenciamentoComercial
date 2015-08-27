@@ -33,14 +33,16 @@
                     <li>@Html.ActionLink(linkText: "Customer", actionName: "List", routeValues: null, controllerName: "Customer", htmlAttributes: new { @class = "nav" })</li>
                     <li>@Html.ActionLink(linkText: "Users", actionName: "List", routeValues: null, controllerName: "User", htmlAttributes: new { @class = "nav" })</li>
                     <li>@Html.ActionLink(linkText: "Stock", actionName: "List", routeValues: null, controllerName: "Stock", htmlAttributes: new { @class = "nav" })</li>
+                    <li>@Html.ActionLink(linkText: "PayBox", actionName: "PayBox", routeValues: null, controllerName: "PayBox", htmlAttributes: new { @class = "nav" })</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" >
         @RenderBody()
-        <hr />
-        <footer>
+       
+        <footer id="footer">
+            <hr />
             <p>&copy; @DateTime.Now.Year - Mike development Application</p>
         </footer>
     </div>

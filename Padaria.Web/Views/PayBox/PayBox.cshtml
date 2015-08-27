@@ -1,0 +1,56 @@
+﻿@model Padaria.Web.Models.PayBoxViewModel
+
+@{
+    ViewBag.Title = "PayBox";
+}
+
+<h2 style="text-align:center">PayBox</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="form-horizontal col-lg-4">
+        <h4 style="text-align:center">Control</h4>
+        <hr />
+        <div class="form-group">
+            @Html.DisplayNameFor(c => c.Controls.Code)
+            @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
+
+        </div>
+        <h4 style="text-align:center">Product</h4>
+        <hr />
+        <div class="form-group form-horizontal">
+            @Html.DisplayNameFor(c => c.Stock.Quantity)
+            @Html.TextBoxFor(c => c.Stock.Quantity, htmlAttributes: new { @class = "form-controla" })
+            @Html.DisplayNameFor(c => c.Product.Code)
+            @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
+          
+        </div>
+        <h4 style="text-align:center">Payment</h4>
+        <hr />
+        <div class="form-group form-horizontal">
+            @Html.DisplayNameFor(c => c.TypeOfPayment)
+            @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
+            <br />
+
+            <button class="btn btn-primary" type="submit">Save Sale</button>
+        </div>
+      
+    </div>
+     <div class="form-horizontal col-lg-4">
+         <h4 style="text-align:center">Price paid by the customer</h4>
+     </div>
+  
+}
+<div id="dTbl">
+
+</div>
+@*@section scripts{*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#footer').hide();
+    });
+</script>
+
+@*}*@

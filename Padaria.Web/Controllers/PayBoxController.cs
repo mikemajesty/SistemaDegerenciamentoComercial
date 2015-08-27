@@ -1,4 +1,5 @@
 ﻿using Padaria.Repository.Repository;
+using Padaria.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +8,31 @@ using System.Web.Mvc;
 
 namespace Padaria.Web.Controllers
 {
-      [Authorize]
+    [Authorize]
     public class PayBoxController : Controller
     {
-        private PayBoxRepository _payBoxRepository = null;
+       
+        public PayBoxRepository _payBoxRepository { get; } = new PayBoxRepository();
         public PartialViewResult GetValue()
-        {
-            InstantiatePayBoxRepository();
+        {            
             return PartialView(_payBoxRepository.GetValue());
         }
-
-        private void InstantiatePayBoxRepository()
-        {
-            _payBoxRepository = new PayBoxRepository();
-        }
         [HttpGet]
-        public ActionResult PayBox()
+        public ActionResult PayBox() => View(new PayBoxViewModel
         {
-            return View();
+            TypeOfPayment = GetTypeOfPayment()
+        });
+        //[HttpPost]
+        //public ActionResult PayBox()
+        //{
+            
+        //}
+        public SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
+        {
+            return new SelectList(items: _payBoxRepository._dataContext.TypeOfPayment.ToList()
+                                 , dataTextField: "Type"
+                                 , dataValueField: "TypeOfPaymentID"
+                                 , selectedValue:typeOfRegistrationID);
         }
     }
 }

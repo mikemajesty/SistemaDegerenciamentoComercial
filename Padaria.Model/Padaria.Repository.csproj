@@ -58,6 +58,7 @@
     <Compile Include="Entities\PayBox.cs" />
     <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Sale.cs" />
     <Compile Include="Entities\Stock.cs" />
     <Compile Include="Entities\TypeOfPayment.cs" />
     <Compile Include="Entities\TypeOfRegistration.cs" />
@@ -121,6 +122,10 @@
     <Compile Include="Migrations\201508182344335_typeOfPaymentWithoutPluralizarion.cs" />
     <Compile Include="Migrations\201508182344335_typeOfPaymentWithoutPluralizarion.Designer.cs">
       <DependentUpon>201508182344335_typeOfPaymentWithoutPluralizarion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508262356398_sale.cs" />
+    <Compile Include="Migrations\201508262356398_sale.Designer.cs">
+      <DependentUpon>201508262356398_sale.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508182344335_typeOfPaymentWithoutPluralizarion.resx">
       <DependentUpon>201508182344335_typeOfPaymentWithoutPluralizarion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508262356398_sale.resx">
+      <DependentUpon>201508262356398_sale.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

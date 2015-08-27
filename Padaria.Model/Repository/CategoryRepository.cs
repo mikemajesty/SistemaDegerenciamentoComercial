@@ -23,6 +23,7 @@ namespace Padaria.Repository.Repository
         private void InstantiateCategoryBO()
         {
             _categoryBO = new CategoryBO();
+            
         }
         public DataContext DataContext { get; set; }
         public IQueryable<Category> GetByNames(string name)

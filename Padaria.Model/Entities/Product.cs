@@ -15,6 +15,7 @@ namespace Padaria.Repository.Entities
         public string Name { get; set; }
         [Required(ErrorMessage = "{0} is obligatory")]
         [StringLength(maximumLength: 20, ErrorMessage = "{0} can only contain 30 characters.")]
+        [DisplayName(displayName: "Product Code")]
         public string Code { get; set; }
         [DisplayName(displayName:"Category")]     
         public int CategoryID { get; set; }

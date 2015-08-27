@@ -237,6 +237,7 @@
     <Content Include="Views\Stock\Add.cshtml" />
     <Content Include="Views\Stock\Remove.cshtml" />
     <Content Include="Views\Stock\Edit.cshtml" />
+    <Content Include="Views\PayBox\PayBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
