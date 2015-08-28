@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Padaria.Repository.Entities
 {
-    [Table("Permission")]
+    [Table(name:nameof(Permission))]
     public class Permission
     {
         [Key]

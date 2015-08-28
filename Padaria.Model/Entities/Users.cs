@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Padaria.Repository.Entities
 {
-    [Table(name: "Users")]
+    [Table(name: nameof(Users))]
     public class Users
     {
         [Key]

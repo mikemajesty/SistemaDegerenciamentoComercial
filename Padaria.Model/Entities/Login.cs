@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Padaria.Repository.Entities
 {
+    [Table(name:nameof(Login))]
     public class Login
     {
         [StringLength(maximumLength: 20, ErrorMessage = "{0} can only contains 20 characters")]

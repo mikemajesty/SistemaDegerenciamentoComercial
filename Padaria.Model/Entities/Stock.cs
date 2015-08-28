@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Padaria.Repository.Entities
 {
-    [Table(name: "Stock")]
+    [Table(name: nameof(Stock))]
     public class Stock
     {
         [Key]

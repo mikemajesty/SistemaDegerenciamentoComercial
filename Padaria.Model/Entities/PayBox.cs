@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Padaria.Repository.Entities
 {
-    [Table(name: "PayBox")]
+    [Table(name: nameof(PayBox))]
     public class PayBox
     {
         [Key]

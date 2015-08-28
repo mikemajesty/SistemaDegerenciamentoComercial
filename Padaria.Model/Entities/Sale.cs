@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Padaria.Repository.Entities
 {
+    [Table(name:nameof(Sale))]
     public class Sale
     {
         public int SaleID { get; set; }

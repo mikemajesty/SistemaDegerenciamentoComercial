@@ -7,50 +7,48 @@
 
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
     {
-       
-        <div class="form-horizontal">
-            
-            <br />
-            <br />
-            <br />
-            <h4 style="text-align:center">Control</h4>
-            <hr />
-            <div class="form-group">
-                @Html.DisplayNameFor(c => c.Controls.Code)
-                @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
+        <br />
+        <br />
+        <br />
+            <div class="form-horizontal">
+
+
+                <h4 style="text-align:center">Control</h4>
+                <hr />
+                <div class="form-group">
+                    @Html.DisplayNameFor(c => c.Controls.Code)
+                    @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
+
+                </div>
+                <h4 style="text-align:center">Product</h4>
+                <hr />
+                <div class="form-group form-horizontal">
+                    @Html.DisplayNameFor(c => c.Quantity)
+                    @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
+                    @Html.DisplayNameFor(c => c.Product.Code)
+                    @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
+
+                </div>
+                <h4 style="text-align:center">Payment</h4>
+                <hr />
+                <div class="form-group form-horizontal">
+                    @Html.DisplayNameFor(c => c.TypeOfPayment)
+                    @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
+                    <br />
+
+                    <a onclick="SalvarProduto()" class="btn btn-primary">Insert Product in sale</a>
+                </div>
 
             </div>
-            <h4 style="text-align:center">Product</h4>
-            <hr />
-            <div class="form-group form-horizontal">
-                @Html.DisplayNameFor(c => c.Quantity)
-                @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
-                @Html.DisplayNameFor(c => c.Product.Code)
-                @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
 
-            </div>
-            <h4 style="text-align:center">Payment</h4>
-            <hr />
-            <div class="form-group form-horizontal">
-                @Html.DisplayNameFor(c => c.TypeOfPayment)
-                @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
-                <br />
-
-                <a onclick="SalvarProduto()" class="btn btn-primary">Insert Product in sale</a>
-            </div>
-
-        </div>
-        
 
     }
 </div>
 <div class="col-lg-8">
+    <br />
+    <br />
+    <br />
     <div class="form-horizontal">
-        <br />
-        <br />
-        <br />
-        
-       
         <div class="form-group form-horizontal">
 
             @*@Html.DisplayNameFor()
@@ -62,9 +60,9 @@
     </h4>
     <hr />
     <div id="dTbl">
-       
-     
-       
+
+
+
     </div>
 </div>
 
