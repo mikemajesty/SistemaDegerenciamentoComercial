@@ -12,12 +12,13 @@ namespace Padaria.Web.Controllers
     [Authorize]
     public class PayBoxController : Controller
     {
-       
+
         public PayBoxRepository _payBoxRepository { get; } = new PayBoxRepository();
         public ProductRepository _productRepository { get; } = new ProductRepository();
+        private static List<InsertProductViewModel> list = new List<InsertProductViewModel>();
 
         public PartialViewResult GetValue()
-        {            
+        {
             return PartialView(_payBoxRepository.GetValue());
         }
         [HttpGet]
@@ -31,17 +32,37 @@ namespace Padaria.Web.Controllers
             Product product = _productRepository.DataContext.Product.FirstOrDefault(c => c.Code == insertProductViewModel.Product.Code);
             insertProductViewModel.Product = product;
             insertProductViewModel.FullSale = product.SalePrice * insertProductViewModel.Quantity;
-            List<InsertProductViewModel> list = new List<InsertProductViewModel>();
 
             list.Add(insertProductViewModel);
             return PartialView(list);
         }
+        //[HttpGet]
+        //public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
+        //{
+          
+
+          
+        //}
         public SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
         {
             return new SelectList(items: _payBoxRepository._dataContext.TypeOfPayment.ToList()
                                  , dataTextField: "Type"
                                  , dataValueField: "TypeOfPaymentID"
-                                 , selectedValue:typeOfRegistrationID);
+                                 , selectedValue: typeOfRegistrationID);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            //if (disposing == fal)
+            //{
+
+            //}
+            //if (disposing)
+            //{
+            //    _payBoxRepository._dataContext.Dispose();
+            //    _productRepository.DataContext.Dispose();
+            //    //list.Clear();
+            //}
+            //base.Dispose(disposing);
         }
     }
 }

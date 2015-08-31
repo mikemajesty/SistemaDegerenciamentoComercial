@@ -18,8 +18,10 @@
                 <div class="form-group">
                     @Html.DisplayNameFor(c => c.Controls.Code)
                     @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
-
+                    <br />
+                    <a onclick="GetControlItens()" class="btn btn-primary">Get itens in Control</a>
                 </div>
+                
                 <h4 style="text-align:center">Product</h4>
                 <hr />
                 <div class="form-group form-horizontal">
@@ -36,7 +38,7 @@
                     @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
                     <br />
 
-                    <a onclick="SalvarProduto()" class="btn btn-primary">Insert Product in sale</a>
+                    <a onclick="SaveProduct()" class="btn btn-primary">Insert Product in sale</a>
                 </div>
 
             </div>
@@ -73,8 +75,8 @@
     $(document).ready(function () {
         $('#footer').hide();
     });
-    function SalvarProduto() {
-        debugger
+    function SaveProduct() {
+     
         var Code = $('#Product_Code').val();
         var quantity = $('#Quantity').val();
         $.ajax({
@@ -84,7 +86,7 @@
             datatype: "html",
             data: { "Product.Code": Code, Quantity: quantity },
             success: function (data) {
-                debugger
+            
                 $("#dTbl").empty();
                 $("#dTbl").show();
                 $("#dTbl").html(data);
@@ -92,7 +94,25 @@
         }
         )
     };
+    function GetControlItens() {
+        debugger
+        var Code = $('#Controls_Code').val();
+        $.ajax({
+            url: "/Paybox/GetControlItens",
+            type: "Get",
+            datatype: "Html",
+            data: { "Controls.Code": Code },
+            success: function (data) {
+                debugger
+                $("#dTbl").empty();
+                $("#dTbl").show();
+                $("#dTbl").html(data);
+            }
 
+
+
+        });
+    }
 
 </script>
 

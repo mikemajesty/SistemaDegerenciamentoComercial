@@ -23,5 +23,6 @@ namespace Padaria.Repository.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<TypeOfPayment> TypeOfPayment { get; set; }
         public DbSet<Sale> Sale { get; set; }
+        public DbSet<SaleWithActiveControls> SaleWithActiveControls { get; set; }
     }
 }

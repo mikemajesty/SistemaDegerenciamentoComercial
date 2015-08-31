@@ -1,5 +1,6 @@
 ﻿
 using Padaria.Repository.Entities;
+using System.Collections.Generic;
 
 namespace Padaria.Web.Models
 {
@@ -9,5 +10,7 @@ namespace Padaria.Web.Models
         public int Quantity { get; set; }
         public decimal FullIncome { get; set; }
         public decimal FullSale { get; set; }
+        public Controls Controls { get; set; }
+        //public List<Product> Products { get; set; }
     }
 }

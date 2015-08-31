@@ -10,7 +10,7 @@ namespace Padaria.Repository.Repository
     {
         private readonly DataContext _dataContext = null;
         protected DbSet<T> DbSet { get;  set; }
-        public DefaultRepository()
+        protected DefaultRepository()
         {          
             DbSet = (_dataContext = new DataContext()).Set<T>();
         }
@@ -27,7 +27,7 @@ namespace Padaria.Repository.Repository
             _dataContext.Entry<T>(entity).State = EntityState.Modified;
             return SaveChanges();
         }
-        protected int Create(T entity)
+        protected virtual int Create(T entity)
         {
             DbSet.Add(entity);
             return SaveChanges();
