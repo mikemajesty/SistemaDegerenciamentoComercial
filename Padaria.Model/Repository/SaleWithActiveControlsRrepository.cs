@@ -1,11 +1,12 @@
 ﻿using Padaria.Repository.Entities;
 using System.Collections.Generic;
-
+using System.Data.Entity;
 
 namespace Padaria.Repository.Repository
 {
-    public class SaleWithActiveControlsRrepository : DefaultRepository<SaleWithActiveControls>
-    {     
+    public class SaleWithActiveControlsRepository : DefaultRepository<SaleWithActiveControls>
+    {
+        public DbSet<SaleWithActiveControls> DataContext => base.DbSet;
         public int Creates(SaleWithActiveControls saleWithActiveControls) => base.Create(saleWithActiveControls);
         public int Deletes(SaleWithActiveControls saleWithActiveControls) => base.Delete(saleWithActiveControls);
         public int Edits(SaleWithActiveControls saleWithActiveControls) => base.Edit(saleWithActiveControls);

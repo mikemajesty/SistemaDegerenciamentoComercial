@@ -11,6 +11,6 @@ namespace Padaria.Web.Models
         public decimal FullIncome { get; set; }
         public decimal FullSale { get; set; }
         public Controls Controls { get; set; }
-        //public List<Product> Products { get; set; }
+       
     }
 }

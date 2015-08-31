@@ -15,6 +15,8 @@ namespace Padaria.Web.Controllers
 
         public PayBoxRepository _payBoxRepository { get; } = new PayBoxRepository();
         public ProductRepository _productRepository { get; } = new ProductRepository();
+        private SaleWithActiveControlsRepository _saleWithActiveControlsRrepository { get; } = new SaleWithActiveControlsRepository();
+        private ControlRepository _controlRepository { get; } = new ControlRepository();
         private static List<InsertProductViewModel> list = new List<InsertProductViewModel>();
 
         public PartialViewResult GetValue()
@@ -36,13 +38,25 @@ namespace Padaria.Web.Controllers
             list.Add(insertProductViewModel);
             return PartialView(list);
         }
-        //[HttpGet]
-        //public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
-        //{
-          
+        [HttpGet]
+        public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
+        {
 
-          
-        //}
+            Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.Controls.Code);
+            foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
+            {
+                InsertProductViewModel productViewModel = new InsertProductViewModel
+                {
+                    Controls = control,
+                    Product = item.Product,
+                    FullSale = item.FullPrice * item.Quantity
+                };
+                list.Add(productViewModel);
+                
+            }
+            return PartialView(viewName:nameof(this.InsertProduct),model:list);
+            
+        }
         public SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
         {
             return new SelectList(items: _payBoxRepository._dataContext.TypeOfPayment.ToList()
