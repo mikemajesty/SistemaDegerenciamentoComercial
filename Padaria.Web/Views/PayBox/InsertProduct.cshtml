@@ -18,9 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product.Code)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Product.PurchasePrice)
-            </th>*@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product.SalePrice)
             </th>
@@ -51,9 +51,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Code)
                 </td>
-                @*<td>*@
-                    @Html.HiddenFor(modelItem => item.Product.PurchasePrice)
-                @*</td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.PurchasePrice)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.SalePrice)
                 </td>

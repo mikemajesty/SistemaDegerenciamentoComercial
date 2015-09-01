@@ -32,11 +32,15 @@ namespace Padaria.Web.Controllers
         public ActionResult InsertProduct(InsertProductViewModel insertProductViewModel)
         {
             Product product = _productRepository.DataContext.Product.FirstOrDefault(c => c.Code == insertProductViewModel.Product.Code);
-            insertProductViewModel.Product = product;
-            insertProductViewModel.FullSale = product.SalePrice * insertProductViewModel.Quantity;
-
-            list.Add(insertProductViewModel);
-            return PartialView(list);
+            if (product != null)
+            {
+                insertProductViewModel.Product = product;
+                insertProductViewModel.FullSale = product.SalePrice * insertProductViewModel.Quantity;
+                insertProductViewModel.FullIncome = product.SalePrice * insertProductViewModel.Quantity - (product.PurchasePrice * insertProductViewModel.Quantity);
+                list.Add(insertProductViewModel);
+                return PartialView(list);
+            }
+            return null;
         }
         [HttpGet]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
@@ -45,17 +49,22 @@ namespace Padaria.Web.Controllers
             Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.Controls.Code);
             foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
             {
-                InsertProductViewModel productViewModel = new InsertProductViewModel
+                InsertProductViewModel productViewModel = new InsertProductViewModel();
                 {
-                    Controls = control,
-                    Product = item.Product,
-                    FullSale = item.FullPrice * item.Quantity
-                };
+                    productViewModel.Controls = control;
+                    productViewModel.Product = _productRepository.GetByIds(item.ProductID);
+                    productViewModel.FullSale = item.FullPrice;
+                    productViewModel.Quantity = item.Quantity;
+                    productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
+
+
+
+                }
                 list.Add(productViewModel);
-                
+
             }
-            return PartialView(viewName:nameof(this.InsertProduct),model:list);
-            
+            return PartialView(viewName: nameof(this.InsertProduct), model: list);
+
         }
         public SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
         {
