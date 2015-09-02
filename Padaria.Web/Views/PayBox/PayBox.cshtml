@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "PayBox";
 }
+
 <div class="col-lg-3">
 
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
@@ -18,6 +19,7 @@
                 <div class="form-group">
                     @Html.DisplayNameFor(c => c.Controls.Code)
                     @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
+                    @Html.ValidationMessageFor(c => c.Controls.Code,null,htmlAttributes: new {@class="text-danger" })
                     <br />
                     <a onclick="GetControlItens()" class="btn btn-primary">Get itens in Control</a>
                 </div>
@@ -43,7 +45,7 @@
 
             </div>
 
-
+            @Html.Partial(partialViewName:"Alert")
     }
 </div>
 <div class="col-lg-9">
@@ -70,7 +72,6 @@
 
 
 
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#footer').hide();
@@ -86,27 +87,40 @@
             datatype: "html",
             data: { "Product.Code": Code, Quantity: quantity },
             success: function (data) {
+               
+                var ismodal = data;
+                if (ismodal.indexOf("modal") != -1) {
+                    $('#modal').modal('show');
+                    $('#txt').text("Product with that code not exists in this system.");
+                }
+                else {
+                    $("#dTbl").empty();
+                    $("#dTbl").show();
+                    $("#dTbl").html(data);
+                }
             
-                $("#dTbl").empty();
-                $("#dTbl").show();
-                $("#dTbl").html(data);
             }
         }
         )
     };
-    function GetControlItens() {
-        debugger
+    function GetControlItens() {       
         var Code = $('#Controls_Code').val();
         $.ajax({
             url: "/Paybox/GetControlItens",
             type: "Get",
             datatype: "Html",
             data: { "Controls.Code": Code },
-            success: function (data) {
-                debugger
-                $("#dTbl").empty();
-                $("#dTbl").show();
-                $("#dTbl").html(data);
+            success: function (data) {              
+                var ismodal = data;
+                if (ismodal.indexOf("modal") != -1) {                   
+                    $('#modal').modal('show');
+                    $('#txt').text("Controls with that code not exists in this system.");
+                }
+                else {
+                    $("#dTbl").empty();
+                    $("#dTbl").show();
+                    $("#dTbl").html(data);
+                }
             }
 
 

@@ -240,6 +240,7 @@
     <Content Include="Views\Stock\Edit.cshtml" />
     <Content Include="Views\PayBox\PayBox.cshtml" />
     <Content Include="Views\PayBox\InsertProduct.cshtml" />
+    <Content Include="Views\PayBox\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

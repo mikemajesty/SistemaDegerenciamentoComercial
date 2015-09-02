@@ -14,6 +14,7 @@ namespace Padaria.Repository.Entities
         [StringLength(maximumLength: 30, ErrorMessage = "{0} can only have a 30 characters")]
         [Required(ErrorMessage = "{0} is obligatory")]
         [DisplayName(displayName: "Control Code")]
+     
         public string Code { get; set; }
     }
 }

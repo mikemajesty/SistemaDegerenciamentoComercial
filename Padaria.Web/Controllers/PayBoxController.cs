@@ -40,30 +40,34 @@ namespace Padaria.Web.Controllers
                 list.Add(insertProductViewModel);
                 return PartialView(list);
             }
-            return null;
+            return PartialView("Alert");
         }
         [HttpGet]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
         {
 
             Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.Controls.Code);
-            foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
+            if (control != null)
             {
-                InsertProductViewModel productViewModel = new InsertProductViewModel();
+                foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
                 {
-                    productViewModel.Controls = control;
-                    productViewModel.Product = _productRepository.GetByIds(item.ProductID);
-                    productViewModel.FullSale = item.FullPrice;
-                    productViewModel.Quantity = item.Quantity;
-                    productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
+                    InsertProductViewModel productViewModel = new InsertProductViewModel();
+                    {
+                        productViewModel.Controls = control;
+                        productViewModel.Product = _productRepository.GetByIds(item.ProductID);
+                        productViewModel.FullSale = item.FullPrice;
+                        productViewModel.Quantity = item.Quantity;
+                        productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
 
 
+
+                    }
+                    list.Add(productViewModel);
 
                 }
-                list.Add(productViewModel);
-
+                return PartialView(viewName: nameof(this.InsertProduct), model: list);
             }
-            return PartialView(viewName: nameof(this.InsertProduct), model: list);
+            return PartialView("Alert");
 
         }
         public SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
