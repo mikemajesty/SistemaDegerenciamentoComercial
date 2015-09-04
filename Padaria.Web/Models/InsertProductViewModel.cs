@@ -1,6 +1,7 @@
 ﻿
 using Padaria.Repository.Entities;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Padaria.Web.Models
 {
@@ -10,7 +11,10 @@ namespace Padaria.Web.Models
         public int Quantity { get; set; }
         public decimal FullIncome { get; set; }
         public decimal FullSale { get; set; }
-        public Controls Controls { get; set; }
+        [StringLength(maximumLength: 30, ErrorMessage = "{0} can only have between 3 and 30 characters", MinimumLength = 3)]
+        [Required(ErrorMessage = "{0} is obligatory")]
+        [DisplayName(displayName: "Control Code")]
+        public string ControlsCode { get; set; }
        
     }
 }

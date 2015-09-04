@@ -11,41 +11,45 @@
         <br />
         <br />
         <br />
-            <div class="form-horizontal">
+        <div class="form-horizontal">
 
 
-                <h4 style="text-align:center">Control</h4>
-                <hr />
-                <div class="form-group">
-                    @Html.DisplayNameFor(c => c.Controls.Code)
-                    @Html.TextBoxFor(c => c.Controls.Code, htmlAttributes: new { @class = "form-controla" })
-                    @Html.ValidationMessageFor(c => c.Controls.Code,null,htmlAttributes: new {@class="text-danger" })
-                    <br />
-                    <a onclick="GetControlItens()" class="btn btn-primary">Get itens in Control</a>
-                </div>
+            <h4 style="text-align:center">Control</h4>
+            <hr />
+            <div class="form-group">
+                @Html.DisplayNameFor(c => c.ControlsCode)
+                @Html.TextBoxFor(c => c.ControlsCode, htmlAttributes: new { @class = "form-controla" })
+                @Html.ValidationMessageFor(c => c.ControlsCode, null, htmlAttributes: new { @class = "text-danger" })
                 
-                <h4 style="text-align:center">Product</h4>
-                <hr />
-                <div class="form-group form-horizontal">
-                    @Html.DisplayNameFor(c => c.Quantity)
-                    @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
-                    @Html.DisplayNameFor(c => c.Product.Code)
-                    @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
-
-                </div>
-                <h4 style="text-align:center">Payment</h4>
-                <hr />
-                <div class="form-group form-horizontal">
-                    @Html.DisplayNameFor(c => c.TypeOfPayment)
-                    @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
-                    <br />
-
-                    <a onclick="SaveProduct()" class="btn btn-primary">Insert Product in sale</a>
-                </div>
-
             </div>
 
-            @Html.Partial(partialViewName:"Alert")
+            <h4 style="text-align:center">Product</h4>
+            <hr />
+            <div class="form-group form-horizontal form-inline">
+                @Html.DisplayNameFor(c => c.Quantity)
+                @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
+                @Html.ValidationMessageFor(c => c.Quantity, null, htmlAttributes: new { @class = "text-danger" })
+
+                @Html.DisplayNameFor(c => c.Product.Code)
+                @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
+                @Html.ValidationMessageFor(c => c.Product.Code, null, htmlAttributes: new { @class = "text-danger" })
+            </div>
+            <h4 style="text-align:center">Payment</h4>
+            <hr />
+            <div class="form-group form-horizontal">
+                @Html.DisplayNameFor(c => c.TypeOfPayment)
+                @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
+
+                @Html.DisplayNameFor(c => c.ValuePaid)
+                @Html.TextBoxFor(c => c.ValuePaid, htmlAttributes: new { @class = "form-controla" })
+
+                @Html.DisplayNameFor(c=>c.Transshipment)
+                @Html.TextBoxFor(c => c.Transshipment, htmlAttributes: new { @class = "form-controla", @readonly=true, @style="background-color:yellow"})
+            </div>
+
+        </div>
+
+        @Html.Partial(partialViewName: "Alert")
     }
 </div>
 <div class="col-lg-9">
@@ -75,44 +79,83 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#footer').hide();
+        $('#Quantity').val("1");
+
+        $('#btnGetControl').attr("disabled", true);
+        $('#btnSaveProduct').attr("disabled", true);
     });
-    function SaveProduct() {
-     
-        var Code = $('#Product_Code').val();
-        var quantity = $('#Quantity').val();
+
+    $('#ValuePaid').keypress(function (e) {
+        debugger;
+        e.preventDefault()
         $.ajax({
 
-            url: "/Paybox/InsertProduct",
-            type: "GET",
-            datatype: "html",
-            data: { "Product.Code": Code, Quantity: quantity },
+            url: "/PayBox/GetFullValue",
+            datatype: "json",
+            type: "Get",
+            data: { listQuantity : 1},
             success: function (data) {
-               
-                var ismodal = data;
-                if (ismodal.indexOf("modal") != -1) {
-                    $('#modal').modal('show');
-                    $('#txt').text("Product with that code not exists in this system.");
-                }
-                else {
-                    $("#dTbl").empty();
-                    $("#dTbl").show();
-                    $("#dTbl").html(data);
-                }
-            
+                debugger;
+                alert(data.Result); 
+               var fullPaid = $('#ValuePaid').val();
+            },
+            error: function (data) {
+                debugger
+                alert(data.Result);
+                var fullPaid = $('#ValuePaid').val();
             }
+
+
+
+        });
+      
+    });
+
+    $('#Product_Code').keypress(function SaveProduct(e) {
+        if (e.which == 13) {
+            var Code = $('#Product_Code').val();
+            var quantity = $('#Quantity').val();
+            $.ajax({
+
+                url: "/Paybox/InsertProduct",
+                type: "GET",
+                datatype: "html",
+                data: { "Product.Code": Code, Quantity: quantity },
+                success: function (data) {
+                    $('#Product_Code').val("");
+                    $('#btnSaveProduct').attr("disabled", true);
+                    var ismodal = data;
+                    if (ismodal.indexOf("modal") != -1) {
+                        $('#modal').modal('show');
+                        $('#txt').text("Product with that code not exists in this system.");
+                    }
+                    else {
+                        $("#dTbl").empty();
+                        $("#dTbl").show();
+                        $("#dTbl").html(data);
+                    }
+
+                }
+            }
+            )
         }
-        )
-    };
-    function GetControlItens() {       
-        var Code = $('#Controls_Code').val();
+      
+    });
+
+    $('#ControlsCode').keypress(function GetControlItens(e) {
+
+        if (e.which == 13) {
+
+        var Code = $('#ControlsCode').val();
         $.ajax({
             url: "/Paybox/GetControlItens",
             type: "Get",
             datatype: "Html",
-            data: { "Controls.Code": Code },
-            success: function (data) {              
+            data: { "ControlsCode": Code },
+            success: function (data) {
                 var ismodal = data;
-                if (ismodal.indexOf("modal") != -1) {                   
+                $('#btnGetControl').attr("disabled", true);
+                if (ismodal.indexOf("modal") != -1) {
                     $('#modal').modal('show');
                     $('#txt').text("Controls with that code not exists in this system.");
                 }
@@ -121,12 +164,17 @@
                     $("#dTbl").show();
                     $("#dTbl").html(data);
                 }
+                $('#ControlsCode').val("");
             }
 
-
-
         });
+        }
+
+
     }
+);
+   
+
 
 </script>
 

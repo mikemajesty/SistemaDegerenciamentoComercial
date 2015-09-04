@@ -1,11 +1,10 @@
 ﻿using Padaria.Repository.Entities;
 using Padaria.Repository.Repository;
 using Padaria.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 
 namespace Padaria.Web.Controllers
 {
@@ -28,6 +27,13 @@ namespace Padaria.Web.Controllers
         {
             TypeOfPayment = GetTypeOfPayment()
         });
+      
+        [HttpGet]
+        public JsonResult GetFullValue(int listQuantity)
+        {
+            IEnumerable<decimal> full = list.Select(c => c.FullSale) ;            
+            return Json(new { Result = full.Sum() },JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult InsertProduct(InsertProductViewModel insertProductViewModel)
         {
@@ -46,14 +52,14 @@ namespace Padaria.Web.Controllers
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
         {
 
-            Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.Controls.Code);
+            Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.ControlsCode);
             if (control != null)
             {
                 foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
                 {
                     InsertProductViewModel productViewModel = new InsertProductViewModel();
                     {
-                        productViewModel.Controls = control;
+                        productViewModel.ControlsCode = control.Code;
                         productViewModel.Product = _productRepository.GetByIds(item.ProductID);
                         productViewModel.FullSale = item.FullPrice;
                         productViewModel.Quantity = item.Quantity;
