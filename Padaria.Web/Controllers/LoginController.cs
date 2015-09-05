@@ -25,6 +25,7 @@ namespace Padaria.Web.Controllers
 
             if (_loginRepository.Log(login) == Exists)
             {
+                Repository.Entities.Login.User_Name = login.UserName;
                 FormsAuthentication.SetAuthCookie(login.UserName, false);
                 if (Url.IsLocalUrl(ReturnUrl)
                           && ReturnUrl.Length > 1

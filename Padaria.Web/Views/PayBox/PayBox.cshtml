@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(c => c.ControlsCode)
                 @Html.TextBoxFor(c => c.ControlsCode, htmlAttributes: new { @class = "form-controla" })
                 @Html.ValidationMessageFor(c => c.ControlsCode, null, htmlAttributes: new { @class = "text-danger" })
-                
+
             </div>
 
             <h4 style="text-align:center">Product</h4>
@@ -42,12 +42,21 @@
 
                 @Html.DisplayNameFor(c => c.ValuePaid)
                 @Html.TextBoxFor(c => c.ValuePaid, htmlAttributes: new { @class = "form-controla" })
-
-                @Html.DisplayNameFor(c=>c.Transshipment)
-                @Html.TextBoxFor(c => c.Transshipment, htmlAttributes: new { @class = "form-controla", @readonly=true, @style="background-color:yellow"})
+                <b>
+                    @Html.DisplayNameFor(c => c.Transshipment)
+                    @Html.TextBoxFor(c => c.Transshipment, htmlAttributes: new { @class = "form-controla", @readonly = true, @style = "background-color:yellow" })
+                </b>
+                  <br />
+                    <a href="#" onclick="SaveSale()" class="btn btn-primary" style="width:100%">Save Sale</a>
+                
+               
             </div>
-
+           
         </div>
+
+
+
+
 
         @Html.Partial(partialViewName: "Alert")
     }
@@ -80,39 +89,86 @@
     $(document).ready(function () {
         $('#footer').hide();
         $('#Quantity').val("1");
-
+        $('#Transshipment').val("");
+        $('#ValuePaid').val("");
         $('#btnGetControl').attr("disabled", true);
         $('#btnSaveProduct').attr("disabled", true);
     });
 
-    $('#ValuePaid').keypress(function (e) {
-        debugger;
-        e.preventDefault()
+    function SaveSale() {
+      
+        $.ajax({
+            url: "/PayBox/SaveSale",
+            datatype: "json",
+            type: "Get",
+            data: { "Sale.TypeOfPaymentID": $('#Sale_TypeOfPaymentID').val() },
+            success: function (data) {               
+                if(data.SaleID>0){
+                    ClearFields();
+                }
+            }
+        });
+    }
+
+
+    function ClearFields() {
+        $.ajax({
+            url: "/PayBox/FinishSale",           
+            type: "Get",
+            datatype: "html",
+            success: function (data) {
+                $('#modal').modal('show');
+                $('#txt').text("Sale completed successfully.");
+                
+                debugger;
+                $("#btn").click(function () {
+                    $(location).attr('href', '/PayBox/PayBox')
+                });
+               
+            }
+        });
+    }
+
+    function GetFullValue() {
         $.ajax({
 
             url: "/PayBox/GetFullValue",
             datatype: "json",
-            type: "Get",
-            data: { listQuantity : 1},
-            success: function (data) {
-                debugger;
-                alert(data.Result); 
-               var fullPaid = $('#ValuePaid').val();
-            },
-            error: function (data) {
-                debugger
-                alert(data.Result);
-                var fullPaid = $('#ValuePaid').val();
-            }
+            type: "Get"
 
 
 
         });
-      
+    }
+    $('#ValuePaid').keypress(function (e) {
+        if (e.which == 13) {
+
+            e.preventDefault();
+            $.ajax({
+
+                url: "/PayBox/GetFullValue",
+                datatype: "json",
+                type: "Get",
+                success: function (data) {
+                  
+                    var fullPaid = $('#ValuePaid').val();
+                    if (fullPaid) {
+
+                    }
+                    $('#Transshipment').val('$ ' + (fullPaid - data.Result).toFixed(2));
+                    
+                }
+
+
+
+            });
+        }
     });
 
     $('#Product_Code').keypress(function SaveProduct(e) {
         if (e.which == 13) {
+            $('#Transshipment').val("");
+            $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
             var quantity = $('#Quantity').val();
             $.ajax({
@@ -139,43 +195,42 @@
             }
             )
         }
-      
+
     });
 
     $('#ControlsCode').keypress(function GetControlItens(e) {
 
         if (e.which == 13) {
-
-        var Code = $('#ControlsCode').val();
-        $.ajax({
-            url: "/Paybox/GetControlItens",
-            type: "Get",
-            datatype: "Html",
-            data: { "ControlsCode": Code },
-            success: function (data) {
-                var ismodal = data;
-                $('#btnGetControl').attr("disabled", true);
-                if (ismodal.indexOf("modal") != -1) {
-                    $('#modal').modal('show');
-                    $('#txt').text("Controls with that code not exists in this system.");
+            $('#Transshipment').val("");
+            $('#ValuePaid').val("");
+            var Code = $('#ControlsCode').val();
+            $.ajax({
+                url: "/Paybox/GetControlItens",
+                type: "Get",
+                datatype: "Html",
+                data: { "ControlsCode": Code },
+                success: function (data) {
+                    var ismodal = data;
+                    $('#btnGetControl').attr("disabled", true);
+                    if (ismodal.indexOf("modal") != -1) {
+                        $('#modal').modal('show');
+                        $('#txt').text("Controls with that code not exists in this system.");
+                    }
+                    else {
+                        $("#dTbl").empty();
+                        $("#dTbl").show();
+                        $("#dTbl").html(data);
+                    }
+                    $('#ControlsCode').val("");
                 }
-                else {
-                    $("#dTbl").empty();
-                    $("#dTbl").show();
-                    $("#dTbl").html(data);
-                }
-                $('#ControlsCode').val("");
-            }
 
-        });
+            });
         }
 
 
     }
 );
-   
+
 
 
 </script>
-
-

@@ -151,6 +151,7 @@
     <Compile Include="Repository\PayBoxRepository.cs" />
     <Compile Include="Repository\PermissionRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\SaleRepository.cs" />
     <Compile Include="Repository\SaleWithActiveControlsRrepository.cs" />
     <Compile Include="Repository\StockRepository.cs" />
     <Compile Include="Repository\TypeOfPaymentRepository.cs" />
