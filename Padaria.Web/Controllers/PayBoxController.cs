@@ -20,6 +20,7 @@ namespace Padaria.Web.Controllers
         private UserRepository _userRepository { get; } = new UserRepository();
         private SaleRepository _saleRepository { get; } = new SaleRepository();
         private static List<InsertProductViewModel> list = new List<InsertProductViewModel>();
+        private StockRepository _stockRepository { get; } = new StockRepository();
 
         public PartialViewResult GetValue()
         {
@@ -108,6 +109,12 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public ActionResult FinishSale()
         {
+            foreach (var prod in list)
+            {
+                Stock stock = _stockRepository.GetByIDs(prod.Product.ProductID);
+                stock.Quantity = prod.Quantity;
+                _stockRepository.RemoveStock(stock);
+            }
             list.Clear();
             return PartialView("Alert");
         }
