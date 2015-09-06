@@ -7,7 +7,7 @@ namespace Padaria.Repository.Repository
 {
     public class PayBoxRepository : DefaultRepository<PayBox>
     {
-        public DataContext _dataContext { get;}
+        public DataContext _dataContext { get; }
 
         public PayBoxRepository()
         {
@@ -32,15 +32,17 @@ namespace Padaria.Repository.Repository
         }
         public int Update(PayBox payBox)
         {
-            payBox.Value += GetValue();
-            _dataContext.Entry<PayBox>(payBox).State = System.Data.Entity.EntityState.Modified ;
-            return _dataContext.SaveChanges();
 
+            /*if (base.GetQuantity() == 0)
+            {
+                base.Create(payBox);
+            }*/
+            return base.Edit(payBox);
         }
-        public double GetValue()
+        public decimal? GetValue()
         {
             PayBox paybox = _dataContext.PayBox.FirstOrDefault();
-            return paybox == null ? 0 : paybox.Value;
+            return paybox.Value;
         }
 
 

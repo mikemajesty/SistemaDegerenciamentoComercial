@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Constants\TypeOfPaymentEnum.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ControlController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />

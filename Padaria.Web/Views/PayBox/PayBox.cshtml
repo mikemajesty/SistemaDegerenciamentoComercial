@@ -116,6 +116,7 @@
             url: "/PayBox/FinishSale",           
             type: "Get",
             datatype: "html",
+            data:{"typeOfPayment":$('#Sale_TypeOfPaymentID').val()},
             success: function (data) {
                 $('#modal').modal('show');
                 $('#txt').text("Sale completed successfully.");

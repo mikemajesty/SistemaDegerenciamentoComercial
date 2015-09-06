@@ -24,6 +24,7 @@ namespace Padaria.Repository.Repository
         }
         protected int Edit(T entity)
         {
+           
             _dataContext.Entry<T>(entity).State = EntityState.Modified;
             return SaveChanges();
         }

@@ -31,6 +31,7 @@ namespace Padaria.Web
             _typeOfPaymentRepository = new TypeOfPaymentRepository();
             _typeOfPaymentRepository.Creates();
             _typeOfRegistrationRepository.Creates();
+            
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);

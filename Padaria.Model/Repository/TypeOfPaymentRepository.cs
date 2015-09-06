@@ -25,5 +25,7 @@ namespace Padaria.Repository.Repository
             return returning;
         }
         public int GetQuantitys() => base.GetQuantity();
+
+        public TypeOfPayment GetByIDs(int typeOfPaymentID) => base.GetByID(typeOfPaymentID);
     }
 }
