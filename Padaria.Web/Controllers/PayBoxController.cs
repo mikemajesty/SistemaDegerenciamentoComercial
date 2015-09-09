@@ -72,7 +72,7 @@ namespace Padaria.Web.Controllers
                 list.Add(insertProductViewModel);
                 return PartialView(list);
             }
-            return PartialView("Alert");
+            return PartialView();
         }
         [HttpGet]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
@@ -81,24 +81,34 @@ namespace Padaria.Web.Controllers
             Controls control = _controlRepository.DataContext.FirstOrDefault(c => c.Code == insertProductViewModel.ControlsCode);
             if (control != null)
             {
-                foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
+                var lists = list.FirstOrDefault(c => c.ControlsCode == control.Code);
+                if (lists == null)
                 {
-                    InsertProductViewModel productViewModel = new InsertProductViewModel();
+
+                    foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
                     {
-                        productViewModel.ControlsCode = control.Code;
-                        productViewModel.Product = _productRepository.GetByIds(item.ProductID);
-                        productViewModel.FullSale = item.FullPrice;
-                        productViewModel.Quantity = item.Quantity;
-                        productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
+                        InsertProductViewModel productViewModel = new InsertProductViewModel();
+                        {
+                            productViewModel.ControlsCode = control.Code;
+                            productViewModel.Product = _productRepository.GetByIds(item.ProductID);
+                            productViewModel.FullSale = item.FullPrice;
+                            productViewModel.Quantity = item.Quantity;
+                            productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
 
 
+
+                        }
+                        list.Add(productViewModel);
 
                     }
-                    list.Add(productViewModel);
-
+                    return PartialView(viewName: nameof(this.InsertProduct), model: list);
                 }
-                return PartialView(viewName: nameof(this.InsertProduct), model: list);
+                else
+                {
+                    return PartialView(viewName: nameof(this.InsertProduct), model: list);
+                }   
             }
+            
             return PartialView("Alert");
 
         }

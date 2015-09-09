@@ -5,7 +5,7 @@
 }
 
 <div class="col-lg-3">
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    @*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
     {
         <br />
@@ -102,6 +102,7 @@
     $('select').on('change', function () {
         switch (($("select option:selected").text())) {
             case "Money":
+                ClearAllFields();
                 ShowFieldRelatedWithMoneyPayment();
                 $.ajax({
                     url: "/PayBox/GetQuantityProduct",
@@ -109,7 +110,7 @@
                     datatype: "json",
                     data: {},
                     success: function (data) {
-                        debugger;
+                        focusInTxtValuePaid();
                         if (data.Number > 0) {
                             $('.btn.btn-primary').attr("disabled", false);
                         }
@@ -136,43 +137,58 @@
         }
 
     });
+    function focusInTxtValuePaid() {
+        $('#ValuePaid').focus();
+    }
+    function ClearAllFields() {
+        $('#ValuePaid').val('');
+        $('#Transshipment').val('');
+    }
     function HideFieldRelatedWithMoneyPayment() {
         debugger;
         var ids = ['#ValuePaid', '#Transshipment'];
-        if ($(document).toString().indexOf(Transshipment) == -1) {
-            debugger;
-            var text = $(document).text();
-            text.replace('Transshipment', "");
-            text.replace('Value Paid', "");
-        }
         ids.forEach(function (index) {
-             
+
             $(index).hide();
         });
     }
     function ShowFieldRelatedWithMoneyPayment() {
+        debugger;
+        var ids = ['#ValuePaid', '#Transshipment'];
+        ids.forEach(function (index) {
 
+            $(index).show();
+        });
     }
     function focusInTxtGetControl() {
         $('#ControlsCode').focus();
     }
     $('.btn.btn-primary').click(function (e) {
-        debugger;
 
         var valid = $('.btn.btn-primary').attr("disabled");
         if (valid == undefined) {
-            $.ajax({
-                url: "/PayBox/SaveSale",
-                datatype: "json",
-                type: "Get",
-                data: { "Sale.TypeOfPaymentID": $('#Sale_TypeOfPaymentID').val() },
-                success: function (data) {
-                    if (data.SaleID > 0) {
-                        ClearFields();
+            debugger;
+            var price = $('#Transshipment').val();
+            var type = $("select option:selected").text();
+            if (price != "" || type == "Money") {
+                $.ajax({
+                    url: "/PayBox/SaveSale",
+                    datatype: "json",
+                    type: "Get",
+                    data: { "Sale.TypeOfPaymentID": $('#Sale_TypeOfPaymentID').val() },
+                    success: function (data) {
+                        if (data.SaleID > 0) {
+                            ClearFields();
 
+                        }
                     }
-                }
-            });
+                });
+            }
+            else {
+                $('#modal').modal('show');
+                $('#txt').text("To complete a sale is necessary to make the first payment.");
+            }
+
         }
         else {
             $('#modal').modal('show');
@@ -279,6 +295,7 @@
     function focusInTxtGetProduct() {
         $('#Product_Code').focus();
     }
+
     $('#ControlsCode').keypress(function GetControlItens(e) {
 
         if (e.which == 13) {
@@ -293,20 +310,23 @@
                 success: function (data) {
                     focusInTxtGetControl();
                     var ismodal = data;
+                    debugger;
                     $('#btnGetControl').attr("disabled", true);
                     if (ismodal.indexOf("modal") != -1) {
                         debugger;
                         $('#modal').modal('show');
-                        $('#txt').text("Controls with that code not exists in this system.");
+                        $('#txt').text("Command with that code not exists in this system.");
                         focusInTxtGetControl();
+                        $('#ControlsCode').val("");
                     }
                     else {
                         $("#dTbl").empty();
                         $("#dTbl").show();
                         $("#dTbl").html(data);
                         focusInTxtGetProduct();
+                        $('#ControlsCode').val("");
                     }
-                    $('#ControlsCode').val("");
+
                 }
 
             });
@@ -315,6 +335,8 @@
 
     }
 );
+
+
 
 
 
