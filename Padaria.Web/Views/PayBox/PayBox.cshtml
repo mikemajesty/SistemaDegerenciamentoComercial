@@ -5,7 +5,7 @@
 }
 
 <div class="col-lg-3">
-
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
     {
         <br />
@@ -46,12 +46,12 @@
                     @Html.DisplayNameFor(c => c.Transshipment)
                     @Html.TextBoxFor(c => c.Transshipment, htmlAttributes: new { @class = "form-controla", @readonly = true, @style = "background-color:yellow" })
                 </b>
-                  <br />
-                    <a href="#" onclick="SaveSale()" class="btn btn-primary" style="width:100%">Save Sale</a>
-                
-               
+                <br />
+                <a href="#" class="btn btn-primary" style="width:100%">Save Sale</a>
+
+
             </div>
-           
+
         </div>
 
 
@@ -86,46 +86,117 @@
 
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+
         $('#footer').hide();
         $('#Quantity').val("1");
         $('#Transshipment').val("");
         $('#ValuePaid').val("");
-        $('#btnGetControl').attr("disabled", true);
-        $('#btnSaveProduct').attr("disabled", true);
+
+        $('.btn.btn-primary').attr("disabled", true);
+        focusInTxtGetControl();
+
     });
 
-    function SaveSale() {
-      
-        $.ajax({
-            url: "/PayBox/SaveSale",
-            datatype: "json",
-            type: "Get",
-            data: { "Sale.TypeOfPaymentID": $('#Sale_TypeOfPaymentID').val() },
-            success: function (data) {               
-                if(data.SaleID>0){
-                    ClearFields();
-                }
-            }
+    $('select').on('change', function () {
+        switch (($("select option:selected").text())) {
+            case "Money":
+                ShowFieldRelatedWithMoneyPayment();
+                $.ajax({
+                    url: "/PayBox/GetQuantityProduct",
+                    type: "Get",
+                    datatype: "json",
+                    data: {},
+                    success: function (data) {
+                        debugger;
+                        if (data.Number > 0) {
+                            $('.btn.btn-primary').attr("disabled", false);
+                        }
+                        else {
+                            $('.btn.btn-primary').attr("disabled", true);
+                        }
+                    }
+
+
+
+                });
+
+                break;
+            case "Check":
+                $('.btn.btn-primary').attr("disabled", false);
+                HideFieldRelatedWithMoneyPayment();
+                break;
+            case "Spun":
+                $('.btn.btn-primary').attr("disabled", false);
+                HideFieldRelatedWithMoneyPayment();
+                break;
+            default:
+
+        }
+
+    });
+    function HideFieldRelatedWithMoneyPayment() {
+        debugger;
+        var ids = ['#ValuePaid', '#Transshipment'];
+        if ($(document).toString().indexOf(Transshipment) == -1) {
+            debugger;
+            var text = $(document).text();
+            text.replace('Transshipment', "");
+            text.replace('Value Paid', "");
+        }
+        ids.forEach(function (index) {
+             
+            $(index).hide();
         });
     }
+    function ShowFieldRelatedWithMoneyPayment() {
+
+    }
+    function focusInTxtGetControl() {
+        $('#ControlsCode').focus();
+    }
+    $('.btn.btn-primary').click(function (e) {
+        debugger;
+
+        var valid = $('.btn.btn-primary').attr("disabled");
+        if (valid == undefined) {
+            $.ajax({
+                url: "/PayBox/SaveSale",
+                datatype: "json",
+                type: "Get",
+                data: { "Sale.TypeOfPaymentID": $('#Sale_TypeOfPaymentID').val() },
+                success: function (data) {
+                    if (data.SaleID > 0) {
+                        ClearFields();
+
+                    }
+                }
+            });
+        }
+        else {
+            $('#modal').modal('show');
+            $('#txt').text("To complete a sale is necessary to buy a product.");
+        }
+
+    });
+
 
 
     function ClearFields() {
         $.ajax({
-            url: "/PayBox/FinishSale",           
+            url: "/PayBox/FinishSale",
             type: "Get",
             datatype: "html",
-            data:{"typeOfPayment":$('#Sale_TypeOfPaymentID').val()},
+            data: { "typeOfPayment": $('#Sale_TypeOfPaymentID').val() },
             success: function (data) {
                 $('#modal').modal('show');
                 $('#txt').text("Sale completed successfully.");
-                
-                debugger;
+
                 $("#btn").click(function () {
                     $(location).attr('href', '/PayBox/PayBox')
                 });
-               
+
             }
         });
     }
@@ -151,13 +222,18 @@
                 datatype: "json",
                 type: "Get",
                 success: function (data) {
-                  
-                    var fullPaid = $('#ValuePaid').val();
-                    if (fullPaid) {
 
+                    var fullPaid = $('#ValuePaid').val();
+                    if (fullPaid >= data.Result) {
+                        $('#Transshipment').val('$ ' + (fullPaid - data.Result).toFixed(2));
+                        $('.btn.btn-primary').attr("disabled", false);
                     }
-                    $('#Transshipment').val('$ ' + (fullPaid - data.Result).toFixed(2));
-                    
+                    else {
+                        $('#modal').modal('show');
+                        $('#txt').text("The amount paid must be greater or equal to the purchase price.");
+                        $('#Product_Code').val("");
+                    }
+
                 }
 
 
@@ -179,17 +255,19 @@
                 datatype: "html",
                 data: { "Product.Code": Code, Quantity: quantity },
                 success: function (data) {
-                    $('#Product_Code').val("");
-                    $('#btnSaveProduct').attr("disabled", true);
                     var ismodal = data;
                     if (ismodal.indexOf("modal") != -1) {
                         $('#modal').modal('show');
                         $('#txt').text("Product with that code not exists in this system.");
+                        $('#Product_Code').val("");
+                        $('.btn.btn-primary').attr("disabled", false);
                     }
                     else {
+                        $('#Product_Code').val("");
                         $("#dTbl").empty();
                         $("#dTbl").show();
                         $("#dTbl").html(data);
+                        focusInTxtGetProduct();
                     }
 
                 }
@@ -198,7 +276,9 @@
         }
 
     });
-
+    function focusInTxtGetProduct() {
+        $('#Product_Code').focus();
+    }
     $('#ControlsCode').keypress(function GetControlItens(e) {
 
         if (e.which == 13) {
@@ -211,16 +291,20 @@
                 datatype: "Html",
                 data: { "ControlsCode": Code },
                 success: function (data) {
+                    focusInTxtGetControl();
                     var ismodal = data;
                     $('#btnGetControl').attr("disabled", true);
                     if (ismodal.indexOf("modal") != -1) {
+                        debugger;
                         $('#modal').modal('show');
                         $('#txt').text("Controls with that code not exists in this system.");
+                        focusInTxtGetControl();
                     }
                     else {
                         $("#dTbl").empty();
                         $("#dTbl").show();
                         $("#dTbl").html(data);
+                        focusInTxtGetProduct();
                     }
                     $('#ControlsCode').val("");
                 }

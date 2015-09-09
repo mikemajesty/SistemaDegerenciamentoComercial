@@ -169,19 +169,8 @@ namespace Padaria.Web.Controllers
                                  , dataValueField: "TypeOfPaymentID"
                                  , selectedValue: typeOfRegistrationID);
         }
-        //protected override void Dispose(bool disposing)
-        //{
-        //    //if (disposing == fal)
-        //    //{
-
-        //    //}
-        //    //if (disposing)
-        //    //{
-        //    //    _payBoxRepository._dataContext.Dispose();
-        //    //    _productRepository.DataContext.Dispose();
-        //    //    //list.Clear();
-        //    //}
-        //    //base.Dispose(disposing);
-        //}
+        [HttpGet]
+        public JsonResult GetQuantityProduct() => Json(new {Number= list.Count}, JsonRequestBehavior.AllowGet);
+      
     }
 }

@@ -22,23 +22,12 @@ namespace Padaria.Repository.Repository
             }
             return returning;
         }
-        public int GetQuantitys()
-        {
-            return base.GetQuantity();
-        }
-        public PayBox GetByIDs(int payBoxID)
-        {
-            return base.GetByID(payBoxID);
-        }
-        public int Update(PayBox payBox)
-        {
+        public int GetQuantitys() => base.GetQuantity();
 
-            /*if (base.GetQuantity() == 0)
-            {
-                base.Create(payBox);
-            }*/
-            return base.Edit(payBox);
-        }
+        public PayBox GetByIDs(int payBoxID) => base.GetByID(payBoxID);
+
+        public int Update(PayBox payBox) => base.Edit(payBox);
+
         public decimal? GetValue()
         {
             PayBox paybox = _dataContext.PayBox.FirstOrDefault();
