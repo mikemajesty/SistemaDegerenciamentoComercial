@@ -13,25 +13,20 @@ namespace Padaria.Repository.Repository
         {
             List<SaleWithActiveControls> salePaid = null;
             int returning = 0;
-            foreach (var item in controlList)
-            {
-                salePaid = DataContext.Where(c => c.Controls.Code == item.Code).ToList();
-            }
-            if (salePaid != null)
-            {
-                foreach (var item in salePaid)
-                {
-                    returning = base.Delete(item);
 
-                }
-            }
+            controlList.ForEach(c => salePaid = DataContext.Where(d => d.Controls.Code == c.Code).ToList());
+
+            //if (salePaid != null)
+            //{
+            salePaid?.ForEach(c => returning = base.Delete(c));
+            //}
             return returning;
-           
+
         }
-            
-        
-            
-            
+
+
+
+
         public int Edits(SaleWithActiveControls saleWithActiveControls) => base.Edit(saleWithActiveControls);
         public SaleWithActiveControls GetByIds(SaleWithActiveControls saleWithActiveControls) => base.GetByID(saleWithActiveControls.SaleWithActiveControlsID);
         public List<SaleWithActiveControls> GetAlls() => base.GetAll();

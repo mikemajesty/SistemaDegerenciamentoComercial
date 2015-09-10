@@ -117,15 +117,18 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public JsonResult SaveSale(Sale sale)
         {
-            int typeOfPaymentID = sale.TypeOfPaymentID;
-            sale = GetFullSale();
-            sale.TypeOfPaymentID = typeOfPaymentID;
-            _saleRepository.Creates(sale);
-            _saleWithActiveControlsRrepository.Deletes(listControl);
-            listControl.Clear();
-            list.Clear();
-            return Json(new {SaleID = sale.SaleID },JsonRequestBehavior.AllowGet);
-            
+            if (list.Count > 0)
+            {
+                int typeOfPaymentID = sale.TypeOfPaymentID;
+                sale = GetFullSale();
+                sale.TypeOfPaymentID = typeOfPaymentID;
+                _saleRepository.Creates(sale);
+                _saleWithActiveControlsRrepository.Deletes(listControl);
+                listControl.Clear();
+                list.Clear();
+                return Json(new { SaleID = sale.SaleID }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { SaleID = 0 }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult FinishSale(int typeOfPayment)
