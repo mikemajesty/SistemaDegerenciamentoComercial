@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Padaria.Repository.Entities
         public int UserID { get; set; }
         public int TypeOfPaymentID { get; set; }
         public virtual Users User{ get; set; }
+        [DisplayName(displayName: "Type Of Payment")]
         public virtual TypeOfPayment TypeOfPayment { get; set; }
 
     }

@@ -6,6 +6,8 @@ namespace Padaria.Repository.Repository
 {
     public class TypeOfPaymentRepository : DefaultRepository<TypeOfPayment>
     {
+
+        public List<TypeOfPayment> GetAlls() => base.GetAll();
         public int Creates()
         {
             int returning = 0;
