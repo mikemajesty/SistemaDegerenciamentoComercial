@@ -28,7 +28,7 @@ namespace Padaria.Repository.Repository
         public DataContext DataContext { get; set; }
         public IQueryable<Category> GetByNames(string name)
         {
-            return DbSet.Where(a => a.Name.Contains(name));
+            return base.DBSet.Where(a => a.Name.Contains(name));
         }
         public int Creates(Category category)
         {

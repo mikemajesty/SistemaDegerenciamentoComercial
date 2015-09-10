@@ -19,9 +19,9 @@ namespace Padaria.Repository.Repository
 
         public int Updates(Users user) => base.Edit(user);
 
-        public int GetUserIDWithName(string name) => base.DbSet.FirstOrDefault(c => c.UserName == name).UserID;
+        public int GetUserIDWithName(string name) => base.DBSet.FirstOrDefault(c => c.UserName == name).UserID;
 
-        void IDisposable.Dispose() => DbSet = null;
+        void IDisposable.Dispose() => DBSet = null;
         
         
     }

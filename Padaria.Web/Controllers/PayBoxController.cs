@@ -23,8 +23,8 @@ namespace Padaria.Web.Controllers
         private static List<InsertProductViewModel> list = new List<InsertProductViewModel>();
         private TypeOfPaymentRepository _typeOfPaymentRepository { get; } = new TypeOfPaymentRepository();
         private StockRepository _stockRepository { get; } = new StockRepository();
+        private static List<Controls> listControl { get; } = new List<Controls>();
 
-        [ChildActionOnly]
         public PartialViewResult GetValue()
         {
             return PartialView(_payBoxRepository.GetValue());
@@ -84,7 +84,7 @@ namespace Padaria.Web.Controllers
                 var lists = list.FirstOrDefault(c => c.ControlsCode == control.Code);
                 if (lists == null)
                 {
-
+                    
                     foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
                     {
                         InsertProductViewModel productViewModel = new InsertProductViewModel();
@@ -99,13 +99,15 @@ namespace Padaria.Web.Controllers
 
                         }
                         list.Add(productViewModel);
-
+                        listControl.Add(control);
                     }
                     return PartialView(viewName: nameof(this.InsertProduct), model: list);
                 }
                 else
                 {
+                    listControl.Add(control);
                     return PartialView(viewName: nameof(this.InsertProduct), model: list);
+                    
                 }   
             }
             
@@ -119,6 +121,9 @@ namespace Padaria.Web.Controllers
             sale = GetFullSale();
             sale.TypeOfPaymentID = typeOfPaymentID;
             _saleRepository.Creates(sale);
+            _saleWithActiveControlsRrepository.Deletes(listControl);
+            listControl.Clear();
+            list.Clear();
             return Json(new {SaleID = sale.SaleID },JsonRequestBehavior.AllowGet);
             
         }
@@ -181,6 +186,11 @@ namespace Padaria.Web.Controllers
         }
         [HttpGet]
         public JsonResult GetQuantityProduct() => Json(new {Number= list.Count}, JsonRequestBehavior.AllowGet);
-      
+
+        ~PayBoxController()
+        {
+            /*list.Clear();
+            listControl.Clear();*/
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Padaria.Repository.Repository
     public class ControlRepository : DefaultRepository<Controls>
     {
 
-        public DbSet<Controls> DataContext => base.DbSet;
+        public DbSet<Controls> DataContext => base.DBSet;
 
         public int Creates(Controls control) => base.Create(control); 
 

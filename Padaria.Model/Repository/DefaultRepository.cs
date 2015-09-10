@@ -9,18 +9,18 @@ namespace Padaria.Repository.Repository
     public class DefaultRepository<T> where T : class
     {
         private readonly DataContext _dataContext = null;
-        protected DbSet<T> DbSet { get;  set; }
+        protected DbSet<T> DBSet { get;  set; }
         protected DefaultRepository()
         {          
-            DbSet = (_dataContext = new DataContext()).Set<T>();
+            DBSet = (_dataContext = new DataContext()).Set<T>();
         }
         protected List<T> GetAll()
         {
-            return DbSet.ToList();
+            return DBSet.ToList();
         }
         protected T GetByID(int ID)
         {
-            return DbSet.Find(ID);
+            return DBSet.Find(ID);
         }
         protected int Edit(T entity)
         {
@@ -30,18 +30,18 @@ namespace Padaria.Repository.Repository
         }
         protected virtual int Create(T entity)
         {
-            DbSet.Add(entity);
+            DBSet.Add(entity);
             return SaveChanges();
         }
         protected int Delete(T entity)
         {
-            DbSet.Attach(entity);
-            DbSet.Remove(entity);
+            DBSet.Attach(entity);
+            DBSet.Remove(entity);
             return SaveChanges();
         }
         protected int GetQuantity()
         {
-            return DbSet.ToList().Count();
+            return DBSet.ToList().Count();
         }
         private int SaveChanges()
         {            

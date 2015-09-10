@@ -13,14 +13,14 @@ namespace Padaria.Repository.BusinessObject
         public bool VerifyIfAlreadyExistsInCreates(Category category)
         {
             bool returning = false;
-            returning = DbSet.FirstOrDefault(c => c.Name == category.Name) == notFound ? true : false;
+            returning = DBSet.FirstOrDefault(c => c.Name == category.Name) == notFound ? true : false;
             return returning;
         }
         public bool VerifyIfAlreadyExistsInUpdates(Category category)
         {
             bool returning = false;
-            returning = DbSet.Any(c => c.Name == category.Name) 
-                != Existe && DbSet.Find(category.CategoryID).Name 
+            returning = DBSet.Any(c => c.Name == category.Name) 
+                != Existe && DBSet.Find(category.CategoryID).Name 
                 != category.Name ? true : false;
             return returning;
 
