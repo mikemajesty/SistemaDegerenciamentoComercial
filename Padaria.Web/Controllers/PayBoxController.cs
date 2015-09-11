@@ -72,10 +72,10 @@ namespace Padaria.Web.Controllers
                 list.Add(insertProductViewModel);
                 return PartialView(list);
             }
-            return PartialView();
+            return PartialView("Alert");
         }
         [HttpGet]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
         {
 

@@ -5,13 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")   
     @Styles.Render("~/Content/Custom")
     @Styles.Render("~/Content/bootstrap")
+
     @* @Scripts.Render("~/bundles/Custom")*@
     @Scripts.Render("~/bundles/bootstrap")
-   
+    
+
+    @RenderSection("Scripts", false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -49,8 +52,9 @@
         </footer>
     </div>
 
-</body>
+</body> 
 </html>
+
 <script type="text/javascript">
     $(document).ready(function () {
 

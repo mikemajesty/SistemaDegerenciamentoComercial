@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Padaria.Web.Controllers
 {
     public class SaleController : Controller
@@ -17,7 +18,12 @@ namespace Padaria.Web.Controllers
 
         public ActionResult List()
         {
-            return View(_saleRepository.GetAlls());
+            return View(new SaleAndIncomeViewModel
+            {
+                    
+                 Sale = _saleRepository.GetAlls()
+
+            });
         }
         //return View(new SaleViewModel
         //   {

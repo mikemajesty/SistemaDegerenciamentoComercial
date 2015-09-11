@@ -260,6 +260,7 @@
 
     $('#Product_Code').keypress(function SaveProduct(e) {
         if (e.which == 13) {
+            debugger;
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
@@ -297,7 +298,7 @@
     }
 
     $('#ControlsCode').keypress(function GetControlItens(e) {
-
+        
         if (e.which == 13) {
             $('#Transshipment').val("");
             $('#ValuePaid').val("");

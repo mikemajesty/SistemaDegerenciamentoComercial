@@ -7,12 +7,11 @@ namespace Padaria.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
         
-            
+           
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.validate.js")
-                .Include("~/Scripts/jquery.validate.unobtrusive.js")
-                /*.Include("~/Scripts/jquery-{version}.intellisense.js")*/);
+                .Include("~/Scripts/jquery.validate.unobtrusive.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval")
                 .Include("~/Scripts/modernizr-{version}.js"));
             bundles.Add(new StyleBundle("~/Content/bootstrap")

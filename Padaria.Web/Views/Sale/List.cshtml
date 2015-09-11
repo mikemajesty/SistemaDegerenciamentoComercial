@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Padaria.Repository.Entities.Sale>
+﻿@model Padaria.Web.Models.SaleAndIncomeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -6,65 +6,75 @@
 <br />
 <hr />
 <h2 style="text-align:center">Sale List</h2>
+@Html.DisplayNameFor(c=>c.StartDate)
+@Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla",@width="20%" })
 
+<br />
 
-<table class="table table-hover table-striped">
+<table class="table">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.TypeOfPayment)
+            Type Of Payment
+            @*@Html.DisplayNameFor(model => model.Sale.Select(c=>c.TypeOfPayment))*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User)
+            User
+            @* @Html.DisplayNameFor(model => model.Sale.Select(c => c.User))*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullSale)
+            Full Sale
+            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.FullSale))*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullIncome)
+            Full Income
+            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.FullIncome))*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Date
+            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.Date))*@
         </th>
-      
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeOfPayment.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullSale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullIncome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        
-    </tr>
-}
+    @foreach (var item in Model.Sale)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfPayment.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+        </tr>
+    }
     <tr id="fullData">
         <th>
-            
+            Full Sale $ @Model.Sale.Select(c => c.FullSale).Sum();
         </th>
         <th>
-           
+
         </th>
         <th>
-           
+
         </th>
         <th>
-           
+
         </th>
         <th>
-           s
+            Full Income $ @Model.Sale.Select(c => c.FullIncome).Sum();
         </th>
-        
+
     </tr>
 </table>
 
@@ -72,4 +82,15 @@
     $('td').css('text-align', 'center');
     $('th').css('text-align', 'center');
     $('#fullData').css('background-color', 'yellow');
+
+    $(function () {
+        // This will make every element with the class "date-picker" into a DatePicker element
+        $('.date-picker').datepicker();
+    })
 </script>
+
+@section Scripts{
+
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+}
