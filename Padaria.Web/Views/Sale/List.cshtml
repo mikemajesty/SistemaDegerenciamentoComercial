@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "List";
 }
+<br />
+<hr />
+<h2 style="text-align:center">Sale List</h2>
 
-<h2>List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table table-hover table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TypeOfPayment)
@@ -26,7 +25,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th></th>
+      
     </tr>
 
 @foreach (var item in Model) {
@@ -46,10 +45,31 @@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
-
-        </td>
+        
     </tr>
 }
-
+    <tr id="fullData">
+        <th>
+            
+        </th>
+        <th>
+           
+        </th>
+        <th>
+           
+        </th>
+        <th>
+           
+        </th>
+        <th>
+           s
+        </th>
+        
+    </tr>
 </table>
+
+<script type="text/javascript">
+    $('td').css('text-align', 'center');
+    $('th').css('text-align', 'center');
+    $('#fullData').css('background-color', 'yellow');
+</script>

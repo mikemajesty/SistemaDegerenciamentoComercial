@@ -58,6 +58,7 @@ namespace Padaria.Web.Controllers
         public ActionResult Create() => View(ReturnProductViewModel());
        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel productViewModel)
         {
            
@@ -76,6 +77,7 @@ namespace Padaria.Web.Controllers
         public ActionResult Delete(int productID) => View(ReturnProduct(productID));
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
@@ -95,6 +97,7 @@ namespace Padaria.Web.Controllers
         public ActionResult Edit(int productID) => View(ReturnProduct(productID));
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel productViewModel)
         {
 

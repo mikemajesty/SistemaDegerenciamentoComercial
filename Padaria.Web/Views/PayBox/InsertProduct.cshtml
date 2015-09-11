@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Padaria.Web.Models.InsertProductViewModel>
 
 
+
 <table class="table" id="tbl">
+    @*@Html.AntiForgeryToken();*@
     <tr>
         @*<th>
                 @Html.DisplayNameFor(model => model.Category.Name)

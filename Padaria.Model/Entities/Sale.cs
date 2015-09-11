@@ -12,10 +12,13 @@ namespace Padaria.Repository.Entities
     public class Sale
     {
         public int SaleID { get; set; }
+        [DisplayName(displayName: "Full Sale")]
         public decimal FullSale { get; set; }
+        [DisplayName(displayName: "Full Income")]
         public decimal FullIncome { get; set; }
         public DateTime Date { get; set; }
         public int UserID { get; set; }
+        [DisplayName(displayName: "Type Of Payment")]
         public int TypeOfPaymentID { get; set; }
         public virtual Users User{ get; set; }
         [DisplayName(displayName: "Type Of Payment")]

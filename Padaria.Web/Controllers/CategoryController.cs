@@ -27,7 +27,7 @@ namespace Padaria.Web.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] Category category)
         {
 

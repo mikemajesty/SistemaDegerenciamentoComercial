@@ -6,7 +6,7 @@
 
 <div class="col-lg-3">
     @*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
-    @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "my-form" }))
+    @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "__AjaxAntiForgeryForm" }))
     {
         <br />
         <br />
@@ -302,11 +302,24 @@
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#ControlsCode').val();
+            debugger;
+
+
+
+            var token = $('#__AjaxAntiForgeryForm input[name= "__RequestVerificationToken"]').val();
+            var tokenadr = $('form[action="/Paybox/GetControlItens"] input[name="__RequestVerificationToken"]').val();
+            var headers = {};
+            var headersadr = {};
+            headers['__RequestVerificationToken'] = token;
+            headersadr['__RequestVerificationToken'] = tokenadr;
+
+
             $.ajax({
                 url: "/Paybox/GetControlItens",
                 type: "Get",
                 datatype: "Html",
-                data: { "ControlsCode": Code },
+                data: { "ControlsCode": Code, __RequestVerificationToken: token },            
+                headers:headersadr,
                 success: function (data) {
                     focusInTxtGetControl();
                     var ismodal = data;
