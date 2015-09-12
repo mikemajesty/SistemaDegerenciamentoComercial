@@ -4,6 +4,19 @@
 
 <table class="table" id="tbl">
     @*@Html.AntiForgeryToken();*@
+    <tr style="background-color:yellow; text-align:center">
+        <td></td>
+        <td>
+
+        <td></td>
+
+
+        <td></td>
+        <td></td>
+        <td>
+            <b id="valueFull">Full Value $ @Model.Sum(c => c.FullSale)</b>
+        </td>
+    </tr>
     <tr>
         @*<th>
                 @Html.DisplayNameFor(model => model.Category.Name)
@@ -75,19 +88,7 @@
         </tr>
 
     }
-    <tr style="background-color:yellow; text-align:center">
-        <td></td>
-        <td>
-
-        <td></td>
-        
-
-        <td></td>
-        <td></td>
-        <td>
-            <b id="valueFull">Full Value $ @Model.Sum(c => c.FullSale)</b>
-        </td>
-    </tr>
+   
 
 </table>
 
