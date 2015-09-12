@@ -12,12 +12,12 @@
 
 <div class="col-md-5">
     <b>@Html.DisplayNameFor(c => c.StartDate)</b>
-    @Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla", @width = "20%" })
+    @Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla"})
 </div>
 
 <div class="col-md-5">
     <b>@Html.DisplayNameFor(c => c.FinishDate)</b>
-    @Html.TextBoxFor(c => c.FinishDate, new { @class = "date-picker form-controla", @width = "20%" })
+    @Html.TextBoxFor(c => c.FinishDate, new { @class = "date-picker form-controla"})
 </div>
 
 <div class="form-inline">
@@ -32,6 +32,8 @@
 
 </div>
 
+@Html.Partial(partialViewName: "~/Views/PayBox/Alert.cshtml")
+
 <script type="text/javascript">
 
     $(function () {
@@ -43,7 +45,8 @@
         var startDate = $('#StartDate').val();
         var finishDate = $('#FinishDate').val();
         if (startDate == "") {
-
+            $('#modal').modal('show');
+            $('#txt').text("At least the starting date should be chosen.");
         }
         else {
             $.ajax({
@@ -52,6 +55,7 @@
                 type: "Get",
                 data: { StartDate: startDate, FinishDate: finishDate },
                 success: function (data) {
+                   
                     var tbl = data;
                     $('#tbl').html(tbl);
                 }, error: function (data) {
@@ -70,7 +74,6 @@
 </script>
 
 @section Scripts{
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
 }
