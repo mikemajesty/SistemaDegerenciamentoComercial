@@ -26,8 +26,14 @@ namespace Padaria.Web.Controllers
         {
             var date1 = saleAndIncomeViewModel.StartDate;
             var date2 = saleAndIncomeViewModel.FinishDate;
-            date2 = date2 == DateTime.MinValue ? date1.Add(new TimeSpan(0,23,59,59,0)) : date2;
-            // && c.Date <= date2
+            if (date2 == DateTime.MinValue)
+            {
+                date2 = date1.Add(new TimeSpan(0, 23, 59, 59, 0));
+            }
+            else
+            {
+               date2 = date2.Add(new TimeSpan(0, 23, 59, 59, 0));
+            }
             return PartialView(new SaleAndIncomeViewModel
             {
                 FinishDate = saleAndIncomeViewModel.FinishDate,
