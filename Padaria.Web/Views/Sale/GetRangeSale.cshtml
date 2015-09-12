@@ -1,0 +1,70 @@
+﻿@model Padaria.Web.Models.SaleAndIncomeViewModel
+
+<table class="table">
+    <tr id="fullData">
+        <th>
+            Full Sale $ @Model.Sale.Select(c => c.FullSale).Sum()
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+            Full Income $ @Model.Sale.Select(c => c.FullIncome).Sum()
+        </th>
+
+    </tr>
+    <tr>
+
+        <th>
+            @Html.DisplayName("Type Of Payment")
+        </th>
+        <th>
+            @Html.DisplayName("User")
+        </th>
+        <th>
+            @Html.DisplayName("Full Sale")
+        </th>
+        <th>
+            @Html.DisplayName("Full Income")
+        <th>
+            @Html.DisplayName("Date")
+        </th>
+
+    </tr>
+
+
+    @foreach (var item in Model.Sale)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfPayment.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $('td').css('text-align', 'center');
+    $('th').css('text-align', 'center');
+    $('#fullData').css('background-color', 'yellow');
+
+</script>

@@ -3,94 +3,74 @@
 @{
     ViewBag.Title = "List";
 }
+
+
+
 <br />
 <hr />
 <h2 style="text-align:center">Sale List</h2>
-@Html.DisplayNameFor(c=>c.StartDate)
-@Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla",@width="20%" })
+
+<div class="col-md-5">
+    <b>@Html.DisplayNameFor(c => c.StartDate)</b>
+    @Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla", @width = "20%" })
+</div>
+
+<div class="col-md-5">
+    <b>@Html.DisplayNameFor(c => c.FinishDate)</b>
+    @Html.TextBoxFor(c => c.FinishDate, new { @class = "date-picker form-controla", @width = "20%" })
+</div>
+
+<div class="form-inline">
+    <button type="button" class="btn btn-success btn-lg">Search</button>
+</div>
 
 <br />
+<br />
+<br />
+<br />
+<div id="tbl">
 
-<table class="table">
-    <tr>
-
-        <th>
-            Type Of Payment
-            @*@Html.DisplayNameFor(model => model.Sale.Select(c=>c.TypeOfPayment))*@
-        </th>
-        <th>
-            User
-            @* @Html.DisplayNameFor(model => model.Sale.Select(c => c.User))*@
-        </th>
-        <th>
-            Full Sale
-            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.FullSale))*@
-        </th>
-        <th>
-            Full Income
-            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.FullIncome))*@
-        </th>
-        <th>
-            Date
-            @*@Html.DisplayNameFor(model => model.Sale.Select(c => c.Date))*@
-        </th>
-
-    </tr>
-
-    @foreach (var item in Model.Sale)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeOfPayment.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullSale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullIncome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-
-        </tr>
-    }
-    <tr id="fullData">
-        <th>
-            Full Sale $ @Model.Sale.Select(c => c.FullSale).Sum();
-        </th>
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th>
-            Full Income $ @Model.Sale.Select(c => c.FullIncome).Sum();
-        </th>
-
-    </tr>
-</table>
+</div>
 
 <script type="text/javascript">
-    $('td').css('text-align', 'center');
-    $('th').css('text-align', 'center');
-    $('#fullData').css('background-color', 'yellow');
 
     $(function () {
-        // This will make every element with the class "date-picker" into a DatePicker element
         $('.date-picker').datepicker();
     })
+
+    $('.btn.btn-success.btn-lg').click(function () {
+        debugger;
+        var startDate = $('#StartDate').val();
+        var finishDate = $('#FinishDate').val();
+        if (startDate == "") {
+
+        }
+        else {
+            $.ajax({
+                url: "/Sale/GetRangeSale",
+                datatype: "html",
+                type: "Get",
+                data: { StartDate: startDate, FinishDate: finishDate },
+                success: function (data) {
+                    var tbl = data;
+                    $('#tbl').html(tbl);
+                }, error: function (data) {
+                    debugger;
+
+                }
+
+
+
+
+
+
+            });
+        }
+    });
 </script>
 
 @section Scripts{
-
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
-    <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
 }

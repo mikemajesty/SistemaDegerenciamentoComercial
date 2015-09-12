@@ -281,6 +281,7 @@
     <Content Include="Views\PayBox\InsertProduct.cshtml" />
     <Content Include="Views\PayBox\Alert.cshtml" />
     <Content Include="Views\Sale\List.cshtml" />
+    <Content Include="Views\Sale\GetRangeSale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Padaria.Repository.Entities
         public decimal FullSale { get; set; }
         [DisplayName(displayName: "Full Income")]
         public decimal FullIncome { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
         public int UserID { get; set; }
         [DisplayName(displayName: "Type Of Payment")]

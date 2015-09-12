@@ -1,4 +1,5 @@
-﻿using Padaria.Repository.Repository;
+﻿using Padaria.Repository.Entities;
+using Padaria.Repository.Repository;
 using Padaria.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,19 @@ namespace Padaria.Web.Controllers
 
         public ActionResult List()
         {
-            return View(new SaleAndIncomeViewModel
-            {
-                    
-                 Sale = _saleRepository.GetAlls()
+            return View();
+        }
+        [HttpGet]
+        public PartialViewResult GetRangeSale(SaleAndIncomeViewModel saleAndIncomeViewModel)
+        {
+            var date1 = saleAndIncomeViewModel.StartDate;
+            var date2 = saleAndIncomeViewModel.FinishDate;
 
+            return PartialView(new SaleAndIncomeViewModel
+            {
+                FinishDate = saleAndIncomeViewModel.FinishDate,
+                StartDate = saleAndIncomeViewModel.StartDate,
+                Sale =  _saleRepository.GetAlls().Where(c => c.Date >= date1 && c.Date <= date2).ToList<Sale>()
             });
         }
         //return View(new SaleViewModel

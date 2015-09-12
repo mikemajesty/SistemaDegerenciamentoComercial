@@ -6,7 +6,7 @@ namespace Padaria.Repository.Repository
 {
     public class SaleWithActiveControlsRepository : DefaultRepository<SaleWithActiveControls>
     {
-        public DbSet<SaleWithActiveControls> DataContext => base.DBSet;
+        public DbSet<SaleWithActiveControls> DataContext => base.DbSet;
         public int Creates(SaleWithActiveControls saleWithActiveControls) => base.Create(saleWithActiveControls);
 
         public int Deletes(List<Controls> controlList)

@@ -11,7 +11,9 @@ namespace Padaria.Web.Models
     {
         [DisplayName(displayName: "Start Date")]
         [DataType(dataType: DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true,DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime StartDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(dataType: DataType.Date)]
         [DisplayName(displayName: "Finish Date")]
         public DateTime FinishDate { get; set; }
