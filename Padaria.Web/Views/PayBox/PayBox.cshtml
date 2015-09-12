@@ -4,6 +4,7 @@
     ViewBag.Title = "PayBox";
 }
 
+<div>@Html.Partial(partialViewName: "Alert")</div>
 <div class="col-lg-3">
     @*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "__AjaxAntiForgeryForm" }))
@@ -58,7 +59,7 @@
 
 
 
-        @Html.Partial(partialViewName: "Alert")
+        
     }
 </div>
 <div class="col-lg-9">
@@ -67,6 +68,9 @@
     <br />
     <div class="form-horizontal">
         <div class="form-group form-horizontal">
+
+            @Html.Partial(partialViewName: "_PayboxMenu")
+
 
             @*@Html.DisplayNameFor()
                 @Html.TextBoxFor(, htmlAttributes: new { @class = "form-controla" })*@

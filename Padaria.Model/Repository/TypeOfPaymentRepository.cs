@@ -18,7 +18,7 @@ namespace Padaria.Repository.Repository
                 {
                     new TypeOfPayment { Type="Money" },
                     new TypeOfPayment { Type="Check" },
-                    new TypeOfPayment { Type="Spun"  }
+                    new TypeOfPayment { Type="Credit"  }
                 };
                 list?.ForEach(c => returning = base.Create(c));
 
