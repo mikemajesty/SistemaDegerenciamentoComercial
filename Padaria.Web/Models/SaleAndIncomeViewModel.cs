@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
+using System.Web.Mvc;
 
 namespace Padaria.Web.Models
 {
@@ -17,6 +17,9 @@ namespace Padaria.Web.Models
         [DataType(dataType: DataType.Date)]
         [DisplayName(displayName: "Finish Date")]
         public DateTime FinishDate { get; set; }
+        [DisplayName(displayName: "Type Of Payment")]
+        public SelectList TypeOfPayment { get; set; }
         public List<Sale> Sale { get; set; }
+        public int TypeOfPaymentID { get; set; }
     }
 }

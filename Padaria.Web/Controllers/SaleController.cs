@@ -2,9 +2,7 @@
 using Padaria.Repository.Repository;
 using Padaria.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 
@@ -13,46 +11,41 @@ namespace Padaria.Web.Controllers
     public class SaleController : Controller
     {
 
-        //private UserRepository _userRepository { get; } = new UserRepository();
-        //private TypeOfPaymentRepository _typeOfPaymentRepository { get; } = new TypeOfPaymentRepository();
-        private SaleRepository _saleRepository { get; } = new SaleRepository();
 
+        private SaleRepository _saleRepository { get; } = new SaleRepository();
+        private TypeOfPaymentRepository _typeOfPaymentRepository { get; } = new TypeOfPaymentRepository();
         public ActionResult List()
         {
-            return View();
+            return View(new SaleAndIncomeViewModel
+            {
+                TypeOfPayment = GetTypeOfPayment()
+            });
         }
+
+        private SelectList GetTypeOfPayment(int typeOfPaymentID = 0)
+            =>
+            new SelectList(items: _typeOfPaymentRepository.GetAlls(), dataValueField: "TypeOfPaymentID", dataTextField: "Type", selectedValue: typeOfPaymentID);
+
+
         [HttpGet]
         public PartialViewResult GetRangeSale(SaleAndIncomeViewModel saleAndIncomeViewModel)
         {
             var date1 = saleAndIncomeViewModel.StartDate;
             var date2 = saleAndIncomeViewModel.FinishDate;
-            if (date2 == DateTime.MinValue)
-            {
-                date2 = date1.Add(new TimeSpan(0, 23, 59, 59, 0));
-            }
-            else
-            {
-               date2 = date2.Add(new TimeSpan(0, 23, 59, 59, 0));
-            }
+
+            date2 = date2 == DateTime.MinValue ? date1.Add(new TimeSpan(0, 23, 59, 59, 0)) : date2.Add(new TimeSpan(0, 23, 59, 59, 0));
+
             return PartialView(new SaleAndIncomeViewModel
             {
                 FinishDate = saleAndIncomeViewModel.FinishDate,
                 StartDate = saleAndIncomeViewModel.StartDate,
-                Sale =  _saleRepository.GetAlls().Where(c => c.Date >= date1 && c.Date <= date2).ToList<Sale>()
+                Sale = _saleRepository.GetAlls().Where(c => c.Date >= date1 &&
+                                                       c.Date <= date2 &&
+                                                       saleAndIncomeViewModel.TypeOfPaymentID == 0 ? c.TypeOfPaymentID > 0 :
+                                                       c.TypeOfPaymentID == saleAndIncomeViewModel.TypeOfPaymentID && c.Date >= date1 &&
+                                                       c.Date <= date2).ToList<Sale>()
             });
         }
-        //return View(new SaleViewModel
-        //   {
-        //       TypeOfPayment = GetTypeOfPayment(),
-        //        User = GetUser()
-        //   });
-        //private SelectList GetUser(int userID = 0)
-        //{
-        //    return new SelectList(_userRepository.GetAlls(), "UserID", "UserName", userID);
-        //}
-        //private SelectList GetTypeOfPayment(int typeOfPayment = 0)
-        //{
-        //    return new SelectList(_typeOfPaymentRepository.GetAlls(), "TypeOfPaymentID", "Type", typeOfPayment);
-        //}
+
     }
 }

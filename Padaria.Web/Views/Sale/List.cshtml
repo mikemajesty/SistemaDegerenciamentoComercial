@@ -12,12 +12,16 @@
 
 <div class="col-md-5">
     <b>@Html.DisplayNameFor(c => c.StartDate)</b>
-    @Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla"})
+    @Html.TextBoxFor(c => c.StartDate, new { @class = "date-picker form-controla" })
 </div>
 
 <div class="col-md-5">
     <b>@Html.DisplayNameFor(c => c.FinishDate)</b>
-    @Html.TextBoxFor(c => c.FinishDate, new { @class = "date-picker form-controla"})
+    @Html.TextBoxFor(c => c.FinishDate, new { @class = "date-picker form-controla" })
+</div>
+<div class="col-md-12">
+    <b>@Html.DisplayNameFor(c => c.TypeOfPayment)</b>
+    @Html.DropDownListFor(expression: c => c.TypeOfPayment, selectList: Model.TypeOfPayment, htmlAttributes: new { @class = "form-control" })
 </div>
 
 <div class="form-inline">
@@ -36,6 +40,17 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function () {
+        debugger;
+        var drop = $('select').append('<option value=0>All</option>').html();
+        $('select').empty();
+        
+        $('select').html(drop);
+        //$('select').append('<option value=0>All</option>').selectmenu('refresh');
+    });
+   
+   
+    $('.form-controla').val('');
     $(function () {
         $('.date-picker').datepicker();
     })
@@ -44,6 +59,7 @@
         debugger;
         var startDate = $('#StartDate').val();
         var finishDate = $('#FinishDate').val();
+        var typeOfPayment = $('#TypeOfPayment').val();
         if (startDate == "") {
             $('#modal').modal('show');
             $('#txt').text("At least the starting date should be chosen.");
@@ -53,9 +69,9 @@
                 url: "/Sale/GetRangeSale",
                 datatype: "html",
                 type: "Get",
-                data: { StartDate: startDate, FinishDate: finishDate },
+                data: { StartDate: startDate, FinishDate: finishDate, "TypeOfPaymentID": typeOfPayment },
                 success: function (data) {
-                   
+
                     var tbl = data;
                     $('#tbl').html(tbl);
                 }, error: function (data) {
@@ -74,6 +90,7 @@
 </script>
 
 @section Scripts{
+     @* <script src="~/Scripts/jquery-2.1.4.js"></script>*@
     <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
 }
