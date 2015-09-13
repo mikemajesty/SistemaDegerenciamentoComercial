@@ -24,6 +24,7 @@ namespace Padaria.Web.Controllers
         private TypeOfPaymentRepository _typeOfPaymentRepository { get; } = new TypeOfPaymentRepository();
         private StockRepository _stockRepository { get; } = new StockRepository();
         private static List<Controls> listControl { get; } = new List<Controls>();
+        private CustomerRepository _customerRepository { get; } = new CustomerRepository();
 
         public PartialViewResult GetValue()
         {
@@ -193,9 +194,14 @@ namespace Padaria.Web.Controllers
 
         [HttpGet]
         //[ChildActionOnly]
-        public ActionResult GetCredit(decimal value)
+        public ActionResult PayCredit(decimal value)
         {
-            return PartialView("_RecieveCredit",value);
+            return PartialView("_PayCredit", new RecieveCreditViewModel
+            {
+                 Value = value,
+                 Customer = _customerRepository.GetAlls()
+
+            });
         }
 
 
