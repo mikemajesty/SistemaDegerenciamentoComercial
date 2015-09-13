@@ -1,0 +1,38 @@
+﻿@model decimal?
+
+<div class="modal fade" id="modal_recieveCredit">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" style="text-align:center">Recieve credit</h4>
+        </div>
+        <div class="modal-body">
+            <h2 style="color:red">Value to be recieved: $ @Model.Value.ToString("N2") </h2>
+        </div>
+        <div class="col-lg-4 form-inline">
+          Value: <input type="text" />
+        </div>
+        <div class="col-lg-4 form-inline">
+         Search:  <input type="text" />
+        </div>
+        <div>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>City</th>
+                </tr>
+                <tr>
+                    <td>Mike</td>
+                    <td>26</td>
+                    <td>Ibiúna</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="btn" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>

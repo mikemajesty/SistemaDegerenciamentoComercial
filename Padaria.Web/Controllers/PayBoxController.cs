@@ -191,6 +191,14 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public JsonResult GetQuantityProduct() => Json(new {Number= list.Count}, JsonRequestBehavior.AllowGet);
 
+        [HttpGet]
+        //[ChildActionOnly]
+        public ActionResult GetCredit(decimal value)
+        {
+            return PartialView("_RecieveCredit",value);
+        }
+
+
         ~PayBoxController()
         {
             /*list.Clear();

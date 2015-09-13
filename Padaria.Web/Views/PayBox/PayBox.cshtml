@@ -6,7 +6,7 @@
 
 
 <div class="col-lg-3">
-   
+
     @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Get, routeValues: null, htmlAttributes: new { id = "__AjaxAntiForgeryForm" }))
     {
         <br />
@@ -59,7 +59,7 @@
 
 
 
-        
+
     }
 </div>
 <div class="col-lg-9">
@@ -83,7 +83,11 @@
     </div>
 </div>
 
+@*@section Scripts{
 
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+        }*@
 
 <script type="text/javascript">
 
@@ -98,6 +102,32 @@
         focusInTxtGetControl();
 
     });
+
+    function ReceiveCredit() {
+
+        debugger;
+      
+        GetFullValue(function (output) {
+
+            $.ajax({
+                url: "/PayBox/GetCredit",
+                type: "Get",
+                datatype: "Html",
+                data: { value: output },
+                success: function (data ) {
+                    debugger;
+                    $(data).modal('show');
+                }
+                , error: function () {
+                    debugger;
+                }
+
+
+            });
+
+        });
+    }
+
 
     $('select').on('change', function () {
         switch (($("select option:selected").text())) {
@@ -217,12 +247,18 @@
         });
     }
 
-    function GetFullValue() {
+    function GetFullValue(hadleDate) {
+        debugger;
+
         $.ajax({
 
             url: "/PayBox/GetFullValue",
             datatype: "json",
-            type: "Get"
+            type: "Get",
+            success: function (data) {
+
+                hadleDate(data.Result);
+            }
 
 
 
@@ -298,7 +334,7 @@
     }
 
     $('#ControlsCode').keypress(function GetControlItens(e) {
-        
+
         if (e.which == 13) {
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
@@ -319,8 +355,8 @@
                 url: "/Paybox/GetControlItens",
                 type: "Get",
                 datatype: "Html",
-                data: { "ControlsCode": Code, __RequestVerificationToken: token },            
-                headers:headersadr,
+                data: { "ControlsCode": Code, __RequestVerificationToken: token },
+                headers: headersadr,
                 success: function (data) {
                     focusInTxtGetControl();
                     var ismodal = data;

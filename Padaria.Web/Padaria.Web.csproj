@@ -283,6 +283,7 @@
     <Content Include="Views\Sale\List.cshtml" />
     <Content Include="Views\Sale\GetRangeSale.cshtml" />
     <Content Include="Views\PayBox\_PayboxMenu.cshtml" />
+    <Content Include="Views\PayBox\_RecieveCredit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
