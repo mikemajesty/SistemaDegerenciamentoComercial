@@ -87,6 +87,7 @@
 
 
     <script src="~/Scripts/jquery-2.1.4.js"></script>
+
         }*@
 
 <script type="text/javascript">
@@ -112,10 +113,10 @@
                 type: "Get",
                 datatype: "Html",
                 data: { Value: output },
-                success: function (data ) {
-                   
+                success: function (data) {
                     $(data).modal('show');
-                    $(document).removeClass('modal-backdrop.in');
+                   
+
                 }
                 , error: function () {
                     alert('Error');
@@ -123,8 +124,10 @@
 
 
             });
-          
+              
+           
         });
+       
     }
 
 
