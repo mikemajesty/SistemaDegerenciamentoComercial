@@ -24,5 +24,6 @@ namespace Padaria.Repository.Data
         public DbSet<TypeOfPayment> TypeOfPayment { get; set; }
         public DbSet<Sale> Sale { get; set; }
         public DbSet<SaleWithActiveControls> SaleWithActiveControls { get; set; }
+        public DbSet<Credit> Credit { get; set; }
     }
 }

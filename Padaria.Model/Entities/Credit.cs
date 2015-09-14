@@ -1,7 +1,10 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Padaria.Repository.Entities
 {
+    [Table(name:nameof(Credit))]
     public class Credit
     {
         public int CreditID { get; set; }
