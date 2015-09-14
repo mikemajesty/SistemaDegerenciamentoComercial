@@ -61,6 +61,7 @@
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Controls.cs" />
+    <Compile Include="Entities\Credit.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\PayBox.cs" />
