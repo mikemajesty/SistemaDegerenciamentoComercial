@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Padaria.Repository.Entities.Customer>
+
+<table class="table">
+    <tr>
+
+        <th>@Html.DisplayName("Nome")</th>
+        <th>@Html.DisplayName("Phone")</th>
+        <th>@Html.DisplayName("CPF")</th>
+        <th></th>
+    </tr>
+
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(c => customer.Name)</td>
+            <td>@Html.DisplayFor(c => customer.Phone)</td>
+            <td>@Html.DisplayFor(c => customer.CPF)</td>
+            <td><a class="btn btn-default" id="btnCredit" onclick="completeCredit(@customer.CustomerID)">Select</a></td>
+        </tr>
+    }
+
+</table>

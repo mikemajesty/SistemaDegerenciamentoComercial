@@ -1,7 +1,7 @@
 ﻿using Padaria.Repository.Entities;
 using Padaria.Repository.Repository;
 using System.Web.Mvc;
-
+using System.Linq;
 namespace Padaria.Web.Controllers
 {
     [Authorize]
@@ -78,6 +78,12 @@ namespace Padaria.Web.Controllers
                 }
             }
             return View(customer);
+        }
+        [HttpGet]
+        //[ChildActionOnly]
+        public PartialViewResult GetCustomerByName(string customerName)
+        {
+             return PartialView(InstantiateCustomerRepository().DataContext().Where(c=>c.Name.Contains(customerName)).ToList<Customer>());
         }
         private Customer GetCustomer(int CustomerID, CustomerRepository costumerRepository) 
             => costumerRepository?.GetByIDs(CustomerID);

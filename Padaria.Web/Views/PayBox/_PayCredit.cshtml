@@ -15,30 +15,34 @@
                 <div>
                     <h2 style="color:red">Value to be credited: $ @Model.Value.ToString("N2") </h2>
                 </div>
-                <div class="">
-                    Search:  <input type="text" class="form-control" />
+                <div>
+                    <b> @Html.DisplayNameFor(c => c.CustomerName) </b>
+                    @Html.TextBoxFor(expression: c=>c.CustomerName,htmlAttributes: new {@class="form-control" })
                 </div>
                 <br />
-                <table class="table">
-                    <tr>
-
-                        <th>@Html.DisplayName("Nome")</th>
-                        <th>@Html.DisplayName("Phone")</th>
-                        <th>@Html.DisplayName("CPF")</th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var customer in Model.Customer)
-                    {
+                <div id="tbl">
+                    <table class="table">
                         <tr>
-                            <td>@Html.DisplayFor(c => customer.Name)</td>
-                            <td>@Html.DisplayFor(c => customer.Phone)</td>
-                            <td>@Html.DisplayFor(c => customer.CPF)</td>
-                            <td><a class="btn btn-default" id="btnCredit"  onclick="completeCredit(@customer.CustomerID)">Select</a></td>
-                        </tr>
-                    }
 
-                </table>
+                            <th>@Html.DisplayName("Nome")</th>
+                            <th>@Html.DisplayName("Phone")</th>
+                            <th>@Html.DisplayName("CPF")</th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var customer in Model.Customer)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(c => customer.Name)</td>
+                                <td>@Html.DisplayFor(c => customer.Phone)</td>
+                                <td>@Html.DisplayFor(c => customer.CPF)</td>
+                                <td><a class="btn btn-default" id="btnCredit" onclick="completeCredit(@customer.CustomerID)">Select</a></td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnPayCredit">Close</button>
@@ -49,17 +53,42 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function  () {
+        $('#CustomerName').css('text-align','center');
+    });
 
-
-    $('button').click(function (e) {
-        debugger;
-        //e.preventDefault();
+    $('button').click(function (e) {        
+        e.preventDefault();
         $('.modal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         $('.modal-backdrop.in').remove();
 
     })
+
+
+    $('#CustomerName').keyup(function (e) {
+        var customer = $('#CustomerName').val();
+            $.ajax({
+                url:"/Customer/GetCustomerByName",
+                type:"Get",
+                datatype:"html",
+                data:{customerName:customer},
+                success:function (data) {
+                    debugger;
+                    $('#tbl').empty();
+                    $('#tbl').html(data);
+                  
+    
+                },error:function () {
+                    alert('Error');
+                }
+
+
+
+
+            });
+    });
     function completeCredit(customerID) {
         alert(customerID);
     }
