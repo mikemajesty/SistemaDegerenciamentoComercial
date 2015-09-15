@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="Repository\CategoryRepository.cs" />
     <Compile Include="Repository\ControlRepository.cs" />
+    <Compile Include="Repository\CreditRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\DefaultRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />

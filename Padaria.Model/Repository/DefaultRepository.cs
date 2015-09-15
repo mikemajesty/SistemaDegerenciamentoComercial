@@ -28,7 +28,7 @@ namespace Padaria.Repository.Repository
             _dataContext.Entry<T>(entity).State = EntityState.Modified;
             return SaveChanges();
         }
-        protected virtual int Create(T entity)
+        protected  int Create(T entity)
         {
             DbSet.Add(entity);
             return SaveChanges();

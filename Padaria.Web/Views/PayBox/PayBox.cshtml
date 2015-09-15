@@ -83,6 +83,8 @@
     </div>
 </div>
 
+
+@Html.Partial("Alert")
 @*@section Scripts{
 
 
@@ -337,6 +339,7 @@
     $('#ControlsCode').keypress(function GetControlItens(e) {
 
         if (e.which == 13) {
+            debugger;
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#ControlsCode').val();
@@ -344,20 +347,20 @@
 
 
 
-            var token = $('#__AjaxAntiForgeryForm input[name= "__RequestVerificationToken"]').val();
-            var tokenadr = $('form[action="/Paybox/GetControlItens"] input[name="__RequestVerificationToken"]').val();
-            var headers = {};
-            var headersadr = {};
-            headers['__RequestVerificationToken'] = token;
-            headersadr['__RequestVerificationToken'] = tokenadr;
+            //var token = $('#__AjaxAntiForgeryForm input[name= "__RequestVerificationToken"]').val();
+            //var tokenadr = $('form[action="/Paybox/GetControlItens"] input[name="__RequestVerificationToken"]').val();
+            //var headers = {};
+            //var headersadr = {};
+            //headers['__RequestVerificationToken'] = token;
+            //headersadr['__RequestVerificationToken'] = tokenadr;
 
 
             $.ajax({
                 url: "/Paybox/GetControlItens",
                 type: "Get",
                 datatype: "Html",
-                data: { "ControlsCode": Code, __RequestVerificationToken: token },
-                headers: headersadr,
+                data: { "ControlsCode": Code/*, __RequestVerificationToken: token */}/*,
+                headers: headersadr*/,
                 success: function (data) {
                     focusInTxtGetControl();
                     var ismodal = data;
@@ -366,6 +369,9 @@
                     if (ismodal.indexOf("modal") != -1) {
                         debugger;
                         $('#modal').modal('show');
+                        //$(data).modal('show');
+                        //var txt = $(data).find('#txt');
+                        //txt.text("Command with that code not exists in this system.");
                         $('#txt').text("Command with that code not exists in this system.");
                         focusInTxtGetControl();
                         $('#ControlsCode').val("");

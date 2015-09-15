@@ -17,10 +17,10 @@
                 </div>
                 <div>
                     <b> @Html.DisplayNameFor(c => c.CustomerName) </b>
-                    @Html.TextBoxFor(expression: c=>c.CustomerName,htmlAttributes: new {@class="form-control" })
+                    @Html.TextBoxFor(expression: c => c.CustomerName, htmlAttributes: new { @class = "form-control" })
                 </div>
                 <br />
-                <div id="tbl">
+                <div id="tblCredit">
                     <table class="table">
                         <tr>
 
@@ -57,7 +57,7 @@
         $('#CustomerName').css('text-align','center');
     });
 
-    $('button').click(function (e) {        
+    $('button').click(function (e) {
         e.preventDefault();
         $('.modal').modal('hide');
         $('body').removeClass('modal-open');
@@ -68,28 +68,55 @@
 
 
     $('#CustomerName').keyup(function (e) {
+        debugger;
         var customer = $('#CustomerName').val();
-            $.ajax({
-                url:"/Customer/GetCustomerByName",
-                type:"Get",
-                datatype:"html",
-                data:{customerName:customer},
-                success:function (data) {
-                    debugger;
-                    $('#tbl').empty();
-                    $('#tbl').html(data);
-                  
-    
-                },error:function () {
-                    alert('Error');
-                }
+        $.ajax({
+            url:"/Customer/GetCustomerByName",
+            type:"Get",
+            datatype:"html",
+            data:{customerName:customer},
+            success:function (data) {
+                $('#tblCredit').empty();
+                $('#tblCredit').html(data);
+
+
+            },error:function () {
+                alert('Error in keyup CustomerName');
+            }
 
 
 
 
-            });
+        });
     });
+
+    function ClearPay() {
+        $.ajax({
+            
+            
+            
+            
+            
+        });
+    }
     function completeCredit(customerID) {
-        alert(customerID);
+        debugger;
+        var value = @Model.Value;
+        $.ajax({
+            url:"/Credit/Create",
+            type:"Get",
+            datatype:"json",
+            data:{CustomerID:customerID,Value:value},
+            success:function (data) {
+                alert('Credit successfully assigned');
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('.modal-backdrop.in').remove();
+            },error:function () {
+                alert(error);
+            }
+
+        });
     }
 </script>

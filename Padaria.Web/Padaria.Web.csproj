@@ -152,6 +152,7 @@
     <Compile Include="Constants\TypeOfPaymentEnum.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ControlController.cs" />
+    <Compile Include="Controllers\CreditController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PayBoxController.cs" />
@@ -291,6 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Credit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
