@@ -133,19 +133,23 @@ namespace Padaria.Web.Controllers
             return Json(new { SaleID = 0 }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult FinishSale(int typeOfPayment)
+        public ActionResult FinishSale(int typeOfPayment = 0)
         {
-            RemoveStock();
-            PayBox pB = GetCurrentPayBox();
-            decimal? fullValue = GetCurrentValuePlusCurrentValuePaid(typeOfPayment, pB);
-            var payBox = new PayBox
+            RemoveStock();           
+            if (typeOfPayment != 0)
             {
-                PayBoxID = pB == null ? 0 : pB.PayBoxID,
-                UserID = GetCurrentUser(Login.User_Name),
-                Value = fullValue
+                PayBox pB = GetCurrentPayBox();
+                decimal? fullValue = GetCurrentValuePlusCurrentValuePaid(typeOfPayment, pB);
+                var payBox = new PayBox
+                {
+                    PayBoxID = pB == null ? 0 : pB.PayBoxID,
+                    UserID = GetCurrentUser(Login.User_Name),
+                    Value = fullValue
 
-            };
-            int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);            
+                };
+                int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+            }
+           
             list.Clear();
             return PartialView("Alert");
         }

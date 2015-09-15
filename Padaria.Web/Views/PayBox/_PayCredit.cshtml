@@ -78,8 +78,7 @@
             success:function (data) {
                 $('#tblCredit').empty();
                 $('#tblCredit').html(data);
-
-
+              
             },error:function () {
                 alert('Error in keyup CustomerName');
             }
@@ -90,13 +89,22 @@
         });
     });
 
-    function ClearPay() {
+    function ClearFieldsInPayCredit() {
+        debugger;
         $.ajax({
-            
-            
-            
-            
-            
+            url: "/PayBox/FinishSale",
+            type: "Get",
+            datatype: "html",
+            data: { "typeOfPayment": 0 },
+            success: function (data) {
+                $('#modal').modal('show');
+                $('#txt').text("Sale completed successfully.");
+
+                $("#btn").click(function () {
+                    $(location).attr('href', '/PayBox/PayBox')
+                });
+
+            }
         });
     }
     function completeCredit(customerID) {
@@ -113,6 +121,8 @@
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 $('.modal-backdrop.in').remove();
+                ClearFieldsInPayCredit();
+
             },error:function () {
                 alert(error);
             }
