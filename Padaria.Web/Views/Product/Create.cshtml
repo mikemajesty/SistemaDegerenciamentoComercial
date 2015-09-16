@@ -94,7 +94,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Stock.ManageStock, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stock.ManageStock, new { htmlAttributes = new { @class = "checkbox" } })
+                @Html.CheckBoxFor(model => model.Stock.ManageStock,htmlAttributes: new { @class = "checkbox" } )
                 @Html.ValidationMessageFor(model => model.Stock.ManageStock, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -112,6 +112,3 @@
     @Html.ActionLink("Back to List", "List", null, htmlAttributes: new {@class="btn btn-default" })
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
