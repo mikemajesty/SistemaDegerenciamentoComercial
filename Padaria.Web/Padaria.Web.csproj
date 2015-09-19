@@ -289,10 +289,10 @@
       <BrowseToURL>~/PayBox/_PayCredit</BrowseToURL>
     </Content>
     <Content Include="Views\Customer\GetCustomerByName.cshtml" />
+    <Content Include="Views\Credit\Recieve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Credit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

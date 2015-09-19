@@ -58,7 +58,7 @@ namespace Padaria.Web.Controllers
 
         }
 
-        private int GetCurrentUser(string name) => _userRepository.GetUserIDWithName(name);
+        private int GetCurrentUser(string name) => _userRepository.GetUserIDWithUserName(name);
        
 
         [HttpGet]
