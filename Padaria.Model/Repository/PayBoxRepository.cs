@@ -26,7 +26,19 @@ namespace Padaria.Repository.Repository
 
         public PayBox GetByIDs(int payBoxID) => base.GetByID(payBoxID);
 
-        public int Update(PayBox payBox) => base.Edit(payBox);
+        public int Update(PayBox payBox)
+        {
+            PayBox pB = null;
+            int returning = 0;
+            if ((pB = _dataContext.PayBox.FirstOrDefault()) != null)
+            {
+                payBox.PayBoxID = pB.PayBoxID;
+                payBox.Value += pB.Value;
+                returning = base.Edit(payBox);
+            }
+            return returning;
+
+        }
 
         public decimal? GetValue()
         {

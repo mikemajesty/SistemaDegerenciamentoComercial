@@ -14,5 +14,11 @@ namespace Padaria.Web.Tests
             CreditController c = new CreditController();
             var list = c.Recieve();
         }
+        [TestMethod]
+        public void CreditController_FinishRecieve_Sucess()
+        {
+            CreditController c = new CreditController();
+            var list = c.FinishRecieve(1,1);
+        }
     }
 }

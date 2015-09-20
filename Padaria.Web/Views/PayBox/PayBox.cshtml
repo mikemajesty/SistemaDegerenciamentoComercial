@@ -107,13 +107,13 @@
     });
 
     function RecieveCredit() {
-        debugger;
+       
         $.ajax({
             url: "/Credit/Recieve",
             type: "Get",
             datatype: "html",
             success: function (data) {
-                debugger;
+               
                 $(data).modal('show');
             }, error: function (data) {
                 alert(data);

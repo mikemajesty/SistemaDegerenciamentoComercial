@@ -127,7 +127,7 @@ namespace Padaria.Web.Controllers
                 _saleRepository.Creates(sale);
                 _saleWithActiveControlsRrepository.Deletes(listControl);
                 listControl.Clear();
-                list.Clear();
+                //list.Clear();
                 return Json(new { SaleID = sale.SaleID }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { SaleID = 0 }, JsonRequestBehavior.AllowGet);
@@ -137,27 +137,39 @@ namespace Padaria.Web.Controllers
         {
             RemoveStock();           
             if (typeOfPayment != 0)
-            {
-                PayBox pB = GetCurrentPayBox();
-                decimal? fullValue = GetCurrentValuePlusCurrentValuePaid(typeOfPayment, pB);
-                var payBox = new PayBox
-                {
-                    PayBoxID = pB == null ? 0 : pB.PayBoxID,
-                    UserID = GetCurrentUser(Login.User_Name),
-                    Value = fullValue
-
-                };
-                int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+            {  
+                UpdatePayBox(typeOfPayment);
             }
-           
+            else
+            {
+              int typeOfPaymentID =  _typeOfPaymentRepository.GetAlls().FirstOrDefault(c=>c.Type=="Credit").TypeOfPaymentID;
+                Sale sale = GetFullSale();
+                sale.TypeOfPaymentID = typeOfPaymentID;
+                SaveSale(sale);
+            }
+
             list.Clear();
             return PartialView("Alert");
         }
+       
+        public void UpdatePayBox(int typeOfPayment)
+        {
+            PayBox pB = GetCurrentPayBox();
+            decimal? fullValue = GerValueWhenPaidWithMoney(typeOfPayment);
+            var payBox = new PayBox
+            {
+                PayBoxID = pB.PayBoxID,
+                UserID = GetCurrentUser(Login.User_Name),
+                Value = fullValue
 
-        private decimal? GetCurrentValuePlusCurrentValuePaid(int typeOfPayment, PayBox pB)
+            };
+            int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+        }
+
+        /*private decimal? GetCurrentValuePlusCurrentValuePaid(int typeOfPayment, PayBox pB)
         {
             return (GerValueWhenPaidWithMoney(typeOfPayment: typeOfPayment) + pB.Value);
-        }
+        }*/
 
         private PayBox GetCurrentPayBox()
         {
@@ -179,6 +191,7 @@ namespace Padaria.Web.Controllers
              string type = _typeOfPaymentRepository.GetByIDs(typeOfPayment).Type;
             if (type == TypeOfPaymentEnum.Money.ToString())
             {
+               // int count = list.Count;
                 var value = list.Select(c => c.FullSale);
                 return value.Sum();
             }

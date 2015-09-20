@@ -15,6 +15,7 @@ namespace Padaria.Repository.Repository
         public int Creates(Credit credit) => base.Create(credit);
         public List<Credit> GetAlls() => base.GetAll();
 
-
+        public int Deletes(Credit credit) => base.Delete(credit);
+    
     }
 }

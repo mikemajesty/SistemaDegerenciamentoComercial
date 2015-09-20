@@ -4,20 +4,16 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System;
 
 namespace Padaria.Web.Controllers
 {
     public class CreditController : Controller
-    {
-        /*public int CreditID { get; set; }
-        public int CustomerID { get; set; }
-        public decimal Value { get; set; }
-        public int UserID { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Customer Customer { get; set; }*/
+    {        
 
         public CreditRepository _creditRepository { get; } = new CreditRepository();
         public UserRepository _userRepository { get; } = new UserRepository();
+        public PayBoxRepository _payBoxRepository { get; } = new PayBoxRepository();
         public ActionResult Index()
         {
             return View();
@@ -39,13 +35,15 @@ namespace Padaria.Web.Controllers
             {
                 a.Users,
                 a.Customer,
-                a.CustomerID
+                a.CustomerID,
+                a.UserID
             }).Select(b => new Credit
             {
                 Customer = new Customer { Name = b.Key.Customer.Name },
                 Value = b.Sum(c => c.Value),
                 Users = new Users { UserName = b.Key.Users.UserName },
-                CustomerID = b.Key.CustomerID
+                CustomerID = b.Key.CustomerID,
+                UserID = b.Key.UserID
             }));
 
 
@@ -79,6 +77,20 @@ namespace Padaria.Web.Controllers
 
             //return PartialView(creditList);
 
+        }
+        [HttpGet]
+        public JsonResult FinishRecieve(int custumerID = 0,int userID = 0)
+        {
+            int returning = 0;
+            var creditList = _creditRepository.DataContext().Where(c => c.CustomerID == custumerID);
+            decimal valeu = creditList.Sum(c => c.Value);
+            creditList.ToList<Credit>().ForEach(c => returning = _creditRepository.Deletes(c));
+         
+            if (returning > 0)
+            {
+                _payBoxRepository.Update(new PayBox { Value = valeu, UserID = userID  });
+            }
+            return Json(new {result = returning },JsonRequestBehavior.AllowGet);
         }
 
 

@@ -39,7 +39,7 @@
                                     @Html.DisplayFor(modelItem => item.Value)
                                 </td>
                                 <td>
-                                    <button class="btn btn-default" id="btnRecieve" onclick="Recieve(@item.CustomerID)">Recieve</button>                                  
+                                    <button class="btn btn-default" id="btnRecieve" onclick="Recieve(@item.CustomerID,@item.UserID)">Recieve</button>                                  
                                 </td>
                             </tr>
                         }
@@ -57,8 +57,29 @@
 </div>
 
 <script type="text/javascript">
-    function Recieve(item) {
-        alert(item);
+    function Recieve(item,user) {
+     
+        debugger;
+        $.ajax({
+            url:"/Credit/FinishRecieve",
+            datatype:"json",
+            type:"Get",
+            data:{custumerID: item,userID: user},
+            success:function (data) {
+                if (data.result > 0 ) {
+                    alert("Credit successfully received.");
+                    $(location).attr('href', '/PayBox/PayBox')
+                }
+            },error:function () {
+               alert('error')
+            }
+            
+            
+            
+            
+        });
+
+      
     }
     $('button').click(function (e) {
         e.preventDefault();
