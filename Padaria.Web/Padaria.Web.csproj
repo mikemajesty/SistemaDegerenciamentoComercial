@@ -166,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertProductViewModel.cs" />
+    <Compile Include="Models\OpenPayBoxViewModel.cs" />
     <Compile Include="Models\PayBoxViewModel.cs" />
     <Compile Include="Models\PermissionViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -290,6 +291,7 @@
     </Content>
     <Content Include="Views\Customer\GetCustomerByName.cshtml" />
     <Content Include="Views\Credit\Recieve.cshtml" />
+    <Content Include="Views\PayBox\_OpenPayBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

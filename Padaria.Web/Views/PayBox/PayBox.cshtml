@@ -70,6 +70,7 @@
         <div class="form-group form-horizontal">
 
             @Html.Partial(partialViewName: "_PayboxMenu")
+
         </div>
     </div>
     <h4 style=" text-align:center">
@@ -85,12 +86,8 @@
 
 
 @Html.Partial("Alert")
-@*@section Scripts{
 
 
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
-
-        }*@
 
 <script type="text/javascript">
 
@@ -106,14 +103,32 @@
 
     });
 
+
+    function OpenPaybox() {
+        $.ajax({
+            url: "/PayBox/GetOpenPayBox",
+            type: "Get",
+            datatype: "html",
+            data: {},
+            success: function (data) {
+                $(data).modal('show');
+            }, error: function () {
+                alert("Error","Error")
+            }
+
+
+
+
+        });
+    }
     function RecieveCredit() {
-       
+
         $.ajax({
             url: "/Credit/Recieve",
             type: "Get",
             datatype: "html",
             success: function (data) {
-               
+
                 $(data).modal('show');
             }, error: function (data) {
                 alert(data);
@@ -134,7 +149,7 @@
                 data: { Value: output },
                 success: function (data) {
                     $(data).modal('show');
-                   
+
 
                 }
                 , error: function () {
@@ -143,10 +158,10 @@
 
 
             });
-              
-           
+
+
         });
-       
+
     }
 
 
@@ -196,7 +211,7 @@
         $('#Transshipment').val('');
     }
     function HideFieldRelatedWithMoneyPayment() {
-        debugger;
+
         var ids = ['#ValuePaid', '#Transshipment'];
         ids.forEach(function (index) {
 
@@ -204,7 +219,7 @@
         });
     }
     function ShowFieldRelatedWithMoneyPayment() {
-        debugger;
+
         var ids = ['#ValuePaid', '#Transshipment'];
         ids.forEach(function (index) {
 
@@ -218,7 +233,7 @@
 
         var valid = $('.btn.btn-primary').attr("disabled");
         if (valid == undefined) {
-            debugger;
+
             var price = $('#Transshipment').val();
             var type = $("select option:selected").text();
             if (price != "" || type == "Money") {
@@ -269,7 +284,7 @@
     }
 
     function GetFullValue(hadleDate) {
-      
+
         $.ajax({
 
             url: "/PayBox/GetFullValue",
@@ -316,7 +331,7 @@
 
     $('#Product_Code').keypress(function SaveProduct(e) {
         if (e.which == 13) {
-            debugger;
+
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
@@ -356,11 +371,11 @@
     $('#ControlsCode').keypress(function GetControlItens(e) {
 
         if (e.which == 13) {
-            debugger;
+
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#ControlsCode').val();
-            debugger;
+
 
 
 
@@ -376,15 +391,15 @@
                 url: "/Paybox/GetControlItens",
                 type: "Get",
                 datatype: "Html",
-                data: { "ControlsCode": Code/*, __RequestVerificationToken: token */}/*,
+                data: { "ControlsCode": Code/*, __RequestVerificationToken: token */ }/*,
                 headers: headersadr*/,
                 success: function (data) {
                     focusInTxtGetControl();
                     var ismodal = data;
-                    debugger;
+
                     $('#btnGetControl').attr("disabled", true);
                     if (ismodal.indexOf("modal") != -1) {
-                        debugger;
+
                         $('#modal').modal('show');
                         //$(data).modal('show');
                         //var txt = $(data).find('#txt');

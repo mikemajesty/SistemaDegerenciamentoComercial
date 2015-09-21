@@ -51,7 +51,7 @@ namespace Padaria.Web.Controllers
                 Date = DateTime.Now,
                 FullIncome = fullIncome.Sum(),
                 FullSale = fullSale.Sum(),
-                UserID = GetCurrentUser(name:Login.User_Name)
+                UserID = GetCurrentUser(name: Login.User_Name)
 
             };
 
@@ -59,7 +59,7 @@ namespace Padaria.Web.Controllers
         }
 
         private int GetCurrentUser(string name) => _userRepository.GetUserIDWithUserName(name);
-       
+
 
         [HttpGet]
         public ActionResult InsertProduct(InsertProductViewModel insertProductViewModel)
@@ -86,7 +86,7 @@ namespace Padaria.Web.Controllers
                 var lists = list.FirstOrDefault(c => c.ControlsCode == control.Code);
                 if (lists == null)
                 {
-                    
+
                     foreach (var item in _saleWithActiveControlsRrepository.DataContext.Where(c => c.Controls.Code == control.Code))
                     {
                         InsertProductViewModel productViewModel = new InsertProductViewModel();
@@ -109,10 +109,10 @@ namespace Padaria.Web.Controllers
                 {
                     listControl.Add(control);
                     return PartialView(viewName: nameof(this.InsertProduct), model: list);
-                    
-                }   
+
+                }
             }
-            
+
             return PartialView("Alert");
 
         }
@@ -127,22 +127,39 @@ namespace Padaria.Web.Controllers
                 _saleRepository.Creates(sale);
                 _saleWithActiveControlsRrepository.Deletes(listControl);
                 listControl.Clear();
-                //list.Clear();
                 return Json(new { SaleID = sale.SaleID }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { SaleID = 0 }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
+        public ActionResult GetOpenPayBox()
+            => PartialView(viewName: "_OpenPayBox", model: new OpenPayBoxViewModel
+            {
+                UserID = _userRepository.GetUserIDWithUserName(Login.User_Name)
+            });
+
+        [HttpGet]
+        public JsonResult OpenPayBox(OpenPayBoxViewModel openPayBoxModal)
+            => Json(new
+            {
+                result = _payBoxRepository.Update(new PayBox
+                {
+                    Value = openPayBoxModal.Value,
+                    UserID = openPayBoxModal.UserID
+                })
+            },JsonRequestBehavior.AllowGet);
+
+        [HttpGet]
         public ActionResult FinishSale(int typeOfPayment = 0)
         {
-            RemoveStock();           
+            RemoveStock();
             if (typeOfPayment != 0)
-            {  
+            {
                 UpdatePayBox(typeOfPayment);
             }
             else
             {
-              int typeOfPaymentID =  _typeOfPaymentRepository.GetAlls().FirstOrDefault(c=>c.Type=="Credit").TypeOfPaymentID;
+                int typeOfPaymentID = _typeOfPaymentRepository.GetAlls().FirstOrDefault(c => c.Type == "Credit").TypeOfPaymentID;
                 Sale sale = GetFullSale();
                 sale.TypeOfPaymentID = typeOfPaymentID;
                 SaveSale(sale);
@@ -151,7 +168,7 @@ namespace Padaria.Web.Controllers
             list.Clear();
             return PartialView("Alert");
         }
-       
+
         public void UpdatePayBox(int typeOfPayment)
         {
             PayBox pB = GetCurrentPayBox();
@@ -188,15 +205,15 @@ namespace Padaria.Web.Controllers
 
         private decimal GerValueWhenPaidWithMoney(int typeOfPayment)
         {
-             string type = _typeOfPaymentRepository.GetByIDs(typeOfPayment).Type;
+            string type = _typeOfPaymentRepository.GetByIDs(typeOfPayment).Type;
             if (type == TypeOfPaymentEnum.Money.ToString())
             {
-               // int count = list.Count;
+                // int count = list.Count;
                 var value = list.Select(c => c.FullSale);
                 return value.Sum();
             }
             return 0;
-           
+
         }
 
         private SelectList GetTypeOfPayment(int typeOfRegistrationID = 0)
@@ -207,7 +224,7 @@ namespace Padaria.Web.Controllers
                                  , selectedValue: typeOfRegistrationID);
         }
         [HttpGet]
-        public JsonResult GetQuantityProduct() => Json(new {Number= list.Count}, JsonRequestBehavior.AllowGet);
+        public JsonResult GetQuantityProduct() => Json(new { Number = list.Count }, JsonRequestBehavior.AllowGet);
 
         [HttpGet]
         //[ChildActionOnly]
@@ -215,8 +232,8 @@ namespace Padaria.Web.Controllers
         {
             return PartialView("_PayCredit", new RecieveCreditViewModel
             {
-                 Value = value,
-                 Customer = _customerRepository.GetAlls()
+                Value = value,
+                Customer = _customerRepository.GetAlls()
 
             });
         }
