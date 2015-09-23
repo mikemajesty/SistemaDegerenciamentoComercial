@@ -147,7 +147,7 @@ namespace Padaria.Web.Controllers
                     Value = openPayBoxModal.Value,
                     UserID = openPayBoxModal.UserID
                 })
-            },JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
 
         [HttpGet]
         public ActionResult FinishSale(int typeOfPayment = 0)
@@ -183,10 +183,6 @@ namespace Padaria.Web.Controllers
             int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
         }
 
-        /*private decimal? GetCurrentValuePlusCurrentValuePaid(int typeOfPayment, PayBox pB)
-        {
-            return (GerValueWhenPaidWithMoney(typeOfPayment: typeOfPayment) + pB.Value);
-        }*/
 
         private PayBox GetCurrentPayBox()
         {
@@ -208,7 +204,7 @@ namespace Padaria.Web.Controllers
             string type = _typeOfPaymentRepository.GetByIDs(typeOfPayment).Type;
             if (type == TypeOfPaymentEnum.Money.ToString())
             {
-                // int count = list.Count;
+
                 var value = list.Select(c => c.FullSale);
                 return value.Sum();
             }
@@ -237,12 +233,33 @@ namespace Padaria.Web.Controllers
 
             });
         }
-
-
-        ~PayBoxController()
+        [HttpGet]
+        public PartialViewResult GetClosePayBox()
         {
-            /*list.Clear();
-            listControl.Clear();*/
+            PayBox pb = _payBoxRepository._dataContext.PayBox.FirstOrDefault();
+            pb.UserID = _userRepository.GetUserIDWithUserName(Login.User_Name);
+            return PartialView(viewName: "_ClosePayBox", model: pb);
+
+        }
+     
+        [HttpGet]
+        public JsonResult ClosePayBox(PayBox payBox)
+        {
+
+            return Json(new
+            {
+                result = _payBoxRepository.Close(payBox)
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                
+            }
+            base.Dispose(disposing);
         }
     }
 }

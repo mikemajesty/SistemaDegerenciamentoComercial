@@ -103,6 +103,25 @@
 
     });
 
+  
+
+    function ClosePaybox() {
+        $.ajax({
+            url: "/PayBox/GetClosePayBox",
+            type: "Get",
+            datatype: "html",
+            data: {},
+            success: function (data) {
+                $(data).modal('show');
+            }, error: function () {
+                alert("Error", "Error")
+            }
+
+
+
+
+        });
+    }
 
     function OpenPaybox() {
         $.ajax({
@@ -113,7 +132,7 @@
             success: function (data) {
                 $(data).modal('show');
             }, error: function () {
-                alert("Error","Error")
+                alert("Error", "Error")
             }
 
 
@@ -139,7 +158,7 @@
 
     }
     function PayCredit() {
-
+        debugger;
         GetFullValue(function (output) {
 
             $.ajax({
@@ -194,9 +213,11 @@
                 $('.btn.btn-primary').attr("disabled", false);
                 HideFieldRelatedWithMoneyPayment();
                 break;
-            case "Spun":
+            case "Credit":
                 $('.btn.btn-primary').attr("disabled", false);
                 HideFieldRelatedWithMoneyPayment();
+                debugger;               
+                    PayCredit();               
                 break;
             default:
 
@@ -236,6 +257,7 @@
 
             var price = $('#Transshipment').val();
             var type = $("select option:selected").text();
+           
             if (price != "" || type == "Money") {
                 $.ajax({
                     url: "/PayBox/SaveSale",
@@ -331,7 +353,7 @@
 
     $('#Product_Code').keypress(function SaveProduct(e) {
         if (e.which == 13) {
-
+            debugger;
             $('#Transshipment').val("");
             $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
@@ -343,6 +365,7 @@
                 datatype: "html",
                 data: { "Product.Code": Code, Quantity: quantity },
                 success: function (data) {
+                    debugger;
                     var ismodal = data;
                     if (ismodal.indexOf("modal") != -1) {
                         $('#modal').modal('show');
@@ -358,9 +381,11 @@
                         focusInTxtGetProduct();
                     }
 
+                }, error: function () {
+                    
+                    alert('error');
                 }
-            }
-            )
+            })
         }
 
     });

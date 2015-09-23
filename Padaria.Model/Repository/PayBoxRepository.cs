@@ -1,7 +1,8 @@
 ﻿using Padaria.Repository.Data;
 using Padaria.Repository.Entities;
 using System.Linq;
-
+using System;
+using System.Data.Entity;
 
 namespace Padaria.Repository.Repository
 {
@@ -46,6 +47,11 @@ namespace Padaria.Repository.Repository
             return paybox.Value;
         }
 
-
+        public int Close(PayBox payBox)
+        {
+            payBox.Value = 0;
+            _dataContext.Entry<PayBox>(payBox).State = EntityState.Modified;
+            return _dataContext.SaveChanges();
+        }
     }
 }

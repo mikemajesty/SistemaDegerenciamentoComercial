@@ -292,6 +292,7 @@
     <Content Include="Views\Customer\GetCustomerByName.cshtml" />
     <Content Include="Views\Credit\Recieve.cshtml" />
     <Content Include="Views\PayBox\_OpenPayBox.cshtml" />
+    <Content Include="Views\PayBox\_ClosePayBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

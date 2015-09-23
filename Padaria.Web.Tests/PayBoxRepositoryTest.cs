@@ -2,6 +2,7 @@
 using Padaria.Repository.Data;
 using Padaria.Repository.Entities;
 using Padaria.Repository.Repository;
+using Padaria.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace Padaria.Web.Tests
     [TestClass]
     public class PayBoxRepositoryTest
     {
+        [TestMethod]
+        public void PayBoxRepositoryTest_ClosePayBox_Success()
+        {
+            //PayBoxController padaria = new PayBoxController();
+            //padaria.ClosePayBox();
+            //Assert.AreEqual(0, pb.Value);
+        }
+
         [TestMethod]
         public void PayBoxRepositoryTest_GetValue_Equals0()
         {
