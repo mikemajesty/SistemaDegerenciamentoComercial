@@ -39,7 +39,10 @@ namespace Padaria.Web.Tests
         [TestMethod]
         public void PayBoxRepositoryTest_UpdatePayBox_Equals1()
         {
-            //PayBoxRepository payBox = new PayBoxRepository();
+
+            PayBoxController padaria = new PayBoxController();
+
+            padaria.ListWithCount();
             //PayBox pb = payBox._dataContext.PayBox.Find(8);
             //pb.Value = 10;
             //payBox.Update(pb);

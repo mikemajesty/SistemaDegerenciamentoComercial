@@ -7,6 +7,7 @@ using Padaria.Web.DataInitializer;
 using System.Web.Optimization;
 using Padaria.Web.App_Start;
 using Padaria.Repository.Repository;
+using Padaria.Repository.Entities;
 
 namespace Padaria.Web
 {
@@ -16,22 +17,20 @@ namespace Padaria.Web
     {
         private PermissionRepository _permissionRepository = null;
         private TypeOfRegistrationRepository _typeOfRegistrationRepository = null;
-        private PayBoxRepository _payBoxRepository = null;
-        private UserRepository _userRepository = null;
         private TypeOfPaymentRepository _typeOfPaymentRepository = null;
         protected void Application_Start()
         {
 
-            Database.SetInitializer<DataContext>(new DataContextInitializer()); 
+            Database.SetInitializer<DataContext>(new DataContextInitializer());
             _permissionRepository = new PermissionRepository();
             _typeOfRegistrationRepository = new TypeOfRegistrationRepository();
-            _payBoxRepository = new PayBoxRepository();
-            _userRepository = new UserRepository();
+
             _permissionRepository.Creates();
+
             _typeOfPaymentRepository = new TypeOfPaymentRepository();
             _typeOfPaymentRepository.Creates();
             _typeOfRegistrationRepository.Creates();
-            
+
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);

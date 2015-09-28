@@ -10,6 +10,8 @@ namespace Padaria.Web.Controllers
     public class LoginController : Controller
     {
         private LoginRepository _loginRepository = null;
+        private PayBoxRepository _payBoxRepository { get; } = new PayBoxRepository();
+        private UserRepository _userRepository { get; } = new UserRepository();
         private const bool Exists = true;
         [HttpGet]
         public ActionResult Login(string ReturnUrl = null)
@@ -25,6 +27,9 @@ namespace Padaria.Web.Controllers
 
             if (_loginRepository.Log(login) == Exists)
             {
+                var log = login.UserName;
+                Repository.Entities.Login.User_Name = log;
+                _payBoxRepository.Creates(_userRepository.GetUserIDWithUserName(Repository.Entities.Login.User_Name));
                 Repository.Entities.Login.User_Name = login.UserName;
                 FormsAuthentication.SetAuthCookie(login.UserName, false);
                 if (Url.IsLocalUrl(ReturnUrl)

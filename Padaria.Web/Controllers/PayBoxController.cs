@@ -223,6 +223,7 @@ namespace Padaria.Web.Controllers
         public JsonResult GetQuantityProduct() => Json(new { Number = list.Count }, JsonRequestBehavior.AllowGet);
 
         [HttpGet]
+       
         //[ChildActionOnly]
         public ActionResult PayCredit(decimal value)
         {
@@ -245,12 +246,21 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public JsonResult ClosePayBox(PayBox payBox)
         {
-
+            
             return Json(new
             {
                 result = _payBoxRepository.Close(payBox)
 
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void ListWithCount()
+        {
+            var list = _payBoxRepository._dataContext.Permission.GroupBy(item=>new {item}).Select(item => new { quantity = item.Count() });
+            foreach (var item in list)
+            {
+
+            }
         }
 
         protected override void Dispose(bool disposing)
