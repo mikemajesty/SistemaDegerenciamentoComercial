@@ -32,15 +32,12 @@ namespace Padaria.Repository.Repository
                 return base.Edit(stock);
             }
         }
-        public int Update(Stock stock) => base.Edit(stock = stock.ManageStock == false ? new Stock { ProductID = stock.ProductID  }:stock);
-        //{
-        //    using (_dataContext = new DataContext())
-        //    {
-        //        _dataContext.Entry(stock).State = EntityState.Modified;
-        //        return _dataContext.SaveChanges();
-        //    }
-        //}
-        public List<Stock> GetAlls() => base.GetAll().Where(c=>c.ManageStock == true).ToList<Stock>();
-        //public int Edits(Stock stock) => base.Edit(stock);
+        public int Update(Stock stock) => base.Edit(stock = stock.ManageStock == false ? new Stock
+        {
+            ProductID = stock.ProductID
+        } : stock);
+
+        public List<Stock> GetAlls() => base.GetAll().Where(c => c.ManageStock == true).ToList<Stock>();
+
     }
 }

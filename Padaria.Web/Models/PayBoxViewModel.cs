@@ -24,5 +24,7 @@ namespace Padaria.Web.Models
         public decimal Transshipment { get; set; }
         [DisplayName(displayName: "Value Paid")]
         public decimal ValuePaid { get; set; }
+        [DisplayName(displayName: "Sell by Weight")]
+        public bool SellByWeight { get; set; }
     }
 }

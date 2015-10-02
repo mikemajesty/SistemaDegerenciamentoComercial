@@ -18,33 +18,38 @@
             <h4 style="text-align:center">Control</h4>
             <hr />
             <div class="form-group">
-                @Html.DisplayNameFor(c => c.ControlsCode)
+                @Html.LabelFor(c => c.ControlsCode)
                 @Html.TextBoxFor(c => c.ControlsCode, htmlAttributes: new { @class = "form-controla" })
                 @Html.ValidationMessageFor(c => c.ControlsCode, null, htmlAttributes: new { @class = "text-danger" })
 
             </div>
 
             <h4 style="text-align:center">Product</h4>
-            <hr />
+            @* <hr />*@
             <div class="form-group form-horizontal form-inline">
-                @Html.DisplayNameFor(c => c.Quantity)
+
+                @Html.LabelFor(expression: c => c.SellByWeight, htmlAttributes: new { @style = "font:bold" })
+                @Html.CheckBoxFor(c => c.SellByWeight, htmlAttributes: new { @class = "checkbox" })
+                @Html.ValidationMessageFor(c => c.SellByWeight, null, htmlAttributes: new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(c => c.Quantity)
                 @Html.TextBoxFor(c => c.Quantity, htmlAttributes: new { @class = "form-controla" })
                 @Html.ValidationMessageFor(c => c.Quantity, null, htmlAttributes: new { @class = "text-danger" })
 
-                @Html.DisplayNameFor(c => c.Product.Code)
+                @Html.LabelFor(c => c.Product.Code)
                 @Html.TextBoxFor(c => c.Product.Code, htmlAttributes: new { @class = "form-controla" })
                 @Html.ValidationMessageFor(c => c.Product.Code, null, htmlAttributes: new { @class = "text-danger" })
             </div>
             <h4 style="text-align:center">Payment</h4>
-            <hr />
+            @* <hr />*@
             <div class="form-group form-horizontal">
-                @Html.DisplayNameFor(c => c.TypeOfPayment)
+                @Html.LabelFor(c => c.TypeOfPayment)
                 @Html.DropDownListFor(c => c.Sale.TypeOfPaymentID, Model.TypeOfPayment, htmlAttributes: new { @class = "form-controla" })
 
-                @Html.DisplayNameFor(c => c.ValuePaid)
+                @Html.LabelFor(c => c.ValuePaid)
                 @Html.TextBoxFor(c => c.ValuePaid, htmlAttributes: new { @class = "form-controla" })
                 <b>
-                    @Html.DisplayNameFor(c => c.Transshipment)
+                    @Html.LabelFor(c => c.Transshipment)
                     @Html.TextBoxFor(c => c.Transshipment, htmlAttributes: new { @class = "form-controla", @readonly = true, @style = "background-color:yellow" })
                 </b>
                 <br />
@@ -103,8 +108,27 @@
 
     });
 
-  
 
+
+
+    $('#SellByWeight').change(function () {
+        if ($(this).is(":checked")) {
+            $("label:contains('Product Code')").text('Weight of Product');
+            hideTxtQuantity();
+        }
+        else {
+            showTxtQuantity();
+        }
+    });
+
+    function showTxtQuantity() {
+        $('#Quantity').show();
+        $("label:Contains('Quantity')").show();
+    }
+    function hideTxtQuantity() {
+        $('#Quantity').hide();
+        $("label:Contains('Quantity')").hide();
+    }
     function ClosePaybox() {
         $.ajax({
             url: "/PayBox/GetClosePayBox",
@@ -187,6 +211,7 @@
     $('select').on('change', function () {
         switch (($("select option:selected").text())) {
             case "Money":
+                showWhenPaidIsEqualsMoney();
                 ClearAllFields();
                 ShowFieldRelatedWithMoneyPayment();
                 $.ajax({
@@ -212,18 +237,27 @@
             case "Check":
                 $('.btn.btn-primary').attr("disabled", false);
                 HideFieldRelatedWithMoneyPayment();
+                hideWhenPaidIsDifferentOfMoney();               
                 break;
             case "Credit":
                 $('.btn.btn-primary').attr("disabled", false);
                 HideFieldRelatedWithMoneyPayment();
-                debugger;               
-                    PayCredit();               
+                hideWhenPaidIsDifferentOfMoney();
+                PayCredit();
                 break;
             default:
 
         }
 
     });
+    function showWhenPaidIsEqualsMoney() {
+        $("label:Contains('Transshipment')").show();
+        $("label:Contains('Value Paid')").show();
+    }
+    function hideWhenPaidIsDifferentOfMoney() {
+        $("label:Contains('Transshipment')").hide();
+        $("label:Contains('Value Paid')").hide();
+    }
     function focusInTxtValuePaid() {
         $('#ValuePaid').focus();
     }
@@ -257,7 +291,7 @@
 
             var price = $('#Transshipment').val();
             var type = $("select option:selected").text();
-           
+
             if (price != "" || type == "Money") {
                 $.ajax({
                     url: "/PayBox/SaveSale",
@@ -382,7 +416,7 @@
                     }
 
                 }, error: function () {
-                    
+
                     alert('error');
                 }
             })
