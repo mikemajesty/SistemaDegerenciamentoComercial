@@ -65,7 +65,7 @@ namespace Padaria.Web.Controllers
             if (ModelState.IsValid && _productRepository.Creates(productViewModel.Product) != Insuccess)
             {
                 productViewModel.Stock.ProductID = productViewModel.Product.ProductID;               
-                _stockRepository.Creates(productViewModel.Stock);
+                _stockRepository.Creates(productViewModel.Stock = productViewModel.Stock);
                 return RedirectToAction(nameof(this.List));
             }
             return View(ReturnProductViewModel());

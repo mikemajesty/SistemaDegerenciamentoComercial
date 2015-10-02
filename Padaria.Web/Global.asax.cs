@@ -7,7 +7,6 @@ using Padaria.Web.DataInitializer;
 using System.Web.Optimization;
 using Padaria.Web.App_Start;
 using Padaria.Repository.Repository;
-using Padaria.Repository.Entities;
 
 namespace Padaria.Web
 {
