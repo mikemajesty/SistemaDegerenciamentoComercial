@@ -157,8 +157,8 @@
         return choose;
     }
     $('#Product_TypeOfRegistrationID').on('change', function () {
-
-        var choose = $("#Product_TypeOfRegistrationID option:selected").text();
+        debugger;
+        var choose = $("#Product_TypeOfRegistrationID :selected").text();
         if (choose != 'Unity') {
             hideStock();
             $('.checkbox').attr('checked', false);

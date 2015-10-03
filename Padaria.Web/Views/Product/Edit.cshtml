@@ -2,114 +2,117 @@
 
 @{
     ViewBag.Title = "Edit";
-  
 
-    }
+
+}
 
 
 @using (Html.BeginForm())
 {
     @*<h2 style="text-align:center">Product Edit</h2>*@
-   
+
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        
+
         <hr />
-        
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Product.ProductID)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Product.ProductID)
 
         <div class="form-group" style="align-content:center">
             <h2>Product Edit</h2>
             <hr />
             @Html.LabelFor(model => model.TypeOfRegistration, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Product.TypeOfRegistrationID,Model.TypeOfRegistration , new { @class = "form-controla" })
-                @Html.ValidationMessageFor(model => model.TypeOfRegistration, "",htmlAttributes: new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Product.TypeOfRegistrationID, Model.TypeOfRegistration, new { @class = "form-controla" })
+                @Html.ValidationMessageFor(model => model.TypeOfRegistration, "", htmlAttributes: new { @class = "text-danger" })
             </div>
         </div>
-            <div class="form-group">
-              
-                <hr />        
-                @Html.LabelFor(model => model.Product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Product.Name, new { htmlAttributes = new { @class = "form-controla" } })
-                    @Html.ValidationMessageFor(model => model.Product.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Product.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Product.Code, new { htmlAttributes = new { @class = "form-controla" } })
-                    @Html.ValidationMessageFor(model => model.Product.Code, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Product.Category,null, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(c => c.Product.CategoryID, Model.Category, htmlAttributes: new { @class = "form-controla" })
-                    @Html.ValidationMessageFor(model => model.Product.Category, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Product.PurchasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Product.PurchasePrice, new { htmlAttributes = new { @class = "form-controla" } })
-                    @Html.ValidationMessageFor(model => model.Product.PurchasePrice, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Product.SalePrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Product.SalePrice, new { htmlAttributes = new { @class = "form-controla" } })
-                    @Html.ValidationMessageFor(model => model.Product.SalePrice, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Product.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Product.Description, new { htmlAttributes = new { @class = "form-controlaT" } })
-                    @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        
-        @Html.HiddenFor(model => model.Stock.ProductID)
         <div class="form-group">
-            <h2 >Product Stock</h2>
-            <hr />        
-            @Html.LabelFor(model => model.Stock.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <hr />
+            @Html.LabelFor(model => model.Product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stock.Quantity, new { htmlAttributes = new { @class = "form-controla" } })
-                @Html.ValidationMessageFor(model => model.Stock.Quantity, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Product.Name, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.Product.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Stock.MinimunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Product.Code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stock.MinimunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
-                @Html.ValidationMessageFor(model => model.Stock.MinimunQuantity, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Product.Code, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.Product.Code, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Stock.MaximunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Product.Category, null, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stock.MaximunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
-                @Html.ValidationMessageFor(model => model.Stock.MaximunQuantity, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(c => c.Product.CategoryID, Model.Category, htmlAttributes: new { @class = "form-controla" })
+                @Html.ValidationMessageFor(model => model.Product.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.PurchasePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Product.PurchasePrice, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.Product.PurchasePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.SalePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Product.SalePrice, new { htmlAttributes = new { @class = "form-controla" } })
+                @Html.ValidationMessageFor(model => model.Product.SalePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Product.Description, new { htmlAttributes = new { @class = "form-controlaT" } })
+                @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
+            <h2>Product Stock</h2>
+            <hr />
             @Html.LabelFor(model => model.Stock.ManageStock, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Stock.ManageStock, new { htmlAttributes = new { @class = "checkbox" } })
                 @Html.ValidationMessageFor(model => model.Stock.ManageStock, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div id="divStock">
+            @Html.HiddenFor(model => model.Stock.ProductID)
+            <div class="form-group">
+              
+                @Html.LabelFor(model => model.Stock.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Stock.Quantity, new { htmlAttributes = new { @class = "form-controla" } })
+                    @Html.ValidationMessageFor(model => model.Stock.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stock.MinimunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Stock.MinimunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
+                    @Html.ValidationMessageFor(model => model.Stock.MinimunQuantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stock.MaximunQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Stock.MaximunQuantity, new { htmlAttributes = new { @class = "form-controla" } })
+                    @Html.ValidationMessageFor(model => model.Stock.MaximunQuantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+     
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -119,9 +122,73 @@
 }
 
 <div>
-    @Html.ActionLink(linkText:"Back to List",actionName: "List",routeValues:null, htmlAttributes: new {@class="btn btn-default" })
+    @Html.ActionLink(linkText: "Back to List", actionName: "List", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
 </div>
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+     
+        if ($('.checkbox').is(':checked') == false) {
+            hideStock();
+        }
+        else {
+            showStock();
+        }
+
+
+    });
+    function fillStockFields() {
+        debugger;
+        $('#Stock_Quantity').val('0');
+        $('#Stock_MinimunQuantity').val('0');
+        $('#Stock_MaximunQuantity').val('0');
+    }
+
+    $('.checkbox').change(function () {
+        if ($(this).is(':checked')) {
+            showStock();
+        }
+        else {
+            hideStock();
+        }
+    });
+
+    $('.btn.btn-primary').click(function () {
+        debugger;
+        if (returningTypeOfRegister() == "Weight" || $('.checkbox').is(':checked') == false) {
+            fillStockFields();
+        }
+    });
+
+    function hideStock() {
+        $('#divStock').hide();
+    }
+    function showStock() {
+        $('#divStock').show();
+    }
+
+    function returningTypeOfRegister() {
+        var choose = $("#Product_TypeOfRegistrationID option:selected").text();
+        return choose;
+    }
+    $('#Product_TypeOfRegistrationID').on('change', function () {
+        debugger;
+        var choose = $("#Product_TypeOfRegistrationID :selected").text();
+        if (choose != 'Unity') {
+            hideStock();
+            $('.checkbox').attr('checked', false);
+            disableCheckBox();
+        }
+        else {
+            enabledCheckBox();
+        }
+    });
+    function enabledCheckBox() {
+        $('.checkbox').attr('disabled', false);
+    }
+    function disableCheckBox() {
+        $('.checkbox').attr('disabled', true);
+    }
+</script>
