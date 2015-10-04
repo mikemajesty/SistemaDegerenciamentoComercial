@@ -64,12 +64,28 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public ActionResult InsertProduct(InsertProductViewModel insertProductViewModel)
         {
+         
             Product product = _productRepository.DataContext.Product.FirstOrDefault(c => c.Code == insertProductViewModel.Product.Code);
             if (product != null)
             {
                 insertProductViewModel.Product = product;
-                insertProductViewModel.FullSale = product.SalePrice * insertProductViewModel.Quantity;
-                insertProductViewModel.FullIncome = product.SalePrice * insertProductViewModel.Quantity - (product.PurchasePrice * insertProductViewModel.Quantity);
+                var quantity = 0;
+                if (insertProductViewModel.ByWeight == true)
+                {
+                    quantity = insertProductViewModel.Quantity;
+                    var priceSaleByMill = product.SalePrice / 1000;
+                    var priceBuyByMill = product.PurchasePrice / 1000;
+                    insertProductViewModel.FullSale = priceSaleByMill * quantity;
+                    insertProductViewModel.FullIncome = priceSaleByMill * quantity - (priceBuyByMill * quantity);       
+                }
+                else
+                {
+                    quantity = insertProductViewModel.Quantity;
+                    insertProductViewModel.FullSale = product.SalePrice * quantity;
+                    insertProductViewModel.FullIncome = product.SalePrice * quantity - 
+                                                                            (product.PurchasePrice * quantity);
+                   
+                }
                 list.Add(insertProductViewModel);
                 return PartialView(list);
             }

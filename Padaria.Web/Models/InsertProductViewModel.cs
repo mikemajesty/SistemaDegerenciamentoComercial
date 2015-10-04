@@ -15,6 +15,7 @@ namespace Padaria.Web.Models
         [Required(ErrorMessage = "{0} is obligatory")]
         [DisplayName(displayName: "Control Code")]
         public string ControlsCode { get; set; }
-       
+        public bool ByWeight { get; set; }
+
     }
 }

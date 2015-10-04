@@ -18,7 +18,7 @@ namespace Padaria.Web.Models
         [DisplayName(displayName: "Type Of Payment")]
         public SelectList TypeOfPayment { get; set; }
         public Sale Sale { get; set; }
-        [Range(minimum: 1, maximum: 500, ErrorMessage = "{0} can only contain between 1 and 500 unity")]
+        //[Range(minimum: 1, maximum: 500, ErrorMessage = "{0} can only contain between 1 and 500 unity")]
         [Required(ErrorMessage = "{0} is obligatory")]
         public int Quantity { get; set; }
         public decimal Transshipment { get; set; }

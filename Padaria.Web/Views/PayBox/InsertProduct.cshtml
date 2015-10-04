@@ -14,7 +14,7 @@
 
 
             <td></td>
-            <td></td>
+            @*<td></td>*@
             <td>
                 <b id="valueFull">Full Value $ @Model.Sum(c => c.FullSale)</b>
             </td>
@@ -27,9 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product.Code)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Product.PurchasePrice)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Product.SalePrice)
             </th>
@@ -56,14 +56,33 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Code)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Product.PurchasePrice)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.SalePrice)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)x
+
+                    @if (item.ByWeight == true)
+                    {
+                        if (item.Quantity < 1000)
+                        {
+                            @Html.Name("0,");  @Html.DisplayFor(modelItem => item.Quantity); @Html.Name("kg");
+                        }
+                        else
+                        {
+                            var first = item.Quantity.ToString().Substring(item.Quantity > 9999 ? 1 : 0, item.Quantity > 9999 ? 2 : 1);
+                        }
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Quantity) @Html.Name("x");
+                    }
+
+
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FullSale)

@@ -107,15 +107,22 @@
         focusInTxtGetControl();
 
     });
-
-
+    $('#Quantity').change(function () {
+        debugger;
+        if ($('#SellByWeight').is(":checked")) {
+            $('#Quantity').addClass('form-controla.valid');
+            
+        }
+      
+    });
     $('#SellByWeight').change(function () {
         if ($(this).is(":checked")) {
-            $("label:contains('Product Code')").text('Weight of Product');
-            hideTxtQuantity();
+            $("label:contains('Quantity')").text('Weight of Product');
+            //hideTxtQuantity();
         }
         else {
-            showTxtQuantity();
+            $("label:contains('Weight of Product')").text('Quantity');
+            //showTxtQuantity();
         }
     });
 
@@ -390,12 +397,13 @@
             $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
             var quantity = $('#Quantity').val();
+            var byWeight = $('#SellByWeight').prop( "checked" );
             $.ajax({
 
                 url: "/Paybox/InsertProduct",
                 type: "GET",
                 datatype: "html",
-                data: { "Product.Code": Code, Quantity: quantity },
+                data: { "Product.Code": Code, Quantity: quantity, ByWeight: byWeight },
                 success: function (data) {
                     debugger;
                     var ismodal = data;
