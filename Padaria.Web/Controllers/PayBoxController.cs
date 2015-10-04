@@ -4,6 +4,8 @@ using Padaria.Web.Constants;
 using Padaria.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -187,16 +189,35 @@ namespace Padaria.Web.Controllers
 
         public void UpdatePayBox(int typeOfPayment)
         {
-            PayBox pB = GetCurrentPayBox();
-            decimal? fullValue = GerValueWhenPaidWithMoney(typeOfPayment);
-            var payBox = new PayBox
+            try
             {
-                PayBoxID = pB.PayBoxID,
-                UserID = GetCurrentUser(Login.User_Name),
-                Value = fullValue
+                PayBox pB = GetCurrentPayBox();
+                decimal? fullValue = GerValueWhenPaidWithMoney(typeOfPayment);
+                var payBox = new PayBox
+                {
+                    PayBoxID = pB.PayBoxID,
+                    UserID = GetCurrentUser(Login.User_Name),
+                    Value = fullValue
 
-            };
-            int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+                };
+                int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                        
+                    }
+                }
+              
+            }
+           
         }
 
 
@@ -207,7 +228,7 @@ namespace Padaria.Web.Controllers
 
         private void RemoveStock()
         {
-            foreach (var prod in list)
+            foreach (var prod in list.Where(c=>c.Product.Stock.ManageStock == true))
             {
                 Stock stock = _stockRepository.GetByIDs(prod.Product.ProductID);
                 stock.Quantity = prod.Quantity;

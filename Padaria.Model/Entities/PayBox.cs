@@ -15,7 +15,7 @@ namespace Padaria.Repository.Entities
         [Key]
         [Range(minimum:0,maximum:int.MaxValue, ErrorMessage = "{0} exceeded the registration limit")]
         public int PayBoxID { get; set; }
-        [Range(type:typeof(decimal),minimum: "0", maximum: "1000", ErrorMessage = "{0} contains invalid values")]
+        //[Range(type:typeof(decimal),minimum: "0", maximum: "1000", ErrorMessage = "{0} contains invalid values")]
         public decimal? Value { get; set; }
         [DisplayName(displayName:"User")]
         public int UserID { get; set; }

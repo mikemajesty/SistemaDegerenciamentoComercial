@@ -70,9 +70,23 @@
                         {
                             @Html.Name("0,");  @Html.DisplayFor(modelItem => item.Quantity); @Html.Name("kg");
                         }
-                        else
+                        else if (item.Quantity <= 9999)
                         {
-                            var first = item.Quantity.ToString().Substring(item.Quantity > 9999 ? 1 : 0, item.Quantity > 9999 ? 2 : 1);
+                            var number = item.Quantity.ToString().Substring(0, 1);
+                            var w = item.Quantity.ToString().Length;
+                            var finalNumber = item.Quantity.ToString().Substring(1, w - 1);
+                            number += "." + finalNumber + "kg";
+                            @Html.DisplayFor(modelItem => number)
+
+
+                        }
+                        else if (item.Quantity > 9999)
+                        {
+                            var number = item.Quantity.ToString().Substring(0, 2);
+                            var w = item.Quantity.ToString().Length;
+                            var finalNumber = item.Quantity.ToString().Substring(1, w - 2);
+                            number += "." + finalNumber + "kg";
+                            @Html.DisplayFor(modelItem => number)
                         }
 
                     }
@@ -85,7 +99,7 @@
 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullSale)
+                    $ @Html.DisplayFor(modelItem => item.FullSale)
                 </td>
 
 
