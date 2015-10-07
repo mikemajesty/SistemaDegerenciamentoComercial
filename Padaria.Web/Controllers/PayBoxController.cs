@@ -27,6 +27,7 @@ namespace Padaria.Web.Controllers
         private StockRepository _stockRepository { get; } = new StockRepository();
         private static List<Controls> listControl { get; } = new List<Controls>();
         private CustomerRepository _customerRepository { get; } = new CustomerRepository();
+        private TypeOfRegistrationRepository _typeOfRegistrationRepository { get; } = new TypeOfRegistrationRepository();
 
         public PartialViewResult GetValue()
         {
@@ -66,7 +67,7 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public ActionResult InsertProduct(InsertProductViewModel insertProductViewModel)
         {
-         
+
             Product product = _productRepository.DataContext.Product.FirstOrDefault(c => c.Code == insertProductViewModel.Product.Code);
             if (product != null)
             {
@@ -74,25 +75,42 @@ namespace Padaria.Web.Controllers
                 var quantity = 0;
                 if (insertProductViewModel.ByWeight == true)
                 {
-                    quantity = insertProductViewModel.Quantity;
-                    var priceSaleByMill = product.SalePrice / 1000;
-                    var priceBuyByMill = product.PurchasePrice / 1000;
-                    insertProductViewModel.FullSale = priceSaleByMill * quantity;
-                    insertProductViewModel.FullIncome = priceSaleByMill * quantity - (priceBuyByMill * quantity);       
+                    if (WhatIsThisTypeOfSale(product) == "Weight")
+                    {
+                        quantity = insertProductViewModel.Quantity;
+                        var priceSaleByMill = product.SalePrice / 1000;
+                        var priceBuyByMill = product.PurchasePrice / 1000;
+                        insertProductViewModel.FullSale = priceSaleByMill * quantity;
+                        insertProductViewModel.FullIncome = priceSaleByMill * quantity - (priceBuyByMill * quantity);
+                    }
+                    else
+                    {
+                        return PartialView("Alert");
+                    }
                 }
                 else
                 {
+                    if (WhatIsThisTypeOfSale(product) == "Weight")
+                    {
+                        return PartialView("Alert");
+                    }
                     quantity = insertProductViewModel.Quantity;
                     insertProductViewModel.FullSale = product.SalePrice * quantity;
-                    insertProductViewModel.FullIncome = product.SalePrice * quantity - 
+                    insertProductViewModel.FullIncome = product.SalePrice * quantity -
                                                                             (product.PurchasePrice * quantity);
-                   
+
                 }
                 list.Add(insertProductViewModel);
                 return PartialView(list);
             }
             return PartialView("Alert");
         }
+
+        private string WhatIsThisTypeOfSale(Product product)
+        {
+            return _typeOfRegistrationRepository.DataContext.TypeOfRegistration.Find(product.TypeOfRegistrationID).Name;
+        }
+
         [HttpGet]
         //[ValidateAntiForgeryToken]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)
@@ -212,12 +230,12 @@ namespace Padaria.Web.Controllers
                     {
                         Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
                             ve.PropertyName, ve.ErrorMessage);
-                        
+
                     }
                 }
-              
+
             }
-           
+
         }
 
 
@@ -228,7 +246,7 @@ namespace Padaria.Web.Controllers
 
         private void RemoveStock()
         {
-            foreach (var prod in list.Where(c=>c.Product.Stock.ManageStock == true))
+            foreach (var prod in list.Where(c => c.Product.Stock.ManageStock == true))
             {
                 Stock stock = _stockRepository.GetByIDs(prod.Product.ProductID);
                 stock.Quantity = prod.Quantity;
@@ -260,7 +278,7 @@ namespace Padaria.Web.Controllers
         public JsonResult GetQuantityProduct() => Json(new { Number = list.Count }, JsonRequestBehavior.AllowGet);
 
         [HttpGet]
-       
+
         //[ChildActionOnly]
         public ActionResult PayCredit(decimal value)
         {
@@ -279,11 +297,11 @@ namespace Padaria.Web.Controllers
             return PartialView(viewName: "_ClosePayBox", model: pb);
 
         }
-     
+
         [HttpGet]
         public JsonResult ClosePayBox(PayBox payBox)
         {
-            
+
             return Json(new
             {
                 result = _payBoxRepository.Close(payBox)
@@ -293,7 +311,7 @@ namespace Padaria.Web.Controllers
 
         public void ListWithCount()
         {
-            var list = _payBoxRepository._dataContext.Permission.GroupBy(item=>new {item}).Select(item => new { quantity = item.Count() });
+            var list = _payBoxRepository._dataContext.Permission.GroupBy(item => new { item }).Select(item => new { quantity = item.Count() });
             foreach (var item in list)
             {
 
@@ -304,7 +322,7 @@ namespace Padaria.Web.Controllers
         {
             if (disposing)
             {
-                
+
             }
             base.Dispose(disposing);
         }

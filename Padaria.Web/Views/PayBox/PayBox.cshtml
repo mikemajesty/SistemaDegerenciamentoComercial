@@ -107,22 +107,16 @@
         focusInTxtGetControl();
 
     });
-    $('#Quantity').change(function () {
-        debugger;
-        if ($('#SellByWeight').is(":checked")) {
-            $('#Quantity').addClass('form-controla.valid');
-            
-        }
-      
+    $('.checkbox').change(function () {
+        $('#Quantity').val("1");
     });
     $('#SellByWeight').change(function () {
         if ($(this).is(":checked")) {
             $("label:contains('Quantity')").text('Weight of Product');
-            //hideTxtQuantity();
         }
         else {
             $("label:contains('Weight of Product')").text('Quantity');
-            //showTxtQuantity();
+
         }
     });
 
@@ -242,7 +236,7 @@
             case "Check":
                 $('.btn.btn-primary').attr("disabled", false);
                 HideFieldRelatedWithMoneyPayment();
-                hideWhenPaidIsDifferentOfMoney();               
+                hideWhenPaidIsDifferentOfMoney();
                 break;
             case "Credit":
                 $('.btn.btn-primary').attr("disabled", false);
@@ -397,7 +391,7 @@
             $('#ValuePaid').val("");
             var Code = $('#Product_Code').val();
             var quantity = $('#Quantity').val();
-            var byWeight = $('#SellByWeight').prop( "checked" );
+            var byWeight = $('#SellByWeight').prop("checked");
             $.ajax({
 
                 url: "/Paybox/InsertProduct",
@@ -415,6 +409,7 @@
                     }
                     else {
                         $('#Product_Code').val("");
+                        $('#Quantity').val("1");
                         $("#dTbl").empty();
                         $("#dTbl").show();
                         $("#dTbl").html(data);
