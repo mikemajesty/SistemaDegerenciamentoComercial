@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 
@@ -62,6 +63,9 @@ namespace Padaria.Web.Controllers
         }
 
         private int GetCurrentUser(string name) => _userRepository.GetUserIDWithUserName(name);
+        [HttpGet]
+        public ActionResult GetCurrentViewList() => PartialView(viewName:nameof(InsertProduct),model:list);
+
 
 
         [HttpGet]
@@ -110,7 +114,12 @@ namespace Padaria.Web.Controllers
         {
             return _typeOfRegistrationRepository.DataContext.TypeOfRegistration.Find(product.TypeOfRegistrationID).Name;
         }
-
+        [HttpGet]
+        public JsonResult DeleteProductInCommand(int productID, int quantity)
+        {
+            var product = list.FirstOrDefault(c => c.Product.ProductID == productID && c.Quantity == quantity);
+            return Json(new { result = list.Remove(product) }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         //[ValidateAntiForgeryToken]
         public ActionResult GetControlItens(InsertProductViewModel insertProductViewModel)

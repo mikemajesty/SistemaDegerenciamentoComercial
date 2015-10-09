@@ -2,6 +2,7 @@
 
 
 
+
 <table class="table" id="tbl">
     @*@Html.AntiForgeryToken();*@
     <thead>
@@ -14,7 +15,7 @@
 
 
             <td></td>
-            @*<td></td>*@
+            <td></td>
             <td>
                 <b id="valueFull">Full Value $ @Model.Sum(c => c.FullSale)</b>
             </td>
@@ -28,8 +29,8 @@
                 @Html.DisplayNameFor(model => model.Product.Code)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Product.PurchasePrice)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Product.PurchasePrice)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Product.SalePrice)
             </th>
@@ -39,7 +40,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.FullSale)
             </th>
+            <th>
 
+            </th>
         </tr>
     </thead>
 
@@ -56,9 +59,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Code)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Product.PurchasePrice)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.SalePrice)
                 </td>
@@ -101,26 +101,59 @@
                 <td>
                     $ @Html.DisplayFor(modelItem => item.FullSale)
                 </td>
-
-
-                @*@Html.*@
-                @*@Html.ActionLink("Edit", "Edit", new { id = item != null ? item.Product.ProductID : 0 }) |
-                    @Html.ActionLink("Details", "Details", new { id = item != null ? item.Product.ProductID : 0 }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item != null ? item.Product.ProductID : 0 })*@
+                <td>
+                   
+                    <input type="button" value="Delete" class="btn btn-danger" id="btnRemoveItens" onclick="deleteItens(@item.Product.ProductID,@item.Quantity)"/>
+                   
+                </td>             
 
             </tr>
 
         }
+
     </tbody>
 
 
 </table>
 
 <script type="text/javascript">
+
+    
     $(document).ready(function () {
         $('#dTbl').css('max-height', '400px');
         $('#dTbl').css('overflow', 'auto');
         $("th").css('text-align', 'center');
         $("td").css('text-align', 'center')
     });
+    function deleteItens(productID,quantity) {
+        debugger;
+        $.ajax({
+            url: "DeleteProductInCommand",
+            datatype: "json",
+            type: "Get",
+            data: {productID: productID,quantity: quantity},
+            success: function (data) {
+                if (data.result == true) {
+                    $.ajax({
+                        url:"/PayBox/GetCurrentViewList",
+                        datatype:"html",
+                        type:"get",
+                        success:function (data) {
+                            $("#dTbl").empty();
+                            $("#dTbl").show();
+                            $("#dTbl").html(data);
+                        }
+                        
+                        
+                    });
+                }
+            }, error: function () {
+                alert("Error");
+            }
+
+
+        });
+    }
+   
+
 </script>
