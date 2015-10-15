@@ -9,10 +9,7 @@
 
 @using (Html.BeginForm(actionName: "Login", controllerName: "Login", method: FormMethod.Post, htmlAttributes: new { @class = "omb_loginForm" }, routeValues: new { ReturnUrl = ViewBag.ReturnUrl }))
 {
-
-
-  
-
+    
    <div class="container">
 
 
@@ -20,7 +17,9 @@
             <hr />
             <hr />
             <div style="text-align:center">
-                @Html.ActionLink(linkText: "Sign up", actionName: "Create", controllerName: "User", routeValues: null, htmlAttributes: new { style = "text-align:center" })
+                @Html.ActionLink(linkText: "Sign up", actionName: "Create", controllerName: "Login", routeValues: null, htmlAttributes: new { style = "text-align:center" })
+                <input type="button" value="Sign up" onclick="showModal()"/>
+                @*@Html.Partial(partialViewName:"_Create")*@
             </div>
 
             <hr />
@@ -81,3 +80,23 @@
     </div>
 }
 
+<script type="text/javascript" >
+    function showModal() {
+        debugger;
+        $.ajax({
+            url: "/Login/Create",
+            type: "get",
+            datatype: "html",
+            success: function (data) {
+                debugger;
+                $(data).modal("show");
+            }, error: function () {
+                alert("error");
+            }
+
+
+
+        });
+       
+    }
+</script>

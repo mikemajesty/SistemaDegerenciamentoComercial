@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Padaria.Web.Controllers
 {
+    [Authorize]
     public class SaleController : Controller
     {
 

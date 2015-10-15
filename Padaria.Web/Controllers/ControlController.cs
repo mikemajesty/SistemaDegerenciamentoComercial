@@ -12,7 +12,9 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            InstantiateControlRepository();
+           
+            
+             InstantiateControlRepository();
             return View(_controlRepository.GetAlls());
         }
         [HttpGet]

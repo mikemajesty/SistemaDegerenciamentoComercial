@@ -102,7 +102,7 @@ namespace Padaria.Web.Controllers
             }
             return HttpNotFound();
         }
-        private UserViewModel GetUserViewFill(Users user)
+        public UserViewModel GetUserViewFill(Users user)
         {
             UserViewModel userViewModel = new UserViewModel
             {

@@ -2,12 +2,10 @@
 using Padaria.Repository.Repository;
 using System.Linq;
 using System.Web.Mvc;
-using System.Data.Entity;
-using System.Collections.Generic;
-using System;
 
 namespace Padaria.Web.Controllers
 {
+    [Authorize]
     public class CreditController : Controller
     {        
 

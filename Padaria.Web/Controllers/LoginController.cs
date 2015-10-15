@@ -50,9 +50,14 @@ namespace Padaria.Web.Controllers
             }
             return View(login);
         }
+        public PartialViewResult Create()
+        {
+            return PartialView("_Create",model:new UserController().GetUserViewFill(new Users()));
+        }
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            Session.Remove("UserName");
             return RedirectToAction("Login");
         }
         private void InstantiateLoginRepository()
