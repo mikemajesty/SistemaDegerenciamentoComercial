@@ -1,6 +1,6 @@
 ﻿@model Padaria.Web.Models.UserViewModel
 
-<div class="modal fade" id="createUser">
+<div class="modal" id="createUser" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,3 +61,21 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+
+    $('.btn.btn-default').click(function () {
+        doClick();
+    });
+    $('.close').click(function () {
+        doClick();
+    });
+
+    function doClick() {
+        $('.modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $('.modal-backdrop.in').remove();
+    }
+    
+</script>
