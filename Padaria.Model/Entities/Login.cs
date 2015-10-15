@@ -15,6 +15,5 @@ namespace Padaria.Repository.Entities
         [StringLength(maximumLength: 20, ErrorMessage = "{0} can only contains 20 characters")]
         [Required(ErrorMessage = "{0} is obligatory")]
         public string PassWord { get; set; }
-        public static string User_Name { get; set; }
     }
 }

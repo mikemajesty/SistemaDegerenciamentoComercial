@@ -68,7 +68,7 @@
                     {
                         if (item.Quantity < 1000)
                         {
-                            @Html.Name("0,");  @Html.DisplayFor(modelItem => item.Quantity); @Html.Name("kg");
+                            @Html.Raw("0,");  @Html.DisplayFor(modelItem => item.Quantity); @Html.Raw("kg");
                         }
                         else if (item.Quantity <= 9999)
                         {
@@ -92,7 +92,7 @@
                     }
                     else
                     {
-                        @Html.DisplayFor(modelItem => item.Quantity) @Html.Name("x");
+                        @Html.DisplayFor(modelItem => item.Quantity) @Html.Raw("x");
                     }
 
 
@@ -126,27 +126,16 @@
         $("td").css('text-align', 'center')
     });
     function deleteItens(productID,quantity) {
-        debugger;
+       
         $.ajax({
             url: "DeleteProductInCommand",
             datatype: "json",
             type: "Get",
             data: {productID: productID,quantity: quantity},
-            success: function (data) {
+            success: function (data) {  
                 if (data.result == true) {
-                    $.ajax({
-                        url:"/PayBox/GetCurrentViewList",
-                        datatype:"html",
-                        type:"get",
-                        success:function (data) {
-                            $("#dTbl").empty();
-                            $("#dTbl").show();
-                            $("#dTbl").html(data);
-                        }
-                        
-                        
-                    });
-                }
+                    $("#dTbl").load("GetCurrentViewList");      
+                }                       
             }, error: function () {
                 alert("Error");
             }

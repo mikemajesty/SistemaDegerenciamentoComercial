@@ -27,10 +27,9 @@ namespace Padaria.Web.Controllers
 
             if (_loginRepository.Log(login) == Exists)
             {
-                var log = login.UserName;
-                Repository.Entities.Login.User_Name = log;
-                _payBoxRepository.Creates(_userRepository.GetUserIDWithUserName(Repository.Entities.Login.User_Name));
-                Repository.Entities.Login.User_Name = login.UserName;
+                Session[name:nameof(login.UserName)]  = login.UserName;
+                _payBoxRepository.Creates(_userRepository.GetUserIDWithUserName((Session[name: nameof(login.UserName)]).ToString()));
+               
                 FormsAuthentication.SetAuthCookie(login.UserName, false);
                 if (Url.IsLocalUrl(ReturnUrl)
                           && ReturnUrl.Length > 1

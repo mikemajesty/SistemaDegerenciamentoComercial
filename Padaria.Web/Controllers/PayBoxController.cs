@@ -55,7 +55,7 @@ namespace Padaria.Web.Controllers
                 Date = DateTime.Now,
                 FullIncome = fullIncome.Sum(),
                 FullSale = fullSale.Sum(),
-                UserID = GetCurrentUser(name: Login.User_Name)
+                UserID = GetCurrentUser(name: (Session[name: "UserName"]).ToString())
 
             };
 
@@ -141,9 +141,6 @@ namespace Padaria.Web.Controllers
                             productViewModel.FullSale = item.FullPrice;
                             productViewModel.Quantity = item.Quantity;
                             productViewModel.FullIncome = item.FullPrice - (productViewModel.Product.PurchasePrice * item.Quantity);
-
-
-
                         }
                         list.Add(productViewModel);
                         listControl.Add(control);
@@ -180,7 +177,7 @@ namespace Padaria.Web.Controllers
         public ActionResult GetOpenPayBox()
             => PartialView(viewName: "_OpenPayBox", model: new OpenPayBoxViewModel
             {
-                UserID = _userRepository.GetUserIDWithUserName(Login.User_Name)
+                UserID = _userRepository.GetUserIDWithUserName((Session[name: "UserName"]).ToString())
             });
 
         [HttpGet]
@@ -223,11 +220,11 @@ namespace Padaria.Web.Controllers
                 var payBox = new PayBox
                 {
                     PayBoxID = pB.PayBoxID,
-                    UserID = GetCurrentUser(Login.User_Name),
+                    UserID = GetCurrentUser((Session[name: "UserName"]).ToString()),
                     Value = fullValue
 
                 };
-                int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser(Login.User_Name)) : _payBoxRepository.Update(payBox);
+                int result = payBox.PayBoxID == 0 ? _payBoxRepository.Creates(GetCurrentUser((Session[name: "UserName"]).ToString())) : _payBoxRepository.Update(payBox);
             }
             catch (DbEntityValidationException e)
             {
@@ -302,7 +299,7 @@ namespace Padaria.Web.Controllers
         public PartialViewResult GetClosePayBox()
         {
             PayBox pb = _payBoxRepository._dataContext.PayBox.FirstOrDefault();
-            pb.UserID = _userRepository.GetUserIDWithUserName(Login.User_Name);
+            pb.UserID = _userRepository.GetUserIDWithUserName((Session[name: "UserName"]).ToString());
             return PartialView(viewName: "_ClosePayBox", model: pb);
 
         }

@@ -22,9 +22,9 @@ namespace Padaria.Web.Controllers
         [HttpGet]
         public JsonResult Create([Bind(Include = "CustomerID,Value")] Credit credit)
         {
-            credit.UserID = _userRepository.GetUserIDWithUserName(Login.User_Name);
+            credit.UserID = _userRepository.GetUserIDWithUserName((Session[name: "UserName"]).ToString());
             return Json(new { result = _creditRepository.Creates(credit) }, JsonRequestBehavior.AllowGet);
-
+            
         }
         [HttpGet]
         public PartialViewResult Recieve()
