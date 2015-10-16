@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    
+
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.LabelFor(model => model.Users.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -44,7 +44,7 @@
                         @Html.LabelFor(model => model.Users.PermissionID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.Users.PermissionID, Model.Permission, htmlAttributes: new { @class = "form-controla" })
-                                @Html.ValidationMessageFor(model => model.Users.PermissionID, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Users.PermissionID, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,7 +63,30 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+    $('input[type=submit]').click(function () {
+        debugger;
+        var users = {
+            FullName: $('#Users_FullName').val(),
+            UserName: $('#Users_UserName').val(),
+            PassWord: $('#Users_PassWord').val(),
+            PermissionID: $('#Users_PermissionID').val(),
+            ConPassWord: $('#Users_ConPassWord').val()
+        };
+      
+        $.ajax({
+            url: "/User/Create",
+            type: "POST",
+            datatype: "json",
+            data: { users },
+            success: function (data) {
+                alert('Users created successfully');
+                doClick();
+            }, error: function () {
+                alert('error');
+            }
 
+        });
+    });
     $('.btn.btn-default').click(function () {
         doClick();
     });
@@ -77,5 +100,5 @@
         $('.modal-backdrop').remove();
         $('.modal-backdrop.in').remove();
     }
-    
+
 </script>

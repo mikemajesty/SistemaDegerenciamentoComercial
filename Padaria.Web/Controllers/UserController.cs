@@ -27,17 +27,22 @@ namespace Padaria.Web.Controllers
             return View(userViewModel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]       
+        [AllowAnonymous]
         public ActionResult Create(UserViewModel userViewModel)
         {
             if (ModelState.IsValid == Valid)
             {
                 userViewModel.Users.LastAccess = DateTime.Now;
-                switch (InstantiateUserRepository.Creates(user: userViewModel.Users))
+                
+                if (InstantiateUserRepository.Creates(user: userViewModel.Users) == Success)
                 {
-                    case Success:
-                        return RedirectToAction(nameof(this.List));
+                    if (Request.IsAjaxRequest())
+                    {
+                        return Json(new { result = userViewModel.Users.UserID }, JsonRequestBehavior.AllowGet);
+                    }
+                    return RedirectToAction(nameof(this.List));
                 }
+               
             }
             return View(GetUserViewFill(userViewModel.Users));
         }
