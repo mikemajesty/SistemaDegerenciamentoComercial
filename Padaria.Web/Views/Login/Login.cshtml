@@ -82,13 +82,11 @@
 
 <script type="text/javascript" >
     function showModal() {
-        debugger;
         $.ajax({
             url: "/Login/Create",
             type: "get",
             datatype: "html",
             success: function (data) {
-                debugger;
                 $(data).modal("show");
             }, error: function () {
                 alert("error");
