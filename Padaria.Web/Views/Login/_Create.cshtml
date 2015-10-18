@@ -11,7 +11,8 @@
                 <h4 class="modal-title" style="text-align:center">Create Users</h4>
             </div>
             <div class="modal-body">
-               
+                @using (Html.BeginForm())
+                {
                     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     <div class="form-horizontal">
 
@@ -59,7 +60,7 @@
                         </div>
                     </div>
 
-                
+                }
                
             </div>
             <div class="modal-footer">
@@ -73,6 +74,8 @@
 
 <script type="text/javascript">
 
+    
+    $.validator.unobtrusive.parse("form");
 
     $('input[type=submit]').click(function () {
         debugger;
