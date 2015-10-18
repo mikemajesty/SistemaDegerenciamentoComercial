@@ -11,11 +11,10 @@
                 <h4 class="modal-title" style="text-align:center">Create Users</h4>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm(new {onsubmit= "submitForm();" }))
+                @using (Html.BeginForm(actionName: null, controllerName: null, method: FormMethod.Post, htmlAttributes: new {@id = "myForm" }))
                 {
                     <div class="form-horizontal">
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             @Html.LabelFor(model => model.Users.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -60,7 +59,7 @@
                     </div>
 
                 }
-               
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -71,41 +70,46 @@
 
 
 
-<script type="text/javascript">
+<script type="text/javascript" >
 
-    
     $.validator.unobtrusive.parse("form");
-
-    function submitForm() {
+    $('#myForm').submit(function (e) {
         debugger;
-        var users = {
-            FullName: $('#Users_FullName').val(),
-            UserName: $('#Users_UserName').val(),
-            PassWord: $('#Users_PassWord').val(),
-            PermissionID: $('#Users_PermissionID').val(),
-            ConPassWord: $('#Users_ConPassWord').val()
-        };
+        e.preventDefault();
+        if ($(this).valid()) {
+            debugger;
+            var users = {
+                FullName: $('#Users_FullName').val(),
+                UserName: $('#Users_UserName').val(),
+                PassWord: $('#Users_PassWord').val(),
+                PermissionID: $('#Users_PermissionID').val(),
+                ConPassWord: $('#Users_ConPassWord').val()
+            };
 
-        $.ajax({
-            url: "/User/Create",
-            type: "POST",
-            datatype: "json",
-            data: { users },
-            success: function (data) {
-                if (data.result > 0) {
-                    alert('Users created successfully');
-                    doClick();
+            $.ajax({
+                url: "/User/Create",
+                type: "POST",
+                datatype: "json",
+                data: { users },
+                success: function (data) {
+                    debugger;
+                    if (data.result > 0) {
+                        alert('Users created successfully');
+                        doClick();
+                    }
+                    else {
+                        alert('does not work');
+                    }
+
+                }, error: function () {
+                    alert('error');
                 }
 
-            }, error: function () {
-                alert('error');
-            }
+            });
+        }
+      
+    });
 
-        });
-    }
-    //$('input[type=submit]').click(function () {
-       
-    //});
     $('.btn.btn-default').click(function () {
         doClick();
     });

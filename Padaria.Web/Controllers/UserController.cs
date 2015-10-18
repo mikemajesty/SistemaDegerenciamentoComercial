@@ -15,7 +15,7 @@ namespace Padaria.Web.Controllers
         private const int Success = 1;
         [HttpGet]
         public ActionResult List() => View(InstantiateUserRepository.GetAlls());
-        [HttpGet]      
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Create()
         {
@@ -30,21 +30,22 @@ namespace Padaria.Web.Controllers
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userViewModel)
         {
-            if (ModelState.IsValid == Valid)
-            {
-                userViewModel.Users.LastAccess = DateTime.Now;
-                
-                if (InstantiateUserRepository.Creates(user: userViewModel.Users) == Success)
+            userViewModel.Users.LastAccess = DateTime.Now;
+            if (Request.IsAjaxRequest() && ModelState.IsValid == Valid)
+            {               
+                return ModelState.IsValid && InstantiateUserRepository.Creates(user: userViewModel.Users) == Success ? 
+                     Json(new { result = userViewModel.Users.UserID, JsonRequestBehavior.AllowGet } ):
+                     Json(new { result = 0, JsonRequestBehavior.AllowGet });
+            }
+            else
+            {              
+                if (ModelState.IsValid == Valid && InstantiateUserRepository.Creates(user: userViewModel.Users) == Success)
                 {
-                    if (Request.IsAjaxRequest())
-                    {
-                        return Json(new { result = userViewModel.Users.UserID }, JsonRequestBehavior.AllowGet);
-                    }
                     return RedirectToAction(nameof(this.List));
                 }
-               
+                return View(GetUserViewFill(userViewModel.Users));
             }
-            return View(GetUserViewFill(userViewModel.Users));
+
         }
         [HttpGet]
         public ActionResult Delete([Bind(Include = "userID")]int userID)
