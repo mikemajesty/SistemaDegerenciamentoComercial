@@ -83,10 +83,8 @@ namespace Padaria.Web.Controllers
             if (ModelState.IsValid)
             {
                 Product prod = _productRepository.GetByIds(productViewModel.Product.ProductID);
-                if (_productRepository.Deletes(prod) != Insuccess)
-                {
-                    return RedirectToAction(nameof(this.List));
-                }
+                if (_productRepository.Deletes(prod) != Insuccess) => RedirectToAction(nameof(this.List));
+                
                 return HttpNotFound();
             }
             productViewModel.Category = LoadCategory(productViewModel.Product.CategoryID);
